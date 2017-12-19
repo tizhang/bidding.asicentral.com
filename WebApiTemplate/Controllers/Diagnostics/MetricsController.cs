@@ -1,14 +1,14 @@
-﻿using ASI.Services.Statistics.Data;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using ASI.Services.Statistics.Data;
 using WebApiTemplate.Models;
 
-namespace WebApiTemplate.Controllers
+namespace WebApiTemplate.Controllers.Diagnostics
 {
     [EnableCors("*", "*", "*")]
-    [RoutePrefix("api/metrics")]
+    [RoutePrefix("api/diagnostics/metrics")]
     public class MetricsController : ApiController
     {
         private readonly IQuery _store;

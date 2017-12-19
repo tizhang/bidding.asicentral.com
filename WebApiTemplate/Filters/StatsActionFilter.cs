@@ -6,6 +6,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using ASI.Services.Statistics.Data;
 using WebApiTemplate.Controllers;
+using WebApiTemplate.Controllers.Diagnostics;
 using WebApiTemplate.Models;
 
 namespace WebApiTemplate.Filters

@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Web.Http.Cors;
 using ASI.Services.Monitoring;
 
-namespace WebApiTemplate.Controllers
+namespace WebApiTemplate.Controllers.Diagnostics
 {
     [EnableCors("*", "*", "*")]
-    [RoutePrefix("api/health")]
+    [RoutePrefix("api/diagnostics/health")]
     public class HealthController : ApiController
     {
         [Route(""), AllowAnonymous]

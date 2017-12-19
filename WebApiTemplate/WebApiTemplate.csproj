@@ -50,13 +50,13 @@
       <HintPath>..\packages\ASI.Services.Data.Sql.1.0.3\lib\ASI.Services.Data.Sql.dll</HintPath>
     </Reference>
     <Reference Include="ASI.Services.Http, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ASI.Services.Http.3.4.14\lib\ASI.Services.Http.dll</HintPath>
+      <HintPath>..\packages\ASI.Services.Http.3.4.15\lib\ASI.Services.Http.dll</HintPath>
     </Reference>
     <Reference Include="ASI.Services.InfluxDb, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ASI.Services.InfluxDb.0.3.1\lib\net45\ASI.Services.InfluxDb.dll</HintPath>
     </Reference>
     <Reference Include="ASI.Services.Logging, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ASI.Services.Logging.2.1.4\lib\ASI.Services.Logging.dll</HintPath>
+      <HintPath>..\packages\ASI.Services.Logging.2.1.5\lib\ASI.Services.Logging.dll</HintPath>
     </Reference>
     <Reference Include="ASI.Services.Messaging, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ASI.Services.Messaging.2.1.6\lib\ASI.Services.Messaging.dll</HintPath>
@@ -165,8 +165,8 @@
     <Compile Include="App_Start\HealthCheckConfig.cs" />
     <Compile Include="App_Start\StatsConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
-    <Compile Include="Controllers\HealthController.cs" />
-    <Compile Include="Controllers\MetricsController.cs" />
+    <Compile Include="Controllers\Diagnostics\HealthController.cs" />
+    <Compile Include="Controllers\Diagnostics\MetricsController.cs" />
     <Compile Include="Filters\StatsActionFilter.cs" />
     <Compile Include="Models\ExecutionTimeRecord.cs" />
     <Compile Include="Services\ExceptionLogger.cs" />

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Web;
 using System.Web.Http;
+using ASI.Services.Messaging;
 using WebApi.StructureMap;
 
 namespace WebApiTemplate
@@ -24,6 +25,12 @@ namespace WebApiTemplate
 
             // Enable stats and health checks
             GlobalConfiguration.Configure(StatsConfig.Register);
+        }
+
+        protected void Application_End()
+        {
+            // Cleanup ESB connections
+            PonyEsb.CloseAll();
         }
 
         private static void InitializeLogging()
