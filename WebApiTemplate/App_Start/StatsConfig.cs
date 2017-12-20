@@ -25,6 +25,7 @@ namespace WebApiTemplate
             // Enable health checks
             HealthCheckConfig.Register(config, store);
         }
+
         private class StatsCollectorMapper : ICollectorMapper
         {
             public IDictionary<ICollector, ICollection<IRecord>> Map(IEnumerable<ICollector> collectors, ICollection<IRecord> records)

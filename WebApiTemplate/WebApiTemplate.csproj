@@ -50,7 +50,7 @@
       <HintPath>..\packages\ASI.Services.Data.Sql.1.0.3\lib\ASI.Services.Data.Sql.dll</HintPath>
     </Reference>
     <Reference Include="ASI.Services.Http, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ASI.Services.Http.3.4.15\lib\ASI.Services.Http.dll</HintPath>
+      <HintPath>..\packages\ASI.Services.Http.3.4.16\lib\ASI.Services.Http.dll</HintPath>
     </Reference>
     <Reference Include="ASI.Services.InfluxDb, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ASI.Services.InfluxDb.0.3.1\lib\net45\ASI.Services.InfluxDb.dll</HintPath>
@@ -186,6 +186,8 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="WebAppSettings.config" />
+    <Content Include="WebConnectionStrings.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
