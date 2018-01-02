@@ -2,3 +2,4 @@
 /packages/*
 /WebApiTemplate/bin/*
 /WebApiTemplate/obj/*
+*.user
