@@ -104,3 +104,10 @@ D:\WebSites\bidding.asicentral.com\Bidding.Api\bin\Bidding.Api.pdb
 D:\WebSites\bidding.asicentral.com\Bidding.Api\obj\Debug\Bidding.Api.csprojResolveAssemblyReference.cache
 D:\WebSites\bidding.asicentral.com\Bidding.Api\obj\Debug\Bidding.Api.dll
 D:\WebSites\bidding.asicentral.com\Bidding.Api\obj\Debug\Bidding.Api.pdb
+D:\WebSites\bidding.asicentral.com\Bidding.Api\bin\Bidding.Data.dll
+D:\WebSites\bidding.asicentral.com\Bidding.Api\bin\EntityFramework.dll
+D:\WebSites\bidding.asicentral.com\Bidding.Api\bin\EntityFramework.SqlServer.dll
+D:\WebSites\bidding.asicentral.com\Bidding.Api\bin\Bidding.Data.pdb
+D:\WebSites\bidding.asicentral.com\Bidding.Api\bin\Bidding.Data.dll.config
+D:\WebSites\bidding.asicentral.com\Bidding.Api\bin\EntityFramework.xml
+D:\WebSites\bidding.asicentral.com\Bidding.Api\bin\EntityFramework.SqlServer.xml

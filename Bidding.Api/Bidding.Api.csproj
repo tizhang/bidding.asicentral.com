@@ -77,6 +77,12 @@
     <Reference Include="EasyNetQ, Version=0.53.6.419, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EasyNetQ.0.53.6.419\lib\net45\EasyNetQ.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="jose-jwt, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\jose-jwt.2.3.0\lib\net40\jose-jwt.dll</HintPath>
     </Reference>
@@ -168,6 +174,7 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="Controllers\Diagnostics\HealthController.cs" />
     <Compile Include="Controllers\Diagnostics\MetricsController.cs" />
+    <Compile Include="Controllers\BiddingController.cs" />
     <Compile Include="Filters\StatsActionFilter.cs" />
     <Compile Include="Models\ExecutionTimeRecord.cs" />
     <Compile Include="Services\ExceptionLogger.cs" />
@@ -219,6 +226,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bidding.Data\Bidding.Data.csproj">
+      <Project>{e32c97de-a653-4694-9077-3274a42d279a}</Project>
+      <Name>Bidding.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
