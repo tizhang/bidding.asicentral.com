@@ -52,11 +52,21 @@
     <Compile Include="BiddingConfig.cs" />
     <Compile Include="BiddingContext.cs" />
     <Compile Include="BiddingItem.cs" />
+    <Compile Include="Migrations\201801190400211_AddOwner.cs" />
+    <Compile Include="Migrations\201801190400211_AddOwner.Designer.cs">
+      <DependentUpon>201801190400211_AddOwner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201801190400211_AddOwner.resx">
+      <DependentUpon>201801190400211_AddOwner.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

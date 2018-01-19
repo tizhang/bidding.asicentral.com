@@ -9,9 +9,8 @@ namespace Bidding.Data
 {
     public class BiddingContext : DbContext
     {
-        public BiddingContext(string connectionString):base(connectionString)
+        public BiddingContext():base("name=BiddingContext")
         {
-
         }
         public DbSet<BiddingItem> BiddingItems { get; set; }
         public DbSet<BiddingConfig> BiddingConfigs { get; set; }

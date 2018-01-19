@@ -34,7 +34,7 @@ namespace Bidding.Api.Controllers
         [AllowAnonymous]
         public IHttpActionResult Post([FromBody]string value)
         {
-            using (var db = new BiddingContext("BiddingContext"))
+            using (var db = new BiddingContext())
             {
                 var item = new BiddingItem() { Name = value };
                 //item.Config = new BiddingConfig()

@@ -14,6 +14,12 @@ namespace Bidding.Data
             set;
         }
 
+        public string GroupName
+        {
+            get;
+            set;
+        }
+
         public string Name
         {
             get;
@@ -27,6 +33,12 @@ namespace Bidding.Data
         }
 
         public string ImageUrl
+        {
+            get;
+            set;
+        }
+
+        public int OwnerId
         {
             get;
             set;
