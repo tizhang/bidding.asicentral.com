@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bidding.Data
+namespace Bidding.Bol
 {
+
     public class BiddingItem
     {
-        public long BiddingItemId
+
+        public long Id
         {
             get;
             set;
@@ -44,14 +46,8 @@ namespace Bidding.Data
             set;
         }
 
-        public int OwnerId
-        {
-            get;
-            set;
-        }
-
-        public string OwnerEmail
-        {
+        public User Owner
+        { 
             get;
             set;
         }
@@ -68,17 +64,19 @@ namespace Bidding.Data
             set;
         }
 
-        public virtual BiddingSetting Setting
+        public BiddingSetting Setting
         {
             get;
             set;
         }
 
-        public virtual List<BiddingAction> Actions
+        public List<BiddingAction> History
         {
             get;
             set;
         }
 
     }
+
+
 }

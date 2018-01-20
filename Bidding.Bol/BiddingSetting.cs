@@ -4,77 +4,64 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bidding.Data
+namespace Bidding.Bol
 {
-    public class BiddingItem
+    public class BiddingSetting
     {
-        public long BiddingItemId
+        public long Id {
+            get;
+            set;
+        }
+
+        public List<string> Groups
         {
             get;
             set;
         }
 
-        public string Name
+        public double MinIncrement
+        {
+            get;
+            set;
+        }
+        
+        public bool ShowOwner
+        {
+            get;
+            set;
+        }
+        
+        public bool ShowCurrentPrice
         {
             get;
             set;
         }
 
-        public string Description
+        public int? BidTimePerUser
         {
             get;
             set;
         }
 
-        public string ImageUrl
+        public double AcceptMinPrice
         {
             get;
             set;
         }
 
-        public int BidTimes
+        public double StartPrice
         {
             get;
             set;
         }
 
-        public double Price
+        public DateTime EndDate
         {
             get;
             set;
         }
 
-        public int OwnerId
-        {
-            get;
-            set;
-        }
-
-        public string OwnerEmail
-        {
-            get;
-            set;
-        }
-
-        public string Status
-        {
-            get;
-            set;
-        }
-
-        public DateTime CreateDate
-        {
-            get;
-            set;
-        }
-
-        public virtual BiddingSetting Setting
-        {
-            get;
-            set;
-        }
-
-        public virtual List<BiddingAction> Actions
+        public DateTime StartDate
         {
             get;
             set;

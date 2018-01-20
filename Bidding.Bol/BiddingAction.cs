@@ -4,18 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bidding.Data
+namespace Bidding.Bol
 {
     public class BiddingAction
     {
 
-        public long BiddingActionId
+
+        public long Id
         {
             get;
             set;
         }
 
-        public DateTime TimeStamp
+        public DateTime ActionTime
         {
             get;
             set;
@@ -33,13 +34,7 @@ namespace Bidding.Data
             set;
         }
 
-        public int BidderId
-        {
-            get;
-            set;
-        }
-
-        public string BidderEmail
+        public User Bidder
         {
             get;
             set;

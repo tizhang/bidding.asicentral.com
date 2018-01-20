@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Bidding.Data;
+using Bidding.Bol;
 using System.Configuration;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,53 +13,44 @@ namespace Bidding.UnitTest
         [TestMethod]
         public void AddBidding()
         {
-            using (var db = new BiddingContext())
+            var item = new BiddingItem() { Name = "pen", Description = "blue pen", Owner = new User() { Id = 1, Email = "tzhang@asicentral.com" }, CreateDate = DateTime.Now };
+            item.Setting = new BiddingSetting()
             {
-                var item = new BiddingItem() { GroupName="WESP.DIST", Name = "mug", Description = "red mug", OwnerId = 1 };
-                item.Config = new BiddingConfig()
-                {
-                    MinIncrement = 10,
-                    StartPrice = 1,
-                    StartDate = DateTime.Now,
-                    EndDate = DateTime.Now.AddDays(3),
-                    Type = BiddingType.HighWin
-                };
-                var action1 = new BiddingAction() { UserId = 10, UserName = "user1", Price = 2, TimeStamp = DateTime.Now.AddHours(1) };
-                var action2 = new BiddingAction() { UserId = 11, UserName = "user2", Price = 6, TimeStamp = DateTime.Now.AddHours(3) };
-                item.Actions = new List<BiddingAction>();
-                item.Actions.Add(action1);
-                item.Actions.Add(action2);
-                db.BiddingItems.Add(item);
-                db.SaveChanges();
-            }
+                MinIncrement = 10,
+                StartPrice = 1,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddDays(3)
+            };
+            var action1 = new BiddingAction() { Bidder = new User() { Id = 5, Email = "pzhang@asicentral.com" }, Price = 2, ActionTime = DateTime.UtcNow.AddHours(1) };
+            var action2 = new BiddingAction() { Bidder = new User() { Id = 7, Email = "123@asicentral.com" }, Price = 6, ActionTime = DateTime.UtcNow.AddHours(3) };
+            item.History = new List<BiddingAction>();
+            item.History.Add(action1);
+            item.History.Add(action2);
+            BiddingManager.CreateItem(item);
+        }
+
+        [TestMethod]
+        public void AddAction()
+        {
+            var action1 = new BiddingAction() { Bidder = new User() { Id = 9, Email = "abcd@asicentral.com" }, Price = 9, ActionTime = DateTime.UtcNow.AddHours(7) };
+            BiddingManager.AddAction(2, action1);
         }
 
         [TestMethod]
         public void RetrieveBidding()
         {
-            using (var context = new BiddingContext())
+            var bidItem = Bidding.Bol.BiddingManager.GetItem(2);
+            Console.WriteLine("Item ID: {0} Name: {1} Owner Id: {2}",
+                bidItem.Id,
+                bidItem.Name,
+                bidItem.Owner?.Id);
+            var actions = bidItem.History.OrderBy(a => a.ActionTime);
+            if (actions != null)
             {
-                var bidItems = context.BiddingItems
-                     .Include("Config")
-                     .Include("Actions")
-                     .Where(i => i.OwnerId == 1);
-
-                foreach (var bidItem in bidItems)
+                foreach (var a in actions)
                 {
-                    Console.WriteLine("Item ID: {0} Name: {1} Owner Id: {2}",
-                        bidItem.BiddingItemId,
-                        bidItem.Name,
-                        bidItem.OwnerId);
-                    var actions = bidItem.Actions.OrderBy(a => a.TimeStamp);
-                    if (actions != null)
-                    {
-                        foreach (var a in actions)
-                        {
-                            Console.WriteLine("{0} {1} {2:d}", a.UserName, a.Price, a.TimeStamp);
-                        }
-                    }
+                    Console.WriteLine("{0} {1} {2:d}", a.Bidder?.Email, a.Price, a.ActionTime);
                 }
-
             }
         }
     }

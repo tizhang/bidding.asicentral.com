@@ -8,9 +8,15 @@ namespace Bidding.Data
 {
     public enum BiddingType { HighWin = 0, LowWin = 1}
 
-    public class BiddingConfig
+    public class BiddingSetting
     {
-        public long BiddingConfigId {
+        public long BiddingSettingId {
+            get;
+            set;
+        }
+
+        public string GroupNames
+        {
             get;
             set;
         }
@@ -28,12 +34,30 @@ namespace Bidding.Data
             }
         }
         
-        public bool Blind
+        public bool ShowOwner
         {
             get;
             set;
         }
         
+        public bool ShowCurrentPrice
+        {
+            get;
+            set;
+        }
+
+        public int? BidTimePerUser
+        {
+            get;
+            set;
+        }
+
+        public double AcceptMinPrice
+        {
+            get;
+            set;
+        }
+
         public double StartPrice
         {
             get;

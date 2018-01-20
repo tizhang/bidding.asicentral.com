@@ -228,9 +228,9 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bidding.Data\Bidding.Data.csproj">
-      <Project>{e32c97de-a653-4694-9077-3274a42d279a}</Project>
-      <Name>Bidding.Data</Name>
+    <ProjectReference Include="..\Bidding.Bol\Bidding.Bol.csproj">
+      <Project>{12a59013-0538-4774-9cc5-53d91fed0bec}</Project>
+      <Name>Bidding.Bol</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

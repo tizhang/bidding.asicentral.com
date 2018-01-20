@@ -13,7 +13,7 @@ namespace Bidding.Data
         {
         }
         public DbSet<BiddingItem> BiddingItems { get; set; }
-        public DbSet<BiddingConfig> BiddingConfigs { get; set; }
+        public DbSet<BiddingSetting> BiddingConfigs { get; set; }
 
         public DbSet<BiddingAction> BiddingActions { get; set; }
 

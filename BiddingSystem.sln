@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bidding.Data", "Bidding.Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bidding.UnitTest", "Bidding.UnitTest\Bidding.UnitTest.csproj", "{C5B73E6B-3FCB-41A6-8C24-99854CA6A511}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bidding.Bol", "Bidding.Bol\Bidding.Bol.csproj", "{12A59013-0538-4774-9CC5-53D91FED0BEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{C5B73E6B-3FCB-41A6-8C24-99854CA6A511}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5B73E6B-3FCB-41A6-8C24-99854CA6A511}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5B73E6B-3FCB-41A6-8C24-99854CA6A511}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12A59013-0538-4774-9CC5-53D91FED0BEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12A59013-0538-4774-9CC5-53D91FED0BEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12A59013-0538-4774-9CC5-53D91FED0BEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12A59013-0538-4774-9CC5-53D91FED0BEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,7 +6,7 @@ using Microsoft.Web.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using Bidding.Api.Models;
-using Bidding.Data;
+using Bidding.Bol;
 
 namespace Bidding.Api.Controllers
 {
@@ -20,10 +20,10 @@ namespace Bidding.Api.Controllers
         [Route("bidding/{id}")]
         [Route("v{version:apiVersion}/bidding/{id}")]
         [AllowAnonymous]
-        public IHttpActionResult Get(int id)
+        public IHttpActionResult GetItem(int id)
         {
-            var result = "value";
-            return Ok(result);
+            var item = BiddingManager.GetItem(id);
+            return Ok(item);
         }
 
         // POST: api/bidding
@@ -34,26 +34,10 @@ namespace Bidding.Api.Controllers
         [AllowAnonymous]
         public IHttpActionResult Post([FromBody]string value)
         {
-            using (var db = new BiddingContext())
-            {
-                var item = new BiddingItem() { Name = value };
-                //item.Config = new BiddingConfig()
-                //{
-                //    MinIncrement = 10,
-                //    StartPrice = 1,
-                //    StartDate = DateTime.Now,
-                //    EndDate = DateTime.Now.AddDays(3),
-                //    Type = BiddingType.HighWin
-                //};
-                //var action1 = new BiddingAction() { UserId = 10, UserName = "user1", Price = 2, TimeStamp = DateTime.Now.AddHours(1) };
-                //var action2 = new BiddingAction() { UserId = 11, UserName = "user2", Price = 6, TimeStamp = DateTime.Now.AddHours(3) };
-                //item.Actions.Add(action1);
-                //item.Actions.Add(action2);
-                db.BiddingItems.Add(item);
-                db.SaveChanges();
-            }
             return Ok();
         }
+
+
 
         // PUT: api/bidding/5
         // PUT: api/v1/bidding/5
