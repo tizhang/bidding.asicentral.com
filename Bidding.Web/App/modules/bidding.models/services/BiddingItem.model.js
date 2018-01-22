@@ -5,7 +5,7 @@
     .module('bidding.models')
     .factory('BiddingItem', BiddingItem);
 
-  BiddingItem.$inject = ['$modelFactory', 'httpInterceptor', 'BiddingSettings', 'BiddingAction','BiddingUser'];
+  BiddingItem.$inject = ['$modelFactory', 'httpInterceptor', 'BiddingSettings', 'BiddingAction', 'BiddingUser'];
 
   function BiddingItem($modelFactory, httpInterceptor, BiddingSettings, BiddingAction, User) {
     var model = $modelFactory('api/bidding', {
@@ -22,7 +22,7 @@
         BidTimes: 0,
         Price: 0.00,
         Status: 'Draft',
-        CreateDate:null,
+        CreateDate: null,
       },
       actions: {
         'base': {

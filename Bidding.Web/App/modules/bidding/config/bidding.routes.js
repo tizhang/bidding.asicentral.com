@@ -28,6 +28,29 @@
             controllerAs: 'vm',
           }
         }
+      })
+      .state('bidding.details', {
+        url: '/{id:int}',
+        params: {
+          id: { value: 0 }
+        },
+        views: {
+          'content': {
+            templateUrl: 'App/modules/bidding/partials/biddingDetails.html',
+            controller: 'BiddingDetailsController',
+            controllerAs: 'vm',
+          }
+        },
+        //resolve: {
+        //  resolvedItem: getBiddingItem
+        //}
       });
+
+
+      //getBiddingItem.$inject = ['$stateParams', '$state', 'BiddingItem'];
+
+      //function getBiddingItem($stateParams, $state, BiddingItem,) {
+      //  return BiddingItem.get($stateParams.id).catch(function (err) { console.log(err); });
+      //}
   }
 })();
