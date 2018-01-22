@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bidding.Api", "Bidding.Api\Bidding.Api.csproj", "{D4813DDB-07F6-442B-95D0-6DD45F854E35}"
 EndProject
@@ -44,6 +44,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {45EA6B92-867A-4986-AAED-FF85A0BF94B5}
+		SolutionGuid = {78685E6C-C4B8-4AF9-8B49-A9DC79C2541A}
 	EndGlobalSection
 EndGlobal
