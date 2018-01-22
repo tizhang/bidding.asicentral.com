@@ -54,6 +54,7 @@
     <Compile Include="BiddingAction.cs" />
     <Compile Include="BiddingItem.cs" />
     <Compile Include="BiddingManager.cs" />
+    <Compile Include="BiddingReturn.cs" />
     <Compile Include="BiddingSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />

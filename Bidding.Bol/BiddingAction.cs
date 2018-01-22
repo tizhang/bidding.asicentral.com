@@ -8,7 +8,8 @@ namespace Bidding.Bol
 {
     public class BiddingAction
     {
-
+        public const string SuccessStatus = "GOOD";
+        public const string FailStatus = "FAIL";
 
         public long Id
         {
