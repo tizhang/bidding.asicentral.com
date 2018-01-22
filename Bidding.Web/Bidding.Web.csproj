@@ -158,8 +158,10 @@
     <Content Include="App\app.js" />
     <Content Include="App\modules\bidding\bidding.module.js" />
     <Content Include="App\modules\bidding\config\bidding.routes.js" />
-    <Content Include="App\modules\bidding\controllers\homeController.js" />
-    <Content Include="App\modules\bidding\partials\home.html" />
+    <Content Include="App\modules\bidding\controllers\LiveController.js" />
+    <Content Include="App\modules\bidding\controllers\MenuController.js" />
+    <Content Include="App\modules\bidding\partials\live.html" />
+    <Content Include="App\modules\bidding\partials\menu.html" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />

@@ -10,13 +10,23 @@
   function routeConfig($stateProvider) {
     $stateProvider
       .state('bidding', {
+        abstract: true,
+        views: {
+          'menu': {
+            templateUrl: 'App/modules/bidding/partials/menu.html',
+            controller: 'MenuController',
+            controllerAs: 'vm'
+          }
+        }
+      })
+      .state('bidding.live', {
         url: '/',
-        templateUrl: 'App/modules/bidding/partials/home.html',
-        controller: 'HomeController',
-        controllerAs: 'vm',
-        params: {
-        },
-        resolve: {
+        views: {
+          'content': {
+            templateUrl: 'App/modules/bidding/partials/live.html',
+            controller: 'LiveController',
+            controllerAs: 'vm',
+          }
         }
       });
   }
