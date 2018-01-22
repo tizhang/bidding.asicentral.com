@@ -45,7 +45,7 @@ namespace Bidding.Api
             config.MessageHandlers.Add(new ThrottlingHandler(new InMemoryThrottleStore(), CreateThrottlePolicy()));
             
             // Enable OAuth2 token validation
-            config.EnableJwt(anonymousRoutes: new[] { "/api/swagger/docs/v1", "/api/swagger", "/api/swagger/ui*" });
+            //config.EnableJwt(anonymousRoutes: new[] { "/api/swagger/docs/v1", "/api/swagger", "/api/swagger/ui*" });
         }
 
         private static LoggingPolicy CreateLoggingPolicy()

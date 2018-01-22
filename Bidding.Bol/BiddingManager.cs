@@ -91,6 +91,8 @@ namespace Bidding.Bol
             {
                 db.BiddingItems.Add(dItem);
                 db.SaveChanges();
+                item.Id = dItem.BiddingItemId;
+                item.Setting.Id = dItem.Setting.BiddingSettingId;
             }
         }
 
@@ -118,6 +120,7 @@ namespace Bidding.Bol
                 {
                     item.Actions.Add(dAction);
                     db.SaveChanges();
+                    action.Id = dAction.BiddingActionId;
                 }
             }
         }
