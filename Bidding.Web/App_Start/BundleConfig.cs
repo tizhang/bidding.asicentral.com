@@ -1,5 +1,7 @@
-﻿using System.Web;
+﻿using System.Collections.Generic;
+using System.Web;
 using System.Web.Optimization;
+using Bidding.Web.Helpers;
 
 namespace Bidding.Web
 {
@@ -19,6 +21,10 @@ namespace Bidding.Web
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/app")
+                    .Include("~/App/app.js")
+                    .IncludeDirectory("~/App/modules", "*.js", true));
+
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
@@ -26,6 +32,16 @@ namespace Bidding.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            var angModules = new Dictionary<string, string>() {
+                {"bidding", "App/modules/bidding/partials"},
+                {"settings", "App/modules/settings/partials"}
+            };
+
+            var partials = new AngularPartialsBundle(angModules, "~/bundles/partials")
+                .IncludeDirectory("~/App/modules", "*.html", true);
+            bundles.Add(partials);
+
         }
     }
 }

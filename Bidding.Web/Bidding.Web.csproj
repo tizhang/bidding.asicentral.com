@@ -150,9 +150,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AngularPartialsBundle.cs" />
+    <Compile Include="Helpers\PartialsTransform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\app.js" />
+    <Content Include="App\modules\bidding\bidding.module.js" />
+    <Content Include="App\modules\bidding\config\bidding.routes.js" />
+    <Content Include="App\modules\bidding\controllers\homeController.js" />
+    <Content Include="App\modules\bidding\partials\home.html" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -225,8 +232,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
@@ -239,6 +244,10 @@
     <Content Include="Scripts\popper-utils.js.map" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App\modules\bidding\directives\" />
+    <Folder Include="App\modules\bidding\services\" />
+    <Folder Include="App\modules\settings\" />
+    <Folder Include="App\vendor\" />
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
