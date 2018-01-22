@@ -38,7 +38,8 @@ namespace Bidding.Bol
 
                 cfg.CreateMap<Bol.BiddingSetting, Data.BiddingSetting>()
                 .ForMember(dest => dest.BiddingSettingId, opts => opts.MapFrom(src => src.Id))
-                .ForMember(dest => dest.GroupNames, opts => opts.MapFrom(src => src.Groups != null ? string.Join(",", src.Groups) : null));
+                .ForMember(dest => dest.GroupNames, opts => opts.MapFrom(src => src.Groups != null ? string.Join(",", src.Groups) : null))
+                .ForMember(dest => dest.Type, opts => opts.MapFrom(src => src.MinIncrement > 0 ? Data.BiddingType.HighWin : Data.BiddingType.LowWin));
 
 
                 cfg.CreateMap<Data.BiddingAction, Bol.BiddingAction>()
@@ -146,7 +147,7 @@ namespace Bidding.Bol
                                 }
                                 else
                                 {
-                                    var nextPrice = lastAction.Price - setting.MinIncrement;
+                                    var nextPrice = lastAction.Price - Math.Abs(setting.MinIncrement);
                                     if (action.Price >= nextPrice)
                                     {
                                         ret = new BiddingReturn()
@@ -160,13 +161,24 @@ namespace Bidding.Bol
                             else
                             {
                                 //check minimum price
-                                if (setting.AcceptMinPrice > 0 && action.Price < setting.AcceptMinPrice)
+                                if (setting.AcceptPrice > 0)
                                 {
-                                    ret = new BiddingReturn()
+                                    if (setting.Type == Data.BiddingType.HighWin && action.Price < setting.AcceptPrice)
                                     {
-                                        Success = false,
-                                        Message = string.Format("Bidding Price is lower than the minimum price: {0}", setting.AcceptMinPrice)
-                                    };
+                                        ret = new BiddingReturn()
+                                        {
+                                            Success = false,
+                                            Message = string.Format("Bidding price is lower than the minimum accepted price: {0}", setting.AcceptPrice)
+                                        };
+                                    }
+                                    else if (setting.Type == Data.BiddingType.LowWin && action.Price > setting.AcceptPrice)
+                                    {
+                                        ret = new BiddingReturn()
+                                        {
+                                            Success = false,
+                                            Message = string.Format("Bidding price is higher than the maximum accepted price: {0}", setting.AcceptPrice)
+                                        };
+                                    }
                                 }
                             }
                             bool skipSave = false;
@@ -175,11 +187,11 @@ namespace Bidding.Bol
                                 var myLastOne = item.Actions.Where(a => a.BidderId == dAction.BidderId).OrderBy(i => i.TimeStamp).LastOrDefault();
                                 if (myLastOne != null)
                                 {
-                                    if (setting.Type == Data.BiddingType.HighWin && myLastOne.Price >= dAction.Price)
+                                    if (setting.Type == Data.BiddingType.HighWin && myLastOne.Price >= (dAction.Price + setting.MinIncrement))
                                     {
                                         skipSave = true;
                                     }
-                                    else if (setting.Type == Data.BiddingType.LowWin && myLastOne.Price <= dAction.Price)
+                                    else if (setting.Type == Data.BiddingType.LowWin && myLastOne.Price <= (dAction.Price - Math.Abs(setting.MinIncrement)))
                                     {
                                         skipSave = true;
                                     }

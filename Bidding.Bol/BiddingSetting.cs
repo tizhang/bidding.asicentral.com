@@ -43,7 +43,7 @@ namespace Bidding.Bol
             set;
         }
 
-        public double AcceptMinPrice
+        public double AcceptPrice
         {
             get;
             set;
