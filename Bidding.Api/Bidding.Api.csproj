@@ -15,7 +15,7 @@
     <RootNamespace>Bidding.Api</RootNamespace>
     <AssemblyName>Bidding.Api</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -221,7 +221,9 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="WebAppSettings.config" />
+    <Content Include="WebAppSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="WebConnectionStrings.config" />
   </ItemGroup>
   <ItemGroup>
@@ -248,7 +250,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54936</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:54936/</IISUrl>
+          <IISUrl>http://local-bidding.asicentral.com/api</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
