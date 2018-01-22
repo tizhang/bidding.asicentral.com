@@ -73,8 +73,17 @@ namespace Bidding.Bol
             if (bidItem == null) return null;
             return Mapper.Map<BiddingItem>(bidItem);
         }
-
-
+        public static BiddingAction GetAction(int actionId)
+        {
+            Data.BiddingAction action = null;
+            using (var context = new Data.BiddingContext())
+            {
+                action = context.BiddingActions
+                     .FirstOrDefault(i => i.BiddingActionId == actionId);
+            }
+            if (action == null) return null;
+            return Mapper.Map<BiddingAction>(action);
+        }
         public static void CreateItem(BiddingItem item)
         {
             var dItem = Mapper.Map<Data.BiddingItem>(item);
@@ -90,7 +99,7 @@ namespace Bidding.Bol
             var dAction = Mapper.Map<Data.BiddingAction>(action);
             using (var db = new Data.BiddingContext())
             {
-                var item = db.BiddingItems.Find(itemId);
+                var item = db.BiddingItems.Find(action.ItemId);
                 if (item != null)
                 {
                     item.Actions.Add(dAction);
@@ -99,5 +108,18 @@ namespace Bidding.Bol
             }
         }
 
+        public static void AddAction(BiddingAction action)
+        {
+            var dAction = Mapper.Map<Data.BiddingAction>(action);
+            using (var db = new Data.BiddingContext())
+            {
+                var item = db.BiddingItems.Find(action.ItemId);
+                if (item != null)
+                {
+                    item.Actions.Add(dAction);
+                    db.SaveChanges();
+                }
+            }
+        }
     }
 }

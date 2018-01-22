@@ -16,6 +16,8 @@ namespace Bidding.Bol
             set;
         }
 
+        public long ItemId { get; set; }
+
         public DateTime ActionTime
         {
             get;
