@@ -109,8 +109,12 @@ namespace Bidding.Bol
             }
         }
 
-        public static void AddAction(int itemId, BiddingAction action)
+        public static BiddingReturn AddAction(int itemId, BiddingAction action)
         {
+            BiddingReturn ret = new BiddingReturn()
+            {
+                Success = true
+            }; 
             var dAction = Mapper.Map<Data.BiddingAction>(action);
             using (var db = new Data.BiddingContext())
             {
@@ -118,13 +122,84 @@ namespace Bidding.Bol
                 {
                     try
                     {
-                        var item = db.BiddingItems.Find(itemId);
+                        var item = db.BiddingItems
+                                 .Include("Setting")
+                                 .Include("Actions")
+                                 .FirstOrDefault(i => i.BiddingItemId == itemId);
                         if (item != null)
                         {
-                            item.Actions.Add(dAction);
-                            db.SaveChanges();
-                            dbContextTransaction.Commit();
-                            action.Id = dAction.BiddingActionId;
+                            var setting = item.Setting;
+                            if (item.Actions != null && item.Actions.Any(i => i.Status == BiddingAction.SuccessStatus))
+                            {
+                                var lastAction = item.Actions.Where(i => i.Status == BiddingAction.SuccessStatus).OrderBy(i => i.TimeStamp).LastOrDefault();
+                                if (setting.Type == Data.BiddingType.HighWin)
+                                {
+                                    var nextPrice = lastAction.Price + setting.MinIncrement;
+                                    if (action.Price <= nextPrice)
+                                    {
+                                        ret = new BiddingReturn()
+                                        {
+                                            Success = false,
+                                            Message = string.Format("Bidding Price is lower than the next required price {0}!", nextPrice)
+                                        };
+                                    }
+                                }
+                                else
+                                {
+                                    var nextPrice = lastAction.Price - setting.MinIncrement;
+                                    if (action.Price >= nextPrice)
+                                    {
+                                        ret = new BiddingReturn()
+                                        {
+                                            Success = false,
+                                            Message = string.Format("Bidding Price is higher than the next required price {0}!", nextPrice)
+                                        };
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                //check minimum price
+                                if (setting.AcceptMinPrice > 0 && action.Price < setting.AcceptMinPrice)
+                                {
+                                    ret = new BiddingReturn()
+                                    {
+                                        Success = false,
+                                        Message = string.Format("Bidding Price is lower than the minimum price: {0}", setting.AcceptMinPrice)
+                                    };
+                                }
+                            }
+                            bool skipSave = false;
+                            if (!ret.Success)
+                            {
+                                var myLastOne = item.Actions.Where(a => a.BidderId == dAction.BidderId).OrderBy(i => i.TimeStamp).LastOrDefault();
+                                if (myLastOne != null)
+                                {
+                                    if (setting.Type == Data.BiddingType.HighWin && myLastOne.Price >= dAction.Price)
+                                    {
+                                        skipSave = true;
+                                    }
+                                    else if (setting.Type == Data.BiddingType.LowWin && myLastOne.Price <= dAction.Price)
+                                    {
+                                        skipSave = true;
+                                    }
+                                }
+
+                            }
+
+                            if (!skipSave)
+                            {
+                                dAction.Status = ret.Success ? BiddingAction.SuccessStatus : BiddingAction.FailStatus;
+                                item.Actions.Add(dAction);
+                                if (ret.Success)
+                                {
+                                    item.Price = action.Price;
+                                    item.BidTimes = item.Actions.Where(i => i.Status == BiddingAction.SuccessStatus).Count();
+                                }
+                                db.SaveChanges();
+                                dbContextTransaction.Commit();
+                                action.Id = dAction.BiddingActionId;
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -133,6 +208,7 @@ namespace Bidding.Bol
                         throw ex;
                     }
                 }
+                return ret;
             }
         }
 
