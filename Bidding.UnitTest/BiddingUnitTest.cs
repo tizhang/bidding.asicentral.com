@@ -19,7 +19,8 @@ namespace Bidding.UnitTest
                 MinIncrement = 10,
                 StartPrice = 1,
                 StartDate = DateTime.Now,
-                EndDate = DateTime.Now.AddDays(3)
+                EndDate = DateTime.Now.AddDays(3),
+                AcceptPrice = 20
             };
             var action1 = new BiddingAction() { Bidder = new User() { Id = 5, Email = "pzhang@asicentral.com" }, Price = 2, ActionTime = DateTime.UtcNow.AddHours(1) };
             var action2 = new BiddingAction() { Bidder = new User() { Id = 7, Email = "123@asicentral.com" }, Price = 6, ActionTime = DateTime.UtcNow.AddHours(3) };

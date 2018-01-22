@@ -52,7 +52,7 @@ namespace Bidding.Data
             set;
         }
 
-        public double AcceptMinPrice
+        public double AcceptPrice
         {
             get;
             set;
