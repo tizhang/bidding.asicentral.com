@@ -22,8 +22,7 @@ namespace Bidding.Web
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/app")
-                    .Include("~/App/app.js")
-                    .IncludeDirectory("~/App/modules", "*.js", true));
+                    .IncludeDirectory("~/App", "*.js", true));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",

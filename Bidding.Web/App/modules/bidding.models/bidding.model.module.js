@@ -1,5 +1,5 @@
 ﻿(function (app) {
   'use strict';
-
-  app.registerModule('bidding', ['ui.router', 'bidding.models']);
+  
+  app.registerModule('bidding.models', ['modelFactory']);
 })(ApplicationConfiguration);
