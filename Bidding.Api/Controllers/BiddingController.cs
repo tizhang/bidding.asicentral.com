@@ -1,12 +1,7 @@
-﻿using System;
-using System.Net;
-using System.Net.Http;
-using ASI.Services.Statistics.Data;
-using Microsoft.Web.Http;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Web.Http.Cors;
-using Bidding.Api.Models;
 using Bidding.Bol;
+using Microsoft.Web.Http;
 
 namespace Bidding.Api.Controllers
 {
@@ -26,18 +21,18 @@ namespace Bidding.Api.Controllers
             return Ok(item);
         }
 
-        // POST: api/bidding
-        // POST: api/v1/bidding
         [Route("bidding")]
         [Route("v{version:apiVersion}/bidding")]
         //        [Authorize(Roles = "Administrators")]
         [AllowAnonymous]
-        public IHttpActionResult Post([FromBody]string value)
+        public IHttpActionResult Post([FromBody]BiddingItem item)
         {
-            return Ok();
+            if (item != null)
+            {
+                BiddingManager.CreateItem(item);
+            }
+            return Ok(item);
         }
-
-
 
         // PUT: api/bidding/5
         // PUT: api/v1/bidding/5
@@ -57,6 +52,30 @@ namespace Bidding.Api.Controllers
         public IHttpActionResult Delete(int id)
         {
             return Ok();
+        }
+
+        // GET: api/bidding/5
+        // GET: api/v1/bidding/5
+        [Route("action/{id}")]
+        [Route("v{version:apiVersion}/action/{id}")]
+        [AllowAnonymous]
+        public IHttpActionResult Action(int id)
+        {
+            var item = BiddingManager.GetAction(id);
+            return Ok(item);
+        }
+
+        [Route("action")]
+        [Route("v{version:apiVersion}/action")]
+        //        [Authorize(Roles = "Administrators")]
+        [AllowAnonymous]
+        public IHttpActionResult PostAction([FromBody]BiddingAction action)
+        {
+            if (action != null)
+            {
+                BiddingManager.AddAction(action);
+            }
+            return Ok(action);
         }
     }
 }

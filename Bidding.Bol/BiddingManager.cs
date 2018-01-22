@@ -73,15 +73,39 @@ namespace Bidding.Bol
             if (bidItem == null) return null;
             return Mapper.Map<BiddingItem>(bidItem);
         }
-
-
+        public static BiddingAction GetAction(int actionId)
+        {
+            Data.BiddingAction action = null;
+            using (var context = new Data.BiddingContext())
+            {
+                action = context.BiddingActions
+                     .FirstOrDefault(i => i.BiddingActionId == actionId);
+            }
+            if (action == null) return null;
+            return Mapper.Map<BiddingAction>(action);
+        }
         public static void CreateItem(BiddingItem item)
         {
             var dItem = Mapper.Map<Data.BiddingItem>(item);
             using (var db = new Data.BiddingContext())
             {
-                db.BiddingItems.Add(dItem);
-                db.SaveChanges();
+                using (var dbContextTransaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        db.BiddingItems.Add(dItem);
+                        db.SaveChanges();
+                        dbContextTransaction.Commit();
+                    }
+                    catch( Exception ex)
+                    {
+                        dbContextTransaction.Rollback();
+                        throw ex;
+                    }
+                }
+
+                item.Id = dItem.BiddingItemId;
+                item.Setting.Id = dItem.Setting.BiddingSettingId;
             }
         }
 
@@ -90,14 +114,54 @@ namespace Bidding.Bol
             var dAction = Mapper.Map<Data.BiddingAction>(action);
             using (var db = new Data.BiddingContext())
             {
-                var item = db.BiddingItems.Find(itemId);
-                if (item != null)
+                using (var dbContextTransaction = db.Database.BeginTransaction())
                 {
-                    item.Actions.Add(dAction);
-                    db.SaveChanges();
+                    try
+                    {
+                        var item = db.BiddingItems.Find(itemId);
+                        if (item != null)
+                        {
+                            item.Actions.Add(dAction);
+                            db.SaveChanges();
+                            dbContextTransaction.Commit();
+                            action.Id = dAction.BiddingActionId;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContextTransaction.Rollback();
+                        throw ex;
+                    }
                 }
             }
         }
 
+        public static void AddAction(BiddingAction action)
+        {
+            var dAction = Mapper.Map<Data.BiddingAction>(action);
+            using (var db = new Data.BiddingContext())
+            {
+                using (var dbContextTransaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var item = db.BiddingItems.Find(action.ItemId);
+                        if (item != null)
+                        {
+                            item.Actions.Add(dAction);
+                            db.SaveChanges();
+                            dbContextTransaction.Commit();
+
+                            action.Id = dAction.BiddingActionId;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContextTransaction.Rollback();
+                        throw ex;
+                    }
+                }
+            }
+        }
     }
 }
