@@ -36,6 +36,16 @@ namespace Bidding.UnitTest
             BiddingManager.AddAction(2, action1);
         }
 
+
+        [TestMethod]
+        public void AddFailedAction()
+        {
+            var action1 = new BiddingAction() { Bidder = new User() { Id = 9, Email = "abcd@asicentral.com" }, Price = 9, ActionTime = DateTime.UtcNow.AddHours(7) };
+            var ret = BiddingManager.AddAction(2, action1);
+            Console.WriteLine("First Add: " + ret.Success + " " + ret.Message);
+            ret = BiddingManager.AddAction(2, action1);
+            Console.WriteLine("Second Add: " + ret.Success + " " + ret.Message);
+        }
         [TestMethod]
         public void RetrieveBidding()
         {

@@ -8,13 +8,16 @@ namespace Bidding.Bol
 {
     public class BiddingAction
     {
-
+        public const string SuccessStatus = "GOOD";
+        public const string FailStatus = "FAIL";
 
         public long Id
         {
             get;
             set;
         }
+
+        public long ItemId { get; set; }
 
         public DateTime ActionTime
         {

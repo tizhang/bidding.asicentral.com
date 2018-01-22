@@ -10,6 +10,11 @@ namespace Bidding.Bol
     public class BiddingItem
     {
 
+        public const string PendingStatus = "PEND";
+        public const string ActiveStatus = "ACTV";
+        public const string FinalStatus = "FINL";
+        public const string FailStatus = "FAIL";
+
         public long Id
         {
             get;

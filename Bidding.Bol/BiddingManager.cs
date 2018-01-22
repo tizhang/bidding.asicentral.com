@@ -73,31 +73,171 @@ namespace Bidding.Bol
             if (bidItem == null) return null;
             return Mapper.Map<BiddingItem>(bidItem);
         }
-
-
+        public static BiddingAction GetAction(int actionId)
+        {
+            Data.BiddingAction action = null;
+            using (var context = new Data.BiddingContext())
+            {
+                action = context.BiddingActions
+                     .FirstOrDefault(i => i.BiddingActionId == actionId);
+            }
+            if (action == null) return null;
+            return Mapper.Map<BiddingAction>(action);
+        }
         public static void CreateItem(BiddingItem item)
         {
             var dItem = Mapper.Map<Data.BiddingItem>(item);
             using (var db = new Data.BiddingContext())
             {
-                db.BiddingItems.Add(dItem);
-                db.SaveChanges();
+                using (var dbContextTransaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        db.BiddingItems.Add(dItem);
+                        db.SaveChanges();
+                        dbContextTransaction.Commit();
+                    }
+                    catch( Exception ex)
+                    {
+                        dbContextTransaction.Rollback();
+                        throw ex;
+                    }
+                }
+
+                item.Id = dItem.BiddingItemId;
+                item.Setting.Id = dItem.Setting.BiddingSettingId;
             }
         }
 
-        public static void AddAction(int itemId, BiddingAction action)
+        public static BiddingReturn AddAction(int itemId, BiddingAction action)
+        {
+            BiddingReturn ret = new BiddingReturn()
+            {
+                Success = true
+            }; 
+            var dAction = Mapper.Map<Data.BiddingAction>(action);
+            using (var db = new Data.BiddingContext())
+            {
+                using (var dbContextTransaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var item = db.BiddingItems
+                                 .Include("Setting")
+                                 .Include("Actions")
+                                 .FirstOrDefault(i => i.BiddingItemId == itemId);
+                        if (item != null)
+                        {
+                            var setting = item.Setting;
+                            if (item.Actions != null && item.Actions.Any(i => i.Status == BiddingAction.SuccessStatus))
+                            {
+                                var lastAction = item.Actions.Where(i => i.Status == BiddingAction.SuccessStatus).OrderBy(i => i.TimeStamp).LastOrDefault();
+                                if (setting.Type == Data.BiddingType.HighWin)
+                                {
+                                    var nextPrice = lastAction.Price + setting.MinIncrement;
+                                    if (action.Price <= nextPrice)
+                                    {
+                                        ret = new BiddingReturn()
+                                        {
+                                            Success = false,
+                                            Message = string.Format("Bidding Price is lower than the next required price {0}!", nextPrice)
+                                        };
+                                    }
+                                }
+                                else
+                                {
+                                    var nextPrice = lastAction.Price - setting.MinIncrement;
+                                    if (action.Price >= nextPrice)
+                                    {
+                                        ret = new BiddingReturn()
+                                        {
+                                            Success = false,
+                                            Message = string.Format("Bidding Price is higher than the next required price {0}!", nextPrice)
+                                        };
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                //check minimum price
+                                if (setting.AcceptMinPrice > 0 && action.Price < setting.AcceptMinPrice)
+                                {
+                                    ret = new BiddingReturn()
+                                    {
+                                        Success = false,
+                                        Message = string.Format("Bidding Price is lower than the minimum price: {0}", setting.AcceptMinPrice)
+                                    };
+                                }
+                            }
+                            bool skipSave = false;
+                            if (!ret.Success)
+                            {
+                                var myLastOne = item.Actions.Where(a => a.BidderId == dAction.BidderId).OrderBy(i => i.TimeStamp).LastOrDefault();
+                                if (myLastOne != null)
+                                {
+                                    if (setting.Type == Data.BiddingType.HighWin && myLastOne.Price >= dAction.Price)
+                                    {
+                                        skipSave = true;
+                                    }
+                                    else if (setting.Type == Data.BiddingType.LowWin && myLastOne.Price <= dAction.Price)
+                                    {
+                                        skipSave = true;
+                                    }
+                                }
+
+                            }
+
+                            if (!skipSave)
+                            {
+                                dAction.Status = ret.Success ? BiddingAction.SuccessStatus : BiddingAction.FailStatus;
+                                item.Actions.Add(dAction);
+                                if (ret.Success)
+                                {
+                                    item.Price = action.Price;
+                                    item.BidTimes = item.Actions.Where(i => i.Status == BiddingAction.SuccessStatus).Count();
+                                }
+                                db.SaveChanges();
+                                dbContextTransaction.Commit();
+                                action.Id = dAction.BiddingActionId;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContextTransaction.Rollback();
+                        throw ex;
+                    }
+                }
+                return ret;
+            }
+        }
+
+        public static void AddAction(BiddingAction action)
         {
             var dAction = Mapper.Map<Data.BiddingAction>(action);
             using (var db = new Data.BiddingContext())
             {
-                var item = db.BiddingItems.Find(itemId);
-                if (item != null)
+                using (var dbContextTransaction = db.Database.BeginTransaction())
                 {
-                    item.Actions.Add(dAction);
-                    db.SaveChanges();
+                    try
+                    {
+                        var item = db.BiddingItems.Find(action.ItemId);
+                        if (item != null)
+                        {
+                            item.Actions.Add(dAction);
+                            db.SaveChanges();
+                            dbContextTransaction.Commit();
+
+                            action.Id = dAction.BiddingActionId;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContextTransaction.Rollback();
+                        throw ex;
+                    }
                 }
             }
         }
-
     }
 }
