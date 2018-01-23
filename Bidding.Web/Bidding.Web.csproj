@@ -156,18 +156,34 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
+    <Content Include="App\modules\bidding.models\bidding.model.module.js" />
+    <Content Include="App\modules\bidding.models\services\BiddingAction.model.js" />
+    <Content Include="App\modules\bidding.models\services\BiddingSettings.model.js" />
+    <Content Include="App\modules\bidding.models\services\BiddingItem.model.js" />
+    <Content Include="App\modules\bidding.models\services\httpInterceptor.js" />
+    <Content Include="App\modules\bidding.models\services\simpleModelFactory.js" />
+    <Content Include="App\modules\bidding.models\services\User.model.js" />
     <Content Include="App\modules\bidding\bidding.module.js" />
     <Content Include="App\modules\bidding\config\bidding.routes.js" />
+    <Content Include="App\modules\bidding\controllers\BiddingDetailsController.js" />
     <Content Include="App\modules\bidding\controllers\LiveController.js" />
     <Content Include="App\modules\bidding\controllers\MenuController.js" />
+    <Content Include="App\modules\bidding\partials\biddingDetails.html" />
     <Content Include="App\modules\bidding\partials\live.html" />
     <Content Include="App\modules\bidding\partials\menu.html" />
+    <Content Include="App\vendor\angular-model-factory.js" />
+    <Content Include="App\vendor\ng-table-export.js" />
+    <Content Include="App\vendor\ng-table-resizable-columns.js" />
+    <Content Include="App\vendor\ng-table.js" />
+    <Content Include="App\vendor\ng-table.min.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ng-table.css" />
+    <Content Include="Content\ng-table.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -196,6 +212,7 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Content\ng-table.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
@@ -211,6 +228,11 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\ng-table-export.js" />
+    <Content Include="Scripts\ng-table-resizable-columns.js" />
+    <Content Include="Scripts\ng-table.js" />
+    <Content Include="Scripts\ng-table.min.js" />
+    <Content Include="Scripts\ng-tags-input.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -249,7 +271,6 @@
     <Folder Include="App\modules\bidding\directives\" />
     <Folder Include="App\modules\bidding\services\" />
     <Folder Include="App\modules\settings\" />
-    <Folder Include="App\vendor\" />
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>

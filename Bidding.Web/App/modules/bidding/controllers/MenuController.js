@@ -18,8 +18,8 @@
       { Code: 'Watch', Text: 'Watch', State: 'watch', UpdatesCount: 0}
     ];
 
-    vm.gotoTab = gotoTab();
-
+    vm.gotoTab = gotoTab;
+    
     init();
 
     function init() {
@@ -31,5 +31,9 @@
         $state.go(tab.State);
       }
     }
+
+    //vm.test = function () {
+    //  $state.go('bidding.details', { id: 2 });
+    //}
   }
 })();
