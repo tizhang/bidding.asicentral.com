@@ -1,11 +1,13 @@
 ﻿using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using Bidding.Api.Filters;
 using Bidding.Bol;
 using Microsoft.Web.Http;
 
 namespace Bidding.Api.Controllers
 {
+    //[BasicAuthenticationFilter]
     [EnableCors("*", "*", "*")]
     [ApiVersion("1.0")]
     public class BiddingController : ApiController
@@ -13,8 +15,8 @@ namespace Bidding.Api.Controllers
 
         // GET: api/bidding/5
         // GET: api/v1/bidding/5
-        [Route("bidding/group/{group}?status={status}&includeSettings={includeSettings}&includeHistory={includeHistory}")]
-        [Route("v{version:apiVersion}/bidding/group/{group}?status={status}&includeSettings={includeSettings}&includeHistory={includeHistory}")]
+        [Route("bidding")]
+        [Route("v{version:apiVersion}/bidding")]
         [AllowAnonymous]
         public IHttpActionResult GetItems(string group, string status, bool includeSettings, bool includeHistory)
         {
