@@ -44,6 +44,7 @@ namespace Bidding.Bol
 
                 cfg.CreateMap<Data.BiddingAction, Bol.BiddingAction>()
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.BiddingActionId))
+                .ForMember(dest => dest.ItemId, opts => opts.MapFrom(src => src.ItemId))
                 .ForMember(dest => dest.ActionTime, opts => opts.MapFrom(src => src.TimeStamp))
                 .ForMember(dest => dest.Bidder, opts => opts.MapFrom(src => new User() { Id = src.BidderId, Email = src.BidderEmail }));
 
@@ -85,6 +86,41 @@ namespace Bidding.Bol
             if (action == null) return null;
             return Mapper.Map<BiddingAction>(action);
         }
+
+        public static List<BiddingAction> GetActions(int id, bool isUser)
+        {
+            var actionList = new List<BiddingAction>();
+            IQueryable<Data.BiddingAction> actions = null;
+            try
+            {
+               using (var context = new Data.BiddingContext())
+               {
+                    if( isUser )
+                    {
+                        actions = context.BiddingActions.Where(a => a.BidderId == id);
+                    }
+                    else
+                    {
+                        actions = context.BiddingActions.Where(i => i.ItemId == id);
+                    }
+
+                    if (actions != null && actions.Count() > 0)
+                    {
+                        foreach (var action in actions)
+                        {
+                            actionList.Add(Mapper.Map<BiddingAction>(action));
+                        }
+                   }
+                }
+            }
+            catch(Exception)
+            {
+
+            }
+ 
+            return actionList;
+        }
+
         public static void CreateItem(BiddingItem item)
         {
             var dItem = Mapper.Map<Data.BiddingItem>(item);

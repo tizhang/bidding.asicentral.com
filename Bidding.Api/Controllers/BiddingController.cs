@@ -54,7 +54,7 @@ namespace Bidding.Api.Controllers
             return Ok();
         }
 
-        // GET: api/bidding/5
+        // GET: api/action/item/5
         // GET: api/v1/bidding/5
         [Route("action/{id}")]
         [Route("v{version:apiVersion}/action/{id}")]
@@ -62,6 +62,25 @@ namespace Bidding.Api.Controllers
         public IHttpActionResult Action(int id)
         {
             var item = BiddingManager.GetAction(id);
+
+            return Ok(item);
+        }
+
+        [Route("action/item/{id}")]
+        [Route("v{version:apiVersion}/action/item/{id}")]
+        [AllowAnonymous]
+        public IHttpActionResult ActionsByItem(int id)
+        {
+            var item = BiddingManager.GetActions(id, false);
+            return Ok(item);
+        }
+
+        [Route("action/user/{id}")]
+        [Route("v{version:apiVersion}/action/user/{id}")]
+        [AllowAnonymous]
+        public IHttpActionResult ActionsByUser(int id)
+        {
+            var item = BiddingManager.GetActions(id, true);
             return Ok(item);
         }
 
