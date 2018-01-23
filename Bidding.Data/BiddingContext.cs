@@ -19,6 +19,8 @@ namespace Bidding.Data
         public DbSet<BiddingSetting> BiddingConfigs { get; set; }
 
         public DbSet<BiddingAction> BiddingActions { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Watcher> Watchers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -27,7 +29,9 @@ namespace Bidding.Data
             modelBuilder.Configurations
                 .Add(new BiddingActionMap())
                 .Add(new BiddingItemMap())
-                .Add(new BiddingSettingMap());
+                .Add(new BiddingSettingMap())
+                .Add(new UserMap())
+                .Add(new WatcherMap());
            ;
 
         }
