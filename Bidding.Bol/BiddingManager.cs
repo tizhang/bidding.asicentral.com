@@ -44,7 +44,6 @@ namespace Bidding.Bol
 
                 cfg.CreateMap<Data.BiddingAction, Bol.BiddingAction>()
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.BiddingActionId))
-                .ForMember(dest => dest.ItemId, opts => opts.MapFrom(src => src.ItemId))
                 .ForMember(dest => dest.ActionTime, opts => opts.MapFrom(src => src.TimeStamp))
                 .ForMember(dest => dest.Bidder, opts => opts.MapFrom(src => new User() { Id = src.BidderId, Email = src.BidderEmail }));
 
