@@ -30,7 +30,7 @@
         },
         'getByGroup': {
           method: 'GET',
-          url: '/'
+          url: '/group'
         }
       },
       instance: {

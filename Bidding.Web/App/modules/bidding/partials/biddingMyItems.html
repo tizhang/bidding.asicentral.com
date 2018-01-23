@@ -1,5 +1,5 @@
 ﻿<div class="container">
-    <div>Live List!</div>
+    <div>My Items!</div>
     <div class="row marginTop20">
         <div class="row">
             <div class="col-md-12">
@@ -17,7 +17,7 @@
                             <td data-title="'Highest Bid'" data-sortable="'Price'" data-filter="{ 'Price': 'text' }">{{Bidding.Price}}</td>
                             <td data-title="'Min. Next Bid Price'" data-sortable="'MinNextPrice'" data-filter="{ 'MinNextPrice': 'text' }">{{Bidding.MinNextPrice}}</td>
                             <td data-title="'Time Left'" data-sortable="'TimeLeft'" data-filter="{ 'TimeLeft': 'text' }">{{Bidding.TimeLeft}}</td>
-                            <td data-title="'Expiration'" data-sortable="'Expiration'" data-filter="{ 'Expiration': 'text' }">{{Bidding.Expiration | date: 'dd MM yyyy'}}</td>
+                            <td data-title="'Expiration'" data-sortable="'Expiration'" data-filter="{ 'ExpirationString': 'text' }">{{Bidding.ExpirationString}}</td>
                             <td width="100px" style="text-align: center" data-title="'Actions'" data-ng-click="$event.stopPropagation()">
                                 <a id="lnkSubmitBid" data-ng-click="vm.submitBid(bidItem)" class="nobr small">Submit bid</a>
                                 <a id="lnkAddWatch" data-ng-click="vm.addWatch(bidItem)" class="nobr small"</a>

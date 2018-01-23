@@ -20,7 +20,7 @@ namespace Bidding.Api.Controllers
         {
             var items = BiddingManager.GetItems(group, status);
             if (!includeHistory)
-            {
+             {
                 items.ForEach(i => i.History = null);
             }
             if (!includeSettings)

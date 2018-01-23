@@ -13,7 +13,7 @@
     vm.tabs = [
       { Code: 'LiveNow', Text: 'Live Now',State:'bidding.live' , UpdatesCount: 0},
       { Code: 'MyBids', Text: 'My Bids',State:'bidding.bids', UpdatesCount: 0},
-      { Code: 'MyItems', Text: 'My Items', State: 'bidding.items', UpdatesCount: 0},
+      { Code: 'MyItems', Text: 'My Items', State: 'bidding.myitems', UpdatesCount: 0},
       { Code: 'MyHistory', Text: 'My History', State: 'bidding.history', UpdatesCount: 0},
       { Code: 'Watch', Text: 'Watch', State: 'watch', UpdatesCount: 0}
     ];
