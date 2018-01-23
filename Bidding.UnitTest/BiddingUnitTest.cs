@@ -22,29 +22,29 @@ namespace Bidding.UnitTest
                 EndDate = DateTime.Now.AddDays(3),
                 AcceptPrice = 20
             };
-            var action1 = new BiddingAction() { Bidder = new User() { Id = 5, Email = "pzhang@asicentral.com" }, Price = 2, ActionTime = DateTime.UtcNow.AddHours(1) };
-            var action2 = new BiddingAction() { Bidder = new User() { Id = 7, Email = "123@asicentral.com" }, Price = 6, ActionTime = DateTime.UtcNow.AddHours(3) };
-            item.History = new List<BiddingAction>();
-            item.History.Add(action1);
-            item.History.Add(action2);
             BiddingManager.CreateItem(item);
+            var action1 = new BiddingAction() {ItemId = item.Id, Bidder = new User() { Id = 5, Email = "pzhang@asicentral.com" }, Price = 2, ActionTime = DateTime.UtcNow.AddHours(1) };
+            var action2 = new BiddingAction() {ItemId = item.Id, Bidder = new User() { Id = 7, Email = "123@asicentral.com" }, Price = 6, ActionTime = DateTime.UtcNow.AddHours(3) };
+            BiddingManager.AddAction(action1);
+            BiddingManager.AddAction(action2);
         }
 
         [TestMethod]
         public void AddAction()
         {
-            var action1 = new BiddingAction() { Bidder = new User() { Id = 9, Email = "abcd@asicentral.com" }, Price = 9, ActionTime = DateTime.UtcNow.AddHours(7) };
-            BiddingManager.AddAction(2, action1);
+            var action1 = new BiddingAction() {ItemId = 2, Bidder = new User() { Id = 9, Email = "abcd@asicentral.com" }, Price = 25, ActionTime = DateTime.UtcNow.AddHours(7) };
+            var ret = BiddingManager.AddAction(action1);
+            Console.WriteLine(ret.Message);
         }
 
 
         [TestMethod]
         public void AddFailedAction()
         {
-            var action1 = new BiddingAction() { Bidder = new User() { Id = 9, Email = "abcd@asicentral.com" }, Price = 9, ActionTime = DateTime.UtcNow.AddHours(7) };
-            var ret = BiddingManager.AddAction(2, action1);
+            var action1 = new BiddingAction() {ItemId=2, Bidder = new User() { Id = 9, Email = "abcd@asicentral.com" }, Price = 9, ActionTime = DateTime.UtcNow.AddHours(7) };
+            var ret = BiddingManager.AddAction(action1);
             Console.WriteLine("First Add: " + ret.Success + " " + ret.Message);
-            ret = BiddingManager.AddAction(2, action1);
+            ret = BiddingManager.AddAction(action1);
             Console.WriteLine("Second Add: " + ret.Success + " " + ret.Message);
         }
         [TestMethod]
