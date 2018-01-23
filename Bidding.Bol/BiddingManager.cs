@@ -60,8 +60,27 @@ namespace Bidding.Bol
         //public static CreateBidding()
         //{
 
+
         //}
-        public static BiddingItem GetItem(int itemId)
+        
+        public static List<BiddingItem> GetItems(string group = null, string status = null, bool includeFailedActions = true)
+        {
+            List<Data.BiddingItem> bidItems = null;
+            using (var context = new Data.BiddingContext())
+            {
+                bidItems = context.BiddingItems
+                         .Include("Setting")
+                         .Include("Actions")
+                         .Where(i => (!string.IsNullOrEmpty(group)? i.Setting.GroupNames.Contains(group) : true) && (!string.IsNullOrEmpty(status) ? status == i.Status : true)).ToList();
+            }
+            var items = bidItems.Select(i => Mapper.Map<BiddingItem>(i)).ToList();
+            if (!includeFailedActions)
+            {
+                items.ForEach(i => i.History = i.History?.Where(h => h.Status == BiddingAction.SuccessStatus).ToList());
+            }
+            return items;
+        }
+        public static BiddingItem GetItem(int itemId, bool includeFailedActions = true)
         {
             Data.BiddingItem bidItem = null;
             using (var context = new Data.BiddingContext())
@@ -72,7 +91,12 @@ namespace Bidding.Bol
                      .FirstOrDefault(i => i.BiddingItemId == itemId);
             }
             if (bidItem == null) return null;
-            return Mapper.Map<BiddingItem>(bidItem);
+            var item = Mapper.Map<BiddingItem>(bidItem);
+            if (!includeFailedActions)
+            {
+                item.History = item.History?.Where(h => h.Status == BiddingAction.SuccessStatus).ToList();
+            }
+            return item;
         }
         public static BiddingAction GetAction(int actionId)
         {

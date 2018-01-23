@@ -20,7 +20,8 @@ namespace Bidding.UnitTest
                 StartPrice = 1,
                 StartDate = DateTime.Now,
                 EndDate = DateTime.Now.AddDays(3),
-                AcceptPrice = 20
+                AcceptPrice = 20,
+                Groups = new List<string> { "WESP" }
             };
             BiddingManager.CreateItem(item);
             var action1 = new BiddingAction() {ItemId = item.Id, Bidder = new User() { Id = 5, Email = "pzhang@asicentral.com" }, Price = 2, ActionTime = DateTime.UtcNow.AddHours(1) };
@@ -62,6 +63,19 @@ namespace Bidding.UnitTest
                 {
                     Console.WriteLine("{0} {1} {2:d}", a.Bidder?.Email, a.Price, a.ActionTime);
                 }
+            }
+        }
+        [TestMethod]
+        public void RetrieveBiddingByGroup()
+        {
+            var bidItems = Bidding.Bol.BiddingManager.GetItems("WESP","ACTV");
+            foreach (var bidItem in bidItems)
+            {
+                Console.WriteLine("Item ID: {0} Name: {1} Owner Id: {2} Group: {3}",
+                    bidItem.Id,
+                    bidItem.Name,
+                    bidItem.Owner?.Id,
+                    bidItem.Setting.Groups?.FirstOrDefault());
             }
         }
     }

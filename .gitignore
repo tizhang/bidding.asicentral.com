@@ -2,6 +2,7 @@
 [Bb]in/*
 [Oo]bj/
 PrecompiledWeb/
+.vs/*
 
 # mstest test results
 TestResults

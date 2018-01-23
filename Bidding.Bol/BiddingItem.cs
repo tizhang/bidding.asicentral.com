@@ -9,10 +9,15 @@ namespace Bidding.Bol
 
     public class BiddingItem
     {
-
-        public const string PendingStatus = "PEND";
+        //owner can change item in this state
+        public const string DraftStatus = "DRAF";
+        //user can view item in this state
+        public const string StagingStatus = "STAG";
+        //user can bid item in this state
         public const string ActiveStatus = "ACTV";
-        public const string FinalStatus = "FINL";
+        //bid item in success state
+        public const string SuccessStatus = "SUCC";
+        //bid item in failure state
         public const string FailStatus = "FAIL";
 
         public long Id

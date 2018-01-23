@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Linq;
+using System.Web.Http;
 using System.Web.Http.Cors;
 using Bidding.Bol;
 using Microsoft.Web.Http;
@@ -9,6 +10,25 @@ namespace Bidding.Api.Controllers
     [ApiVersion("1.0")]
     public class BiddingController : ApiController
     {
+
+        // GET: api/bidding/5
+        // GET: api/v1/bidding/5
+        [Route("bidding/group/{group}?status={status}&includeSettings={includeSettings}&includeHistory={includeHistory}")]
+        [Route("v{version:apiVersion}/bidding/group/{group}?status={status}&includeSettings={includeSettings}&includeHistory={includeHistory}")]
+        [AllowAnonymous]
+        public IHttpActionResult GetItems(string group, string status, bool includeSettings, bool includeHistory)
+        {
+            var items = BiddingManager.GetItems(group, status);
+            if (!includeHistory)
+            {
+                items.ForEach(i => i.History = null);
+            }
+            if (!includeSettings)
+            {
+                items.ForEach(i => i.Setting = null);
+            }
+            return Ok(items);
+        }
 
         // GET: api/bidding/5
         // GET: api/v1/bidding/5
