@@ -102,3 +102,7 @@ UpgradeLog*.XML
 
 # NuGet
 packages/
+.vs/BiddingSystem/v15/Server/sqlite3/db.lock
+.vs/BiddingSystem/v15/Server/sqlite3/storage.ide
+.vs/BiddingSystem/v15/Server/sqlite3/storage.ide-shm
+.vs/BiddingSystem/v15/Server/sqlite3/storage.ide-wal

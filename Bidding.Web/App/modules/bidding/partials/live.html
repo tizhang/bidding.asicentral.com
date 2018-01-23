@@ -1,1 +1,35 @@
-﻿Live List!
+﻿<div class="container">
+    <div>Live List!</div>
+    <div class="row marginTop20">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="bg-info results-bar">
+                    <div class="results-count">
+                        <span>{{vm.totalCount}}</span> Results
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-condensed checkboxheader" data-ng-table="vm.tableAllLive" data-show-filter="true">
+                        <tr data-ng-repeat="Bidding in $data">
+                            <td data-title="'Name'" data-sortable="'Name'" data-filter="{ 'Name': 'text' }">{{Bidding.Name}}</td>
+                            <td data-title="'Description'" data-sortable="'Description'" data-filter="{ 'Description': 'text' }">{{Bidding.Description}}</td>
+                            <td data-title="'Image Url'" data-sortable="'ImageUrl'" data-filter="{ 'ImageUrl': 'text' }">{{Bidding.ImageUrl}}</td>
+                            <td data-title="'Highest Bid'" data-sortable="'Price'" data-filter="{ 'Price': 'text' }">{{Bidding.Price}}</td>
+                            <td data-title="'Min. Next Bid Price'" data-sortable="'MinNextPrice'" data-filter="{ 'MinNextPrice': 'text' }">{{Bidding.MinNextPrice}}</td>
+                            <td data-title="'Time Left'" data-sortable="'TimeLeft'" data-filter="{ 'TimeLeft': 'text' }">{{Bidding.TimeLeft}}</td>
+                            <td data-title="'Expiration'" data-sortable="'Expiration'" data-filter="{ 'ExpirationString': 'text' }">{{Bidding.ExpirationString}}</td>
+                            <td width="100px" style="text-align: center" data-title="'Actions'" data-ng-click="$event.stopPropagation()">
+                                <a id="lnkSubmitBid" data-ng-click="vm.submitBid(bidItem)" class="nobr small">Submit bid</a>
+                                <a id="lnkAddWatch" data-ng-click="vm.addWatch(bidItem)" class="nobr small"</a>
+                            </td>
+                        </tr>
+                        <tr data-ng-hide="$data.length > 0">
+                            <td class="text-center" colspan="9">No Records Found</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div.
+</div>

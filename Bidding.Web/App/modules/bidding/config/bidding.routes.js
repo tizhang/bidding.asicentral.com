@@ -44,6 +44,38 @@
         //resolve: {
         //  resolvedItem: getBiddingItem
         //}
+      })
+      .state('bidding.myitems', {
+        url: '/{id:int}',
+        params: {
+          id: { value: 0 }
+        },
+        views: {
+          'content': {
+            templateUrl: 'App/modules/bidding/partials/biddingMyItems.html',
+            controller: 'BiddingMyItemsController',
+            controllerAs: 'vm',
+          }
+        },
+        //resolve: {
+        //  resolvedItem: getBiddingItem
+        //}
+      })
+      .state('bidding.history', {
+        url: '/{id:int}',
+        params: {
+          id: { value: 0 }
+        },
+        views: {
+          'content': {
+            templateUrl: 'App/modules/bidding/partials/biddinhistory.html',
+            controller: 'BiddingHistoryController',
+            controllerAs: 'vm',
+          }
+        },
+        //resolve: {
+        //  resolvedItem: getBiddingItem
+        //}
       });
 
 
