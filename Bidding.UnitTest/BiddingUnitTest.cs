@@ -68,7 +68,7 @@ namespace Bidding.UnitTest
         [TestMethod]
         public void RetrieveBiddingByGroup()
         {
-            var bidItems = Bidding.Bol.BiddingManager.GetItems("WESP","ACTV");
+            var bidItems = Bidding.Bol.BiddingManager.GetItems("WESP","ACTV,STAG");
             foreach (var bidItem in bidItems)
             {
                 Console.WriteLine("Item ID: {0} Name: {1} Owner Id: {2} Group: {3}",
@@ -77,6 +77,13 @@ namespace Bidding.UnitTest
                     bidItem.Owner?.Id,
                     bidItem.Setting.Groups?.FirstOrDefault());
             }
+        }
+        [TestMethod]
+        public void UpdateItem()
+        {
+            var item = BiddingManager.GetItem(3);
+            item.Status = "ACTV";
+            BiddingManager.UpdateItem(item);
         }
     }
 }

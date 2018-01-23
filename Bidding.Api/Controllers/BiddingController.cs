@@ -16,7 +16,7 @@ namespace Bidding.Api.Controllers
         // GET: api/bidding/5
         // GET: api/v1/bidding/5
         [Route("bidding")]
-        [Route("v{version:apiVersion}/bidding")]
+        //[Route("v{version:apiVersion}/bidding")]
         [AllowAnonymous]
         public IHttpActionResult GetItems(string group=null, string status=null, bool includeSettings=false, bool includeHistory=false)
         {
@@ -35,7 +35,7 @@ namespace Bidding.Api.Controllers
         // GET: api/bidding/5
         // GET: api/v1/bidding/5
         [Route("bidding/{id}")]
-        [Route("v{version:apiVersion}/bidding/{id}")]
+        //[Route("v{version:apiVersion}/bidding/{id}")]
         [AllowAnonymous]
         public IHttpActionResult GetItem(int id)
         {
@@ -44,7 +44,7 @@ namespace Bidding.Api.Controllers
         }
 
         [Route("bidding")]
-        [Route("v{version:apiVersion}/bidding")]
+        //[Route("v{version:apiVersion}/bidding")]
         //        [Authorize(Roles = "Administrators")]
         [AllowAnonymous]
         public IHttpActionResult Post([FromBody]BiddingItem item)
@@ -56,21 +56,36 @@ namespace Bidding.Api.Controllers
             return Ok(item);
         }
 
-        //// PUT: api/bidding/5
-        //// PUT: api/v1/bidding/5
-        //[Route("bidding/{id}")]
-        //[Route("v{version:apiVersion}/bidding/{id}")]
+        // PUT: api/bidding/5
+        // PUT: api/v1/bidding/5
+        [Route("bidding")]
+        //[Route("v{version:apiVersion}/bidding")]
         //[Authorize(Roles = "Administrators")]
-        //public IHttpActionResult Put(int id, [FromBody] string value)
-        //{
-        //    return Ok();
-        //}
+        [AllowAnonymous]
+        public IHttpActionResult Put([FromBody]BiddingItem item)
+        {
+            var error = "";
+            if (item != null)
+            {
+                var ret = BiddingManager.UpdateItem(item);
+                if (ret.Success)
+                {
+                    return Ok(item);
+                }
+                else
+                {
+                    error = ret.Message;
+                }
+            }
+            return BadRequest(error);
+        }
 
         // DELETE: api/bidding/5
         // DELETE: api/v1/bidding/5
         [Route("bidding/{id}")]
-        [Route("v{version:apiVersion}/bidding/{id}")]
-        [Authorize]
+        //[Route("v{version:apiVersion}/bidding/{id}")]
+        //[Authorize]
+        [AllowAnonymous]
         public IHttpActionResult Delete(int id)
         {
             return Ok();
@@ -79,7 +94,7 @@ namespace Bidding.Api.Controllers
         // GET: api/action/item/5
         // GET: api/v1/bidding/5
         [Route("action/{id}")]
-        [Route("v{version:apiVersion}/action/{id}")]
+        //[Route("v{version:apiVersion}/action/{id}")]
         [AllowAnonymous]
         public IHttpActionResult Action(int id)
         {
@@ -89,7 +104,7 @@ namespace Bidding.Api.Controllers
         }
 
         [Route("action/item/{id}")]
-        [Route("v{version:apiVersion}/action/item/{id}")]
+        //[Route("v{version:apiVersion}/action/item/{id}")]
         [AllowAnonymous]
         public IHttpActionResult ActionsByItem(int id)
         {
@@ -98,7 +113,7 @@ namespace Bidding.Api.Controllers
         }
 
         [Route("action/user/{id}")]
-        [Route("v{version:apiVersion}/action/user/{id}")]
+        //[Route("v{version:apiVersion}/action/user/{id}")]
         [AllowAnonymous]
         public IHttpActionResult ActionsByUser(int id)
         {
@@ -107,7 +122,7 @@ namespace Bidding.Api.Controllers
         }
 
         [Route("action")]
-        [Route("v{version:apiVersion}/action")]
+        //[Route("v{version:apiVersion}/action")]
         //        [Authorize(Roles = "Administrators")]
         [AllowAnonymous]
         public IHttpActionResult PostAction([FromBody]BiddingAction action)
