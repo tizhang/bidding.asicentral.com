@@ -10,13 +10,30 @@
   function BiddingDetailsController($scope, $state, BiddingItem) {
     var vm = this;
     vm.item = null;
-    BiddingItem.get(2)
-      .then(
-      function (res) {
-        vm.item = res;
-      },
-      function (err) {
-        console.log(err);
-      });
+    vm.bid = bid;
+    vm.watch = watch;
+
+    init();
+    function init() {
+      BiddingItem.get(2)
+        .then(
+        function (res) {
+          vm.item = res;
+        },
+        function (err) {
+          console.log(err);
+        });
+    }
+
+    function bid(model) {
+      console.log('bid');
+      console.log(model);
+    }
+    
+
+    function watch(model) {
+      console.log('watch');
+      console.log(model);
+    }
   }
 })();
