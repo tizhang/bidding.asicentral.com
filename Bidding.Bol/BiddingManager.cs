@@ -63,15 +63,23 @@ namespace Bidding.Bol
 
         //}
         
-        public static List<BiddingItem> GetItems(string group = null, string status = null, bool includeFailedActions = true)
+        public static List<BiddingItem> GetItems(string group = "", string status = null, bool includeFailedActions = true)
         {
             List<Data.BiddingItem> bidItems = null;
+            List<string> statuses = status?.Split(',').ToList();
+            if (group == null) group = "";
             using (var context = new Data.BiddingContext())
             {
-                bidItems = context.BiddingItems
+                var query = context.BiddingItems
                          .Include("Setting")
                          .Include("Actions")
-                         .Where(i => (!string.IsNullOrEmpty(group)? i.Setting.GroupNames.Contains(group) : true) && (!string.IsNullOrEmpty(status) ? status == i.Status : true)).ToList();
+                         .Where(i => i.Setting.GroupNames.Contains(group));
+                if (statuses != null)
+                {
+                    query = query.Where(i => statuses.Contains(i.Status));
+                }
+
+                bidItems = query.ToList();
             }
             var items = bidItems.Select(i => Mapper.Map<BiddingItem>(i)).ToList();
             if (!includeFailedActions)
@@ -98,6 +106,7 @@ namespace Bidding.Bol
             }
             return item;
         }
+
         public static BiddingAction GetAction(int actionId)
         {
             Data.BiddingAction action = null;
@@ -167,6 +176,45 @@ namespace Bidding.Bol
                 item.Id = dItem.BiddingItemId;
                 item.Setting.Id = dItem.Setting.BiddingSettingId;
             }
+        }
+
+        private static void copyItem(Data.BiddingItem newOne, Data.BiddingItem oldOne)
+        {
+            oldOne.Description = newOne.Description;
+            oldOne.ImageUrl = newOne.ImageUrl;
+            oldOne.Name = newOne.Name;
+            oldOne.Status = newOne.Status;
+            Mapper.Map<Data.BiddingSetting, Data.BiddingSetting>(newOne.Setting, oldOne.Setting);
+        }
+
+        public static BiddingReturn UpdateItem(BiddingItem item)
+        {
+            BiddingReturn ret = new BiddingReturn()
+            {
+                Success = true
+            };
+            var newItem = Mapper.Map<Data.BiddingItem>(item);
+            using (var db = new Data.BiddingContext())
+            {
+                using (var dbContextTransaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var oldItem = db.BiddingItems.Find(item.Id);
+                        copyItem(newItem, oldItem);
+                        db.SaveChanges();
+                        dbContextTransaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContextTransaction.Rollback();
+                        throw ex;
+                    }
+                }
+                item.Id = newItem.BiddingItemId;
+                item.Setting.Id = newItem.Setting.BiddingSettingId;
+            }
+            return ret;
         }
 
         public static BiddingReturn AddAction(BiddingAction action)

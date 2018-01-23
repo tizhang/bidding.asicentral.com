@@ -14,6 +14,8 @@ namespace Bidding.Data
         {
             //disable initializer
             Database.SetInitializer<BiddingContext>(null);
+            Configuration.ProxyCreationEnabled = false;
+            Configuration.LazyLoadingEnabled = false;
         }
         public DbSet<BiddingItem> BiddingItems { get; set; }
         public DbSet<BiddingSetting> BiddingConfigs { get; set; }
