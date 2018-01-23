@@ -32,6 +32,7 @@ textarea {
     width: 100%;
     border: 1px solid lightgrey;
     border-radius: 3px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .item-card-img-container {
@@ -89,19 +90,28 @@ textarea {
 .item-card-price {
     font: 15px arial,verdana;
     color: darkgray;
-    width: 25%;
-    max-width: 25%;
-    text-align: left;
+    width: 20%;
+    max-width: 20%;
+    text-align: center;
     float: left;
 }
 
 .item-card-count {
     font: 15px arial,verdana;
     color: darkgray;
-    width: 25%;
-    max-width: 25%;
-    text-align: left;
+    width: 20%;
+    max-width: 20%;
+    text-align: center;
     float: left;
+}
+
+.item-card-countdown {
+    font: 15px arial,verdana;
+    color: black;
+    width: 58%;
+    max-width: 58%;
+    text-align: center;
+    float: right;
 }
 
 .black {

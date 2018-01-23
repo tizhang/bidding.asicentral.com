@@ -7,7 +7,9 @@
         </div>
     </div>
     <div class="item-card-text-line">
-        <div class="item-card-name">{{vm.model.Name}}</div>
+        <!--<div class="item-card-name">{{vm.model.Name}}</div>-->
+        <div ng-show="vm.model.Status=='ACTV'" class="item-card-countdown" countdown-to="vm.model.Settings.EndDate" title="Expiring on {{vm.model.Settings.EndDate}}"></div>
+        <div ng-show="vm.model.Status=='STAG'" class="item-card-countdown" countdown-to="vm.model.Settings.StartDate" title="Coming at {{vm.model.Settings.StartDate}}"></div>
         <div class="item-card-price"><i class="fa fa-usd" aria-hidden="true"></i><span class="black">&nbsp;{{vm.model.Price}}</span></div>
         <div class="item-card-count"><i class="fa fa-users" aria-hidden="true"></i><span class="black">&nbsp;{{vm.model.BidTimes}}</span></div>
     </div>

@@ -18,6 +18,15 @@
       BiddingItem.get(2)
         .then(
         function (res) {
+          res.Status = 'ACTV';
+          if (!res.Settings.EndDate) {
+            var d = new Date();
+            d.setUTCDate(d.getUTCDate() + 1);
+            d.setUTCHours(d.getUTCHours() + 2);
+            d.setUTCMinutes(d.getUTCMinutes() + 3);
+            d.setUTCSeconds(d.getUTCSeconds() + 4);
+            res.Settings.EndDate = d;
+          }
           vm.item = res;
         },
         function (err) {
