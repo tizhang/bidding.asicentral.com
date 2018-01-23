@@ -34,15 +34,15 @@ namespace Bidding.Api.Controllers
             return Ok(item);
         }
 
-        // PUT: api/bidding/5
-        // PUT: api/v1/bidding/5
-        [Route("bidding/{id}")]
-        [Route("v{version:apiVersion}/bidding/{id}")]
-        [Authorize(Roles = "Administrators")]
-        public IHttpActionResult Put(int id, [FromBody] string value)
-        {
-            return Ok();
-        }
+        //// PUT: api/bidding/5
+        //// PUT: api/v1/bidding/5
+        //[Route("bidding/{id}")]
+        //[Route("v{version:apiVersion}/bidding/{id}")]
+        //[Authorize(Roles = "Administrators")]
+        //public IHttpActionResult Put(int id, [FromBody] string value)
+        //{
+        //    return Ok();
+        //}
 
         // DELETE: api/bidding/5
         // DELETE: api/v1/bidding/5
@@ -90,11 +90,24 @@ namespace Bidding.Api.Controllers
         [AllowAnonymous]
         public IHttpActionResult PostAction([FromBody]BiddingAction action)
         {
-            if (action != null)
+            var error = "";
+            if (action != null && action.ItemId > 0)
             {
-                BiddingManager.AddAction(action);
+                var ret = BiddingManager.AddAction(action);
+                if (ret.Success)
+                {
+                    return Ok(action);
+                }
+                else
+                {
+                    error = ret.Message;
+                }
             }
-            return Ok(action);
+            else
+            {
+                error = "No bidding action or bidding item id is provided!";
+            }
+            return BadRequest(error);
         }
     }
 }

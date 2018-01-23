@@ -145,7 +145,7 @@ namespace Bidding.Bol
             }
         }
 
-        public static BiddingReturn AddAction(int itemId, BiddingAction action)
+        public static BiddingReturn AddAction(BiddingAction action)
         {
             BiddingReturn ret = new BiddingReturn()
             {
@@ -161,7 +161,7 @@ namespace Bidding.Bol
                         var item = db.BiddingItems
                                  .Include("Setting")
                                  .Include("Actions")
-                                 .FirstOrDefault(i => i.BiddingItemId == itemId);
+                                 .FirstOrDefault(i => i.BiddingItemId == action.ItemId);
                         if (item != null)
                         {
                             var setting = item.Setting;
@@ -222,11 +222,11 @@ namespace Bidding.Bol
                                 var myLastOne = item.Actions.Where(a => a.BidderId == dAction.BidderId).OrderBy(i => i.TimeStamp).LastOrDefault();
                                 if (myLastOne != null)
                                 {
-                                    if (setting.Type == Data.BiddingType.HighWin && myLastOne.Price >= (dAction.Price + setting.MinIncrement))
+                                    if (setting.Type == Data.BiddingType.HighWin && dAction.Price < (myLastOne.Price + setting.MinIncrement))
                                     {
                                         skipSave = true;
                                     }
-                                    else if (setting.Type == Data.BiddingType.LowWin && myLastOne.Price <= (dAction.Price - Math.Abs(setting.MinIncrement)))
+                                    else if (setting.Type == Data.BiddingType.LowWin && dAction.Price > (myLastOne.Price - Math.Abs(setting.MinIncrement)))
                                     {
                                         skipSave = true;
                                     }
@@ -259,32 +259,5 @@ namespace Bidding.Bol
             }
         }
 
-        public static void AddAction(BiddingAction action)
-        {
-            var dAction = Mapper.Map<Data.BiddingAction>(action);
-            using (var db = new Data.BiddingContext())
-            {
-                using (var dbContextTransaction = db.Database.BeginTransaction())
-                {
-                    try
-                    {
-                        var item = db.BiddingItems.Find(action.ItemId);
-                        if (item != null)
-                        {
-                            item.Actions.Add(dAction);
-                            db.SaveChanges();
-                            dbContextTransaction.Commit();
-
-                            action.Id = dAction.BiddingActionId;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        dbContextTransaction.Rollback();
-                        throw ex;
-                    }
-                }
-            }
-        }
     }
 }
