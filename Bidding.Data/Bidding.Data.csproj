@@ -52,6 +52,9 @@
     <Compile Include="BiddingSetting.cs" />
     <Compile Include="BiddingContext.cs" />
     <Compile Include="BiddingItem.cs" />
+    <Compile Include="Mappings\BiddingActionMap.cs" />
+    <Compile Include="Mappings\BiddingItemMap.cs" />
+    <Compile Include="Mappings\BiddingSettingMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

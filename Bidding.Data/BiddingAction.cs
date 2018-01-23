@@ -15,6 +15,8 @@ namespace Bidding.Data
             set;
         }
 
+        public long ItemId { get; set; }
+
         public DateTime TimeStamp
         {
             get;
@@ -51,5 +53,6 @@ namespace Bidding.Data
             set;
         }
 
+        public virtual BiddingItem Item { get; set; }
     }
 }
