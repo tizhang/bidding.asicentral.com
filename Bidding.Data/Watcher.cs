@@ -4,7 +4,7 @@ namespace Bidding.Data
 {
     public class Watcher
     {
-        public int WatcherId { get; set; }
+        public long WatcherId { get; set; }
         public long BiddingItemId { get; set; }
         public int UserId { get; set; }
         public bool IsActive { get; set; }

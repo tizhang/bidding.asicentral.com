@@ -208,6 +208,7 @@
     <Compile Include="Controllers\Diagnostics\HealthController.cs" />
     <Compile Include="Controllers\Diagnostics\MetricsController.cs" />
     <Compile Include="Controllers\BiddingController.cs" />
+    <Compile Include="Controllers\WatchController.cs" />
     <Compile Include="Filters\StatsActionFilter.cs" />
     <Compile Include="Models\ExecutionTimeRecord.cs" />
     <Compile Include="Services\ExceptionLogger.cs" />

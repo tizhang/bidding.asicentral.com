@@ -32,8 +32,6 @@ namespace Bidding.Data
                 .Add(new BiddingSettingMap())
                 .Add(new UserMap())
                 .Add(new WatcherMap());
-           ;
-
         }
     }
 }

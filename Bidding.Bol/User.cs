@@ -8,7 +8,7 @@ namespace Bidding.Bol
 {
     public class User
     {
-        public long Id
+        public int Id
         {
             get;
             set;
