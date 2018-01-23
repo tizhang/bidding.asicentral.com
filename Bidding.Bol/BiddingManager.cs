@@ -53,8 +53,30 @@ namespace Bidding.Bol
                 .ForMember(dest => dest.BidderId, opts => opts.MapFrom(src => src.Bidder != null ? src.Bidder.Id : 0))
                 .ForMember(dest => dest.BidderEmail, opts => opts.MapFrom(src => src.Bidder != null ? src.Bidder.Email : null));
 
-            });
+                cfg.CreateMap<Bol.User, Data.User>()
+                .ForMember(dest => dest.UserId, opts => opts.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Email, opts => opts.MapFrom(src => src.Email))
+                .ForMember(dest => dest.Groups, opts => opts.MapFrom(src => src.Groups));
 
+                cfg.CreateMap<Data.User, Bol.User>()
+                .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.UserId))
+                .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Email, opts => opts.MapFrom(src => src.Email))
+                .ForMember(dest => dest.Groups, opts => opts.MapFrom(src => src.Groups));
+
+                cfg.CreateMap<Bol.Watcher, Data.Watcher>()
+                .ForMember(dest => dest.WatcherId, opts => opts.MapFrom(src => src.WatcherId))
+                .ForMember(dest => dest.BiddingItemId, opts => opts.MapFrom(src => src.BiddingItem != null ? src.BiddingItem.Id : 0))
+                .ForMember(dest => dest.UserId, opts => opts.MapFrom(src => src.User != null ? src.User.Id : 0))
+                .ForMember(dest => dest.IsActive, opts => opts.MapFrom(src => src.IsActive));
+
+                cfg.CreateMap<Data.Watcher, Bol.Watcher>()
+               .ForMember(dest => dest.WatcherId, opts => opts.MapFrom(src => src.WatcherId))
+               .ForMember(dest => dest.BiddingItemId, opts => opts.MapFrom(src => src.BiddingItem != null ? src.BiddingItem.BiddingItemId : 0))
+               .ForMember(dest => dest.UserId, opts => opts.MapFrom(src => src.User != null ? src.User.UserId : 0))
+               .ForMember(dest => dest.IsActive, opts => opts.MapFrom(src => src.IsActive));
+            });
         }
 
         //public static CreateBidding()

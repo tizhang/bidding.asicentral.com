@@ -54,5 +54,6 @@ namespace Bidding.Data
         }
 
         public virtual BiddingItem Item { get; set; }
+        public virtual User User { get; set; }
     }
 }
