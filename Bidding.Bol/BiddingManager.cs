@@ -67,6 +67,7 @@ namespace Bidding.Bol
         {
             List<Data.BiddingItem> bidItems = null;
             List<string> statuses = status?.Split(',').ToList();
+            if (group == null) group = "";
             using (var context = new Data.BiddingContext())
             {
                 var query = context.BiddingItems
