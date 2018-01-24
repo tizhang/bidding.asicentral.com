@@ -47,6 +47,12 @@
     <LangVersion>7</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ASI.Contracts, Version=1.2.38.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ASI.Contracts.1.2.38\lib\ASI.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="ASI.EntityModel, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ASI.EntityModel.1.2.3\lib\ASI.EntityModel.dll</HintPath>
+    </Reference>
     <Reference Include="ASI.Services.Data.Sql, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ASI.Services.Data.Sql.1.0.3\lib\ASI.Services.Data.Sql.dll</HintPath>
     </Reference>
@@ -200,6 +206,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\ScheduleConfig.cs" />
     <Compile Include="App_Start\ServiceConfig.cs" />
     <Compile Include="App_Start\ExceptionsConfig.cs" />
     <Compile Include="App_Start\HealthCheckConfig.cs" />

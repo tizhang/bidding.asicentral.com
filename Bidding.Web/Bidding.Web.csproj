@@ -151,6 +151,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AngularPartialsBundle.cs" />
+    <Compile Include="Helpers\CookieHelper.cs" />
     <Compile Include="Helpers\PartialsTransform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
