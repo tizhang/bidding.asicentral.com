@@ -63,17 +63,20 @@ namespace Bidding.Bol
 
         //}
         
-        public static List<BiddingItem> GetItems(string group = "", string status = null, bool includeFailedActions = true)
+        public static List<BiddingItem> GetItems(string group = null, string status = null, bool includeFailedActions = true)
         {
             List<Data.BiddingItem> bidItems = null;
             List<string> statuses = status?.Split(',').ToList();
-            if (group == null) group = "";
             using (var context = new Data.BiddingContext())
             {
                 var query = context.BiddingItems
                          .Include("Setting")
                          .Include("Actions")
-                         .Where(i => i.Setting.GroupNames.Contains(group));
+                         .AsQueryable();
+                if (!string.IsNullOrEmpty(group))
+                {
+                    query = query.Where(i => i.Setting.GroupNames.Contains(group));
+                }
                 if (statuses != null)
                 {
                     query = query.Where(i => statuses.Contains(i.Status));
