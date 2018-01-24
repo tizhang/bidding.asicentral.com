@@ -74,11 +74,13 @@ namespace Bidding.Data
             set;
         }
 
+        public virtual User User { get; set; }
         public virtual List<BiddingAction> Actions
         {
             get;
             set;
         }
 
+        public virtual List<Watcher> Watchers { get; set; }
     }
 }

@@ -53,8 +53,30 @@ namespace Bidding.Bol
                 .ForMember(dest => dest.BidderId, opts => opts.MapFrom(src => src.Bidder != null ? src.Bidder.Id : 0))
                 .ForMember(dest => dest.BidderEmail, opts => opts.MapFrom(src => src.Bidder != null ? src.Bidder.Email : null));
 
-            });
+                cfg.CreateMap<Bol.User, Data.User>()
+                .ForMember(dest => dest.UserId, opts => opts.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Email, opts => opts.MapFrom(src => src.Email))
+                .ForMember(dest => dest.Groups, opts => opts.MapFrom(src => src.Groups));
 
+                cfg.CreateMap<Data.User, Bol.User>()
+                .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.UserId))
+                .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Email, opts => opts.MapFrom(src => src.Email))
+                .ForMember(dest => dest.Groups, opts => opts.MapFrom(src => src.Groups));
+
+               // cfg.CreateMap<Bol.Watcher, Data.Watcher>()
+               // .ForMember(dest => dest.WatcherId, opts => opts.MapFrom(src => src.WatcherId))
+               // .ForMember(dest => dest.BiddingItemId, opts => opts.MapFrom(src => src.BiddingItem != null ? src.BiddingItem.Id : 0))
+               // .ForMember(dest => dest.UserId, opts => opts.MapFrom(src => src.UserId))
+               // .ForMember(dest => dest.IsActive, opts => opts.MapFrom(src => src.IsActive));
+
+               // cfg.CreateMap<Data.Watcher, Bol.Watcher>()
+               //.ForMember(dest => dest.WatcherId, opts => opts.MapFrom(src => src.WatcherId))
+               //.ForMember(dest => dest.ItemId, opts => opts.MapFrom(src => src.BiddingItem != null ? src.BiddingItem.BiddingItemId : 0))
+               //.ForMember(dest => dest.UserId, opts => opts.MapFrom(src => src.UserId))
+               //.ForMember(dest => dest.IsActive, opts => opts.MapFrom(src => src.IsActive));
+            });
         }
 
         //public static CreateBidding()
@@ -333,6 +355,73 @@ namespace Bidding.Bol
                 return ret;
             }
         }
+
+        #region Watch list
+        public static List<Watcher> GetWatcher(int userId)
+        {
+            var watchList = new List<Watcher>();
+            try
+            {
+                using (var context = new Data.BiddingContext())
+                {
+                    var watchers = context.Watchers.Where(w => w.UserId == userId && w.IsActive );
+                    if( watchers != null && watchers.Count() > 0 )
+                    {
+                        foreach(var watcher in watchers)
+                        {
+                            watchList.Add(new Watcher() { WatcherId = watcher.WatcherId, ItemId = watcher.BiddingItemId, UserId = watcher.UserId, IsActive = watcher.IsActive});
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message;
+            }
+
+            return watchList;
+        }
+
+        public static Watcher AddWatcher(Watcher watcher)
+        {
+            using (var context = new Data.BiddingContext())
+            {
+                using (var dbContextTransaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var modelWatcher = context.Watchers.FirstOrDefault(w => w.UserId == watcher.UserId && w.BiddingItemId == watcher.ItemId);
+                        if (modelWatcher == null)
+                        {
+                            modelWatcher = new Data.Watcher()
+                            {
+                                BiddingItemId = watcher.ItemId,
+                                UserId = watcher.UserId,
+                                IsActive = watcher.IsActive,
+                                CreateDate = DateTime.Now,
+                                UpdateDate = DateTime.Now
+                            };
+                            context.Watchers.Add(modelWatcher);
+                        }
+                        else
+                        {
+                            modelWatcher.IsActive = watcher.IsActive;
+                        }
+
+                        context.SaveChanges();
+                        dbContextTransaction.Commit();
+                        watcher.WatcherId = modelWatcher.WatcherId;
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContextTransaction.Rollback();
+                    }
+                }
+            }
+
+            return watcher;
+       }
+       #endregion Watch List
 
     }
 }

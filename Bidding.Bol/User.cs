@@ -8,7 +8,7 @@ namespace Bidding.Bol
 {
     public class User
     {
-        public long Id
+        public int Id
         {
             get;
             set;
@@ -25,5 +25,11 @@ namespace Bidding.Bol
             get;
             set;
         }
+
+        public string Groups { get; set; }
+
+        public List<BiddingItem> PostedItems { get; set; }
+        public List<BiddingAction> BidActions { get; set; }
+        public List<Watcher> WatchItems { get; set; }
     }
 }

@@ -26,6 +26,11 @@ namespace Bidding.Data.Mappings
                             .WithMany(item => item.Actions)
                             .HasForeignKey( item => item.ItemId )
                             .WillCascadeOnDelete();
+
+            HasRequired(action => action.User)
+                .WithMany(user => user.BidActions)
+                .HasForeignKey(action => action.BidderId)
+                .WillCascadeOnDelete();
         }
     }
 }
