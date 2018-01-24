@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.Http;
 using ASI.Services.Messaging;
 using WebApi.StructureMap;
+using Bidding.Bol;
 
 namespace Bidding.Api
 {
@@ -25,6 +26,8 @@ namespace Bidding.Api
 
             // Enable stats and health checks
             GlobalConfiguration.Configure(StatsConfig.Register);
+
+            BiddingManager.Initialize();
         }
 
         protected void Application_End()

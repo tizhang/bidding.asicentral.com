@@ -18,9 +18,9 @@ namespace Bidding.Api.Controllers
         [Route("bidding")]
         //[Route("v{version:apiVersion}/bidding")]
         [AllowAnonymous]
-        public IHttpActionResult GetItems(string group=null, string status=null, bool includeSettings=false, bool includeHistory=false)
+        public IHttpActionResult GetItems(string group=null, string status=null, int? ownerId=null, int? bidderId=null, bool includeSettings=false, bool includeHistory=false)
         {
-            var items = BiddingManager.GetItems(group, status);
+            var items = BiddingManager.GetItems(group, status, ownerId, bidderId);
             if (!includeHistory)
              {
                 items.ForEach(i => i.History = null);
@@ -120,6 +120,40 @@ namespace Bidding.Api.Controllers
             var item = BiddingManager.GetActions(id, true);
             return Ok(item);
         }
+
+        [Route("notification/{userid}")]
+        //[Route("v{version:apiVersion}/action/user/{id}")]
+        [AllowAnonymous]
+        public IHttpActionResult GetNotificationByUser(int userid)
+        {
+            var items = BiddingManager.GetNotifications(userid);
+            return Ok(items);
+        }
+
+        [Route("watch")]
+        //[Route("v{version:apiVersion}/action")]
+        //        [Authorize(Roles = "Administrators")]
+        [AllowAnonymous]
+        public IHttpActionResult PostWatch([FromBody]Watcher watcher)
+        {
+            var ret = BiddingManager.AddOrUpdateWatcher(watcher);
+            if (ret.Success)
+            {
+                return Ok();
+            }
+            return BadRequest(ret.Message);
+        }
+
+        [Route("watch/{userid}")]
+        //[Route("v{version:apiVersion}/action")]
+        //        [Authorize(Roles = "Administrators")]
+        [AllowAnonymous]
+        public IHttpActionResult GetWatch(int userid)
+        {
+            var watchers = BiddingManager.GetWatchers(userid);
+            return Ok(watchers);
+        }
+
 
         [Route("action")]
         //[Route("v{version:apiVersion}/action")]

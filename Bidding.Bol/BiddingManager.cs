@@ -10,11 +10,6 @@ namespace Bidding.Bol
     public class BiddingManager
     {
 
-        static BiddingManager()
-        {
-            Initialize();
-        }
-
         public static void Initialize()
         {
 
@@ -22,13 +17,12 @@ namespace Bidding.Bol
             {
                 cfg.CreateMap<Data.BiddingItem, Bol.BiddingItem>()
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.BiddingItemId))
-                .ForMember(dest => dest.Owner, opts => opts.MapFrom(src => new User() { Id = src.OwnerId, Email = src.OwnerEmail }))
+                .ForMember(dest => dest.Owner, opts => opts.MapFrom(src => UserManager.GetUser(src.OwnerId)))
                 .ForMember(dest => dest.History, opts => opts.MapFrom(src => src.Actions));
 
                 cfg.CreateMap<Bol.BiddingItem, Data.BiddingItem>()
                 .ForMember(dest => dest.BiddingItemId, opts => opts.MapFrom(src => src.Id))
                 .ForMember(dest => dest.OwnerId, opts => opts.MapFrom(src => src.Owner != null ? src.Owner.Id : 0))
-                .ForMember(dest => dest.OwnerEmail, opts => opts.MapFrom(src => src.Owner != null ? src.Owner.Email : null))
                 .ForMember(dest => dest.Actions, opts => opts.MapFrom(src => src.History));
 
 
@@ -45,13 +39,32 @@ namespace Bidding.Bol
                 cfg.CreateMap<Data.BiddingAction, Bol.BiddingAction>()
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.BiddingActionId))
                 .ForMember(dest => dest.ActionTime, opts => opts.MapFrom(src => src.TimeStamp))
-                .ForMember(dest => dest.Bidder, opts => opts.MapFrom(src => new User() { Id = src.BidderId, Email = src.BidderEmail }));
+                .ForMember(dest => dest.Bidder, opts => opts.MapFrom(src => UserManager.GetUser(src.BidderId)));
 
                 cfg.CreateMap<Bol.BiddingAction, Data.BiddingAction>()
                 .ForMember(dest => dest.BiddingActionId, opts => opts.MapFrom(src => src.Id))
                 .ForMember(dest => dest.TimeStamp, opts => opts.MapFrom(src => src.ActionTime))
-                .ForMember(dest => dest.BidderId, opts => opts.MapFrom(src => src.Bidder != null ? src.Bidder.Id : 0))
-                .ForMember(dest => dest.BidderEmail, opts => opts.MapFrom(src => src.Bidder != null ? src.Bidder.Email : null));
+                .ForMember(dest => dest.BidderId, opts => opts.MapFrom(src => src.Bidder != null ? src.Bidder.Id : 0));
+
+                cfg.CreateMap<Data.User, Bol.User>()
+                .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.UserId))
+                .ForMember(dest => dest.Groups, opts => opts.MapFrom(src => !string.IsNullOrEmpty(src.Groups) ? src.Groups.Split(',').ToList() : null));
+
+                cfg.CreateMap<Bol.User, Data.User>()
+                .ForMember(dest => dest.UserId, opts => opts.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Groups, opts => opts.MapFrom(src => src.Groups != null ? string.Join(",", src.Groups) : null));
+
+                cfg.CreateMap<Data.Notification, Bol.Notification>()
+                .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.NotificationId));
+
+                cfg.CreateMap<Data.Watcher, Bol.Watcher>()
+                .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.WatcherId));
+
+                cfg.CreateMap<Bol.Watcher, Data.Watcher>()
+                .ForMember(dest => dest.WatcherId, opts => opts.MapFrom(src => src.Id))
+                .ForMember(dest => dest.CreateDate, opts => opts.Ignore())
+                .ForMember(dest => dest.UpdateDate, opts => opts.Ignore());
+
 
             });
 
@@ -63,7 +76,7 @@ namespace Bidding.Bol
 
         //}
         
-        public static List<BiddingItem> GetItems(string group = null, string status = null, bool includeFailedActions = true)
+        public static List<BiddingItem> GetItems(string group = null, string status = null, int? ownerId = null, int? bidderId = null, bool includeFailedActions = true)
         {
             List<Data.BiddingItem> bidItems = null;
             List<string> statuses = status?.Split(',').ToList();
@@ -80,6 +93,14 @@ namespace Bidding.Bol
                 if (statuses != null)
                 {
                     query = query.Where(i => statuses.Contains(i.Status));
+                }
+                if (ownerId.HasValue)
+                {
+                    query = query.Where(i => i.OwnerId == ownerId);
+                }
+                if (bidderId.HasValue)
+                {
+                    query = query.Where(i => i.Actions.Any(a => a.BidderId == bidderId));
                 }
 
                 bidItems = query.ToList();
@@ -227,6 +248,7 @@ namespace Bidding.Bol
                 Success = true
             }; 
             var dAction = Mapper.Map<Data.BiddingAction>(action);
+            var notificationMessage = "";
             using (var db = new Data.BiddingContext())
             {
                 using (var dbContextTransaction = db.Database.BeginTransaction())
@@ -271,22 +293,22 @@ namespace Bidding.Bol
                             else
                             {
                                 //check minimum price
-                                if (setting.AcceptPrice > 0)
+                                if (setting.StartPrice > 0)
                                 {
-                                    if (setting.Type == Data.BiddingType.HighWin && action.Price < setting.AcceptPrice)
+                                    if (setting.Type == Data.BiddingType.HighWin && action.Price < setting.StartPrice)
                                     {
                                         ret = new BiddingReturn()
                                         {
                                             Success = false,
-                                            Message = string.Format("Bidding price is lower than the minimum accepted price: {0}", setting.AcceptPrice)
+                                            Message = string.Format("Bidding price is lower than the minimum start price: {0}", setting.StartPrice)
                                         };
                                     }
-                                    else if (setting.Type == Data.BiddingType.LowWin && action.Price > setting.AcceptPrice)
+                                    else if (setting.Type == Data.BiddingType.LowWin && action.Price > setting.StartPrice)
                                     {
                                         ret = new BiddingReturn()
                                         {
                                             Success = false,
-                                            Message = string.Format("Bidding price is higher than the maximum accepted price: {0}", setting.AcceptPrice)
+                                            Message = string.Format("Bidding price is higher than the maximum start price: {0}", setting.StartPrice)
                                         };
                                     }
                                 }
@@ -317,6 +339,7 @@ namespace Bidding.Bol
                                 {
                                     item.Price = action.Price;
                                     item.BidTimes = item.Actions.Where(i => i.Status == BiddingAction.SuccessStatus).Count();
+                                    notificationMessage = string.Format("bidder {0} submitted new bid price {1} for {2}", action.Bidder.Name, action.Price, item.Name);
                                 }
                                 db.SaveChanges();
                                 dbContextTransaction.Commit();
@@ -330,9 +353,78 @@ namespace Bidding.Bol
                         throw ex;
                     }
                 }
+                if (ret.Success && !string.IsNullOrEmpty(notificationMessage))
+                {
+                    AddNotification(action.ItemId, notificationMessage);
+                }
                 return ret;
             }
         }
 
+        public static List<Watcher> GetWatchers(int userId)
+        {
+            List<Data.Watcher> watchers = null;
+            using (var db = new Data.BiddingContext())
+            {
+                watchers = db.Watchers.Where(w => w.UserId == userId && w.IsActive).ToList();
+            }
+            var items = watchers.Select(i => Mapper.Map<Watcher>(i)).ToList();
+            return items;
+        }
+
+        public static BiddingReturn AddOrUpdateWatcher(Watcher watcher)
+        {
+            BiddingReturn ret = new BiddingReturn()
+            {
+                Success = true
+            };
+            using (var db = new Data.BiddingContext())
+            {
+                var dwatcher = db.Watchers.FirstOrDefault(w => w.UserId == watcher.UserId && w.BiddingItemId == watcher.BiddingItemId);
+                if (dwatcher != null)
+                {
+                    dwatcher.IsActive = watcher.IsActive;
+                    dwatcher.UpdateDate = DateTime.Now;
+                }
+                else
+                {
+                    dwatcher = Mapper.Map<Data.Watcher>(watcher);
+                    dwatcher.CreateDate = DateTime.Now;
+                    db.Watchers.Add(dwatcher);
+                }
+                db.SaveChanges();
+            }
+            return ret;
+        }
+
+        public static BiddingReturn AddNotification(long itemId, string message, DateTime? eventTime = null)
+        {
+            BiddingReturn ret = new BiddingReturn()
+            {
+                Success = true
+            };
+            using (var db = new Data.BiddingContext())
+            {
+                var notification = new Data.Notification() { BiddingItemId = itemId, Message = message, CreateDate = DateTime.Now, EventTime = eventTime.HasValue ? eventTime.Value : DateTime.Now };
+                db.Notifications.Add(notification);
+                db.SaveChanges();
+            }
+            return ret;
+        }
+
+
+        public static List<Notification> GetNotifications(int userId)
+        {
+            List<Data.Notification> notifications = null;
+            using (var db = new Data.BiddingContext())
+            {
+                //find user's owned and participated and watched items
+                var itemIds = db.BiddingItems.Where(b => b.OwnerId == userId || b.Actions.Any(a => a.BidderId == userId)).Select(b => b.BiddingItemId).ToList();
+                itemIds.AddRange(db.Watchers.Where(w => w.UserId == userId && w.IsActive).Select(w => w.BiddingItemId));
+                notifications = db.Notifications.Where(n => (n.UserId.HasValue?n.UserId == userId:false || itemIds.Contains(n.BiddingItemId)) && n.EventTime <= DateTime.Now).ToList();
+            }
+            var items = notifications.Select(i => Mapper.Map<Notification>(i)).ToList();
+            return items;
+        }
     }
 }

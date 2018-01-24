@@ -1,35 +1,71 @@
-﻿<div class="container">
-    <div>Live List!</div>
-    <div class="row marginTop20">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="bg-info results-bar">
-                    <div class="results-count">
-                        <span>{{vm.totalCount}}</span> Results
-                    </div>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-bordered table-condensed checkboxheader" data-ng-table="vm.tableAllLive" data-show-filter="true">
-                        <tr data-ng-repeat="Bidding in $data">
-                            <td data-title="'Name'" data-sortable="'Name'" data-filter="{ 'Name': 'text' }">{{Bidding.Name}}</td>
-                            <td data-title="'Description'" data-sortable="'Description'" data-filter="{ 'Description': 'text' }">{{Bidding.Description}}</td>
-                            <td data-title="'Image Url'" data-sortable="'ImageUrl'" data-filter="{ 'ImageUrl': 'text' }">{{Bidding.ImageUrl}}</td>
-                            <td data-title="'Highest Bid'" data-sortable="'Price'" data-filter="{ 'Price': 'text' }">{{Bidding.Price}}</td>
-                            <td data-title="'Min. Next Bid Price'" data-sortable="'MinNextPrice'" data-filter="{ 'MinNextPrice': 'text' }">{{Bidding.MinNextPrice}}</td>
-                            <td data-title="'Time Left'" data-sortable="'TimeLeft'" data-filter="{ 'TimeLeft': 'text' }">{{Bidding.TimeLeft}}</td>
-                            <td data-title="'Expiration'" data-sortable="'Expiration'" data-filter="{ 'Expiration': 'text' }">{{Bidding.Expiration | date: 'dd MM yyyy'}}</td>
-                            <td width="100px" style="text-align: center" data-title="'Actions'" data-ng-click="$event.stopPropagation()">
-                                <a id="lnkSubmitBid" data-ng-click="vm.submitBid(bidItem)" class="nobr small">Submit bid</a>
-                                <a id="lnkAddWatch" data-ng-click="vm.addWatch(bidItem)" class="nobr small"</a>
-                            </td>
-                        </tr>
-                        <tr data-ng-hide="$data.length > 0">
-                            <td class="text-center" colspan="9">No Records Found</td>
-                        </tr>
-                    </table>
-                </div>
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6"><h4 class="gray">Underway Biddings</h4></div>
+        <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <div class="pull-right filters form-inline">
+                <label class="gray">Order By</label>
+                <select class="form-control input-sm" ng-options="option.code as option.name for option in vm.sortOptions['#activeGallery']" ng-model="vm.sortBy['#activeGallery']"></select>
+            </div>
+            <div class="pull-right filters form-inline">
+                <label class="gray">Group</label>
+                <select class="form-control input-sm" ng-options="option.code as option.name for option in vm.filterOptions['#activeGallery'].Groups" ng-model="vm.filterBy['#activeGallery'].Setting"></select>
+            </div>
+            <div class="pull-right filters form-inline">
+                <label class="gray">Type</label>
+                <select class="form-control input-sm" ng-options="option.code as option.name for option in vm.filterOptions['#activeGallery'].Types" ng-model="vm.filterBy['#activeGallery'].custom"></select>
             </div>
         </div>
     </div>
-    </div.
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="gallery" drag-drop-callback="vm.galleryDragMove('#activeGallery',x,t)">
+                <div id="activeGallery" class="gallery-scroll selection-group">
+                    <div ng-repeat="item in vm.activeItems | orderBy:vm.sortBy['#activeGallery'] | complexfilter:vm.filterBy['#activeGallery']" class="gallery-item">
+                        <bidding-item-card ng-model="item" bid-handler="vm.bid(model)" watch-handler="vm.watch(model)"></bidding-item-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="pull-right">
+                <button class="btn btn-sm" ng-click="vm.galleryMove('#activeGallery',false)" ng-disabled="vm.showFromIndex['#activeGallery']===0"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                <button class="btn btn-sm" ng-click="vm.galleryMove('#activeGallery',true)" ng-disabled="vm.showFromIndex['#activeGallery']===vm.maxIndex['#activeGallery']"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6"><h4 class="gray">Coming Soon...</h4></div>
+        <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <div class="pull-right filters form-inline">
+                <label class="gray">Order By</label>
+                <select class="form-control input-sm" ng-options="option.code as option.name for option in vm.sortOptions['#stagedGallery']" ng-model="vm.sortBy['#stagedGallery']"></select>
+            </div>
+            <div class="pull-right filters form-inline">
+                <label class="gray">Group</label>
+                <select class="form-control input-sm" ng-options="option.code as option.name for option in vm.filterOptions['#stagedGallery'].Groups" ng-model="vm.filterBy['#stagedGallery'].Setting"></select>
+            </div>
+            <div class="pull-right filters form-inline">
+                <label class="gray">Type</label>
+                <select class="form-control input-sm" ng-options="option.code as option.name for option in vm.filterOptions['#stagedGallery'].Types" ng-model="vm.filterBy['#stagedGallery'].custom"></select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="gallery" drag-drop-callback="vm.galleryDragMove('#stagedGallery',x,t)">
+                <div id="stagedGallery" class="gallery-scroll selection-group">
+                    <div ng-repeat="item in vm.stagedItems | orderBy:vm.sortBy['#stagedGallery'] | complexfilter:vm.filterBy['#stagedGallery']" class="gallery-item">
+                        <bidding-item-card ng-model="item" bid-handler="vm.bid(model)" watch-handler="vm.watch(model)"></bidding-item-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="pull-right">
+                <button class="btn btn-sm" ng-click="vm.galleryMove('#stagedGallery',false)" ng-disabled="vm.showFromIndex['#stagedGallery']===0"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                <button class="btn btn-sm" ng-click="vm.galleryMove('#stagedGallery',true)" ng-disabled="vm.showFromIndex['#stagedGallery']===vm.maxIndex['#stagedGallery']"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+            </div>
+        </div>
+    </div>
 </div>
+

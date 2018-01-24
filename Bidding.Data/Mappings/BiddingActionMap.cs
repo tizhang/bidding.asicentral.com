@@ -22,10 +22,10 @@ namespace Bidding.Data.Mappings
             Property(t => t.ItemId)
                             .HasColumnName("BiddingItem_BiddingItemId");
 
-            HasRequired(action => action.Item)
-                            .WithMany(item => item.Actions)
-                            .HasForeignKey( item => item.ItemId )
-                            .WillCascadeOnDelete();
+            //HasRequired(action => action.Item)
+            //                .WithMany(item => item.Actions)
+            //                .HasForeignKey( item => item.ItemId )
+            //                .WillCascadeOnDelete();
         }
     }
 }

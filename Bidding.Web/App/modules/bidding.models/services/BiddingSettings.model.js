@@ -28,7 +28,6 @@
     return model;
 
     function init(instance) {
-
     }
   }
 })();

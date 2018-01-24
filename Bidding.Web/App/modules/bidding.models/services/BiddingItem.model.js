@@ -11,7 +11,7 @@
     var model = $modelFactory('api/bidding', {
       pk: 'Id',
       map: {
-        Settings: BiddingSettings,
+        Setting: BiddingSettings,
         History: BiddingAction.List,
         Owner: User
       },
@@ -26,11 +26,15 @@
       },
       actions: {
         'base': {
-          interceptor: httpInterceptor
+          interceptor: httpInterceptor,
+          beforeRequest: function () {
+            beforeRequestCleanup(this.data);
+          },
         },
         'getByGroup': {
           method: 'GET',
-          url: '/group'
+          url: '/',
+          wrap: false
         }
       },
       instance: {
@@ -41,7 +45,11 @@
     return model;
 
     function init(instance) {
-      instance.Settings = new BiddingSettings(instance.Settings);
+      instance.Setting = new BiddingSettings(instance.Setting);
+    }
+
+    function beforeRequestCleanup(data) {
+      delete data.custom;
     }
   }
 })();
