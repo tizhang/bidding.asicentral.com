@@ -190,6 +190,10 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 20px;
 }
 
+.marginTop10 {
+    margin-top: 10px;
+}
+
 .results-bar {
     border-radius: 4px;
     border: 1px solid #c8dde7;
@@ -268,4 +272,19 @@ hr.hr-dashed {
 
 .table .table {
     margin-bottom: 0;
+}
+
+.notification-dropdown {
+    width: 500px;
+    left: -445px !important;
+}
+
+.notification-img {
+    opacity: 1;
+    display: block;
+    width: 10%;
+    height: 10%;
+    transition: .5s ease;
+    backface-visibility: hidden;
+    max-height: 10%;
 }
