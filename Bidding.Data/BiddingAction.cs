@@ -41,18 +41,11 @@ namespace Bidding.Data
             set;
         }
 
-        public string BidderEmail
-        {
-            get;
-            set;
-        }
-
         public string Status
         {
             get;
             set;
         }
 
-        public virtual BiddingItem Item { get; set; }
     }
 }

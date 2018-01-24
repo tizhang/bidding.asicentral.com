@@ -50,12 +50,6 @@ namespace Bidding.Data
             set;
         }
 
-        public string OwnerEmail
-        {
-            get;
-            set;
-        }
-
         public string Status
         {
             get;

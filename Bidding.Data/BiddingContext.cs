@@ -12,26 +12,31 @@ namespace Bidding.Data
     {
         public BiddingContext():base("name=BiddingContext")
         {
-            //disable initializer
-            Database.SetInitializer<BiddingContext>(null);
-            Configuration.ProxyCreationEnabled = false;
-            Configuration.LazyLoadingEnabled = false;
+            ////disable initializer
+            //Database.SetInitializer<BiddingContext>(null);
+            //Configuration.ProxyCreationEnabled = false;
+            //Configuration.LazyLoadingEnabled = false;
         }
         public DbSet<BiddingItem> BiddingItems { get; set; }
         public DbSet<BiddingSetting> BiddingConfigs { get; set; }
 
         public DbSet<BiddingAction> BiddingActions { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Watcher> Watchers { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<NotificationAck> NotificationAcks { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            Configuration.LazyLoadingEnabled = true;
-            modelBuilder.Configurations
-                .Add(new BiddingActionMap())
-                .Add(new BiddingItemMap())
-                .Add(new BiddingSettingMap());
-           ;
 
-        }
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
+        //    Configuration.LazyLoadingEnabled = true;
+        //    modelBuilder.Configurations
+        //        .Add(new BiddingActionMap())
+        //        .Add(new BiddingItemMap())
+        //        .Add(new BiddingSettingMap());
+        //   ;
+
+        //}
     }
 }

@@ -56,8 +56,11 @@
     <Compile Include="BiddingManager.cs" />
     <Compile Include="BiddingReturn.cs" />
     <Compile Include="BiddingSetting.cs" />
+    <Compile Include="Notification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="UserManager.cs" />
+    <Compile Include="Watcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bidding.Data\Bidding.Data.csproj">
