@@ -9,6 +9,7 @@ namespace Bidding.Bol
     public class Notification
     {
         public long Id { get; set; }
+        public string ImageUrl { get; set; }
         public long BiddingItemId { get; set; }
         public string Message { get; set; }
         public DateTime CreateDate { get; set; }
