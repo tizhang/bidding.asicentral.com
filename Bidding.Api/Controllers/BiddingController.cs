@@ -186,6 +186,7 @@ namespace Bidding.Api.Controllers
         #endregion notification & watch
 
         #region login/out
+        [HttpGet]
         [Route("login")]
         //[Route("v{version:apiVersion}/login")]
         //        [Authorize(Roles = "Administrators")]
