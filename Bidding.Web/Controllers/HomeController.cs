@@ -14,8 +14,7 @@ namespace Bidding.Web.Controllers
             var userId = CookieHelper.GetCookieValue(Request, Response, CookieHelper.COOKIE_USERID);
             if( string.IsNullOrEmpty(userId))
             {
-                string url = "~/Account/Login";
-                return new RedirectResult(url);
+                return new RedirectResult("~/Account/Login");
             }
 
             return View();
