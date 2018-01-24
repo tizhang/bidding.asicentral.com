@@ -440,5 +440,53 @@ namespace Bidding.Bol
             }
             return user;
         }
+
+        public static void ProcessStatusChange()
+        {
+            //STAGE => ACTIVE if start time is reached.
+            using (var db = new Data.BiddingContext())
+            {
+                //find all the items with STAGE status and start time is passed
+                var items = db.BiddingItems.Where(b => b.Status == BiddingItem.StagingStatus && b.Setting.StartDate <= DateTime.Now).ToList();
+                foreach (var item in items)
+                {
+                    item.Status = BiddingItem.ActiveStatus;
+                    var notification = new Data.Notification() { BiddingItemId = item.BiddingItemId, Message = string.Format("Item({0}) {1} is ready for bidding", item.BiddingItemId, item.Name), CreateDate = DateTime.Now, EventTime = DateTime.Now };
+                    db.Notifications.Add(notification);
+                }
+                //find all the items with ACTIVE status and end time is passed
+                items = db.BiddingItems.Where(b => b.Status == BiddingItem.ActiveStatus && b.Setting.EndDate <= DateTime.Now).ToList();
+                foreach (var item in items)
+                {
+                    string newStatus = BiddingItem.FailStatus;
+                    switch (item.Setting.Type)
+                    {
+                        case Data.BiddingType.HighWin:
+                            if (item.Price >= item.Setting.AcceptPrice)
+                                newStatus = BiddingItem.SuccessStatus;
+                            break;
+                        case Data.BiddingType.LowWin:
+                            if (item.Price > 0 && item.Price <= item.Setting.AcceptPrice)
+                                newStatus = BiddingItem.SuccessStatus;
+                            break;
+                    }
+
+                    item.Status = newStatus;
+                    string message = "";
+                    if (newStatus == BiddingItem.SuccessStatus)
+                    {
+                        message = string.Format("Item {0} has a winning bid of {1}", item.Name, item.Price);
+                    }
+                    else
+                    {
+                        message = string.Format("Bidding for item {0} failed because no bid met the owner's reserved price", item.Name);
+                    }
+                    var notification = new Data.Notification() { BiddingItemId = item.BiddingItemId, Message = string.Format("Item({0}) {1} is ready for bidding", item.BiddingItemId, item.Name), CreateDate = DateTime.Now, EventTime = DateTime.Now };
+                    db.Notifications.Add(notification);
+                }
+                db.SaveChanges();
+            }
+
+        }
     }
 }

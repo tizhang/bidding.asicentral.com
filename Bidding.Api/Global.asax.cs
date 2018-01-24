@@ -28,10 +28,13 @@ namespace Bidding.Api
             GlobalConfiguration.Configure(StatsConfig.Register);
 
             BiddingManager.Initialize();
+
+            ScheduleConfig.Setup();
         }
 
         protected void Application_End()
         {
+            ScheduleConfig.Cleanup();
             // Cleanup ESB connections
             PonyEsb.CloseAll();
         }
