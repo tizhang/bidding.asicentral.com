@@ -3,18 +3,18 @@
 
   angular
     .module('bidding')
-    .controller('BiddingHistoryController', BiddingHistoryController);
+    .controller('BiddingHistoryListController', BiddingHistoryListController);
 
-  BiddingHistoryController.$inject = ['$scope', '$state', '$filter', '$q', 'ngTableParams', 'BiddingItem'];
+  BiddingHistoryListController.$inject = ['$scope', '$state', '$filter', '$q', 'ngTableParams', 'BiddingItem'];
 
-  function BiddingHistoryController($scope, $state, $filter, $q, ngTableParams, BiddingItem) {
+  function BiddingHistoryListController($scope, $state, $filter, $q, ngTableParams, BiddingItem) {
     var vm = this;
     vm.historyListById = historyListById;
 
     init();
 
     function init() {
-      vm.tableMyHistory = new ngTableParams(
+      vm.tableMyHistoryList = new ngTableParams(
         //{ page: 1, count: 10, filter: $scope.filter_in_grid.filter, sorting: $scope.filter_in_grid.sorting },
         {
           page: 1,
@@ -22,14 +22,14 @@
         },
         {
           total: 0,
-          getData: getMyHistory
+          getData: getHistoryList
         }
       );
 
-      vm.tableMyHistory.reload();
+      vm.tableMyHistoryList.reload();
     };
 
-    function getMyHistory($defer, params) {
+    function getHistoryList($defer, params) {
       //vm.history = [
       //  { BiddingItemId: 1, Name: 'Pen', Description: 'Blue Pen', ImageUrl: '', BidTimes: 3, Price: 3, MinNextPrice: 4, TimeLeft: '1:10:20', Expiration: '1/26/2018', OwnerId: 1, OwnerEmail: 'tzhang@asicentral.com', Status: 'STAG'},
       //  { BiddingItemId: 2, Name: 'Mug', Description: 'Red Mug', ImageUrl: '', BidTimes: 3, Price: 5, MinNextPrice: 6, TimeLeft: '2:00:00', Expiration: '1/31/2018', OwnerId: 1, OwnerEmail: 'tzhang@asicentral.com', Status: 'STAG'},
@@ -44,28 +44,11 @@
 
 
       // TODO: replace bidderId to user id from Login
-      vm.UserId = 6;
-      BiddingItem.getByGroup({ group: '', bidderId: vm.UserId, includeSettings: true, includeHistory: true })
+      BiddingItem.getByGroup({ group: '', bidderId: 6, includeSettings: true, includeHistory: true })
         .then(
         function (resp) {
-          //vm.history = resp;
-
-          // only STAG/ACTV/SUCC/FAIL
-          vm.history = $filter('filter')(resp, function (status) {
-          return(resp.status != 'DRAF');
-          });
-
-          angular.forEach(vm.history, function (item) {
-            var histList = $filter('filter')(item.History, function (rec) {
-              return (rec.Bidder.Id == vm.UserId)
-            });
-
-              var bidderHistory = $filter('orderBy')(histList, 'Price');
-              bidderHistory.reverse();
-              item.MyLastBid = bidderHistory[0].Price;
-            });
-
-
+          vm.history = resp;
+          //vm.myItems = $filter('filter')(resp, { Status: "ACTV" });
           var data = params.sorting() ? $filter('orderBy')(vm.history, params.orderBy()) : vm.history;
           data = params.filter() ? $filter('filter')(data, params.filter()) : data;
           params.total(data.length);
@@ -80,7 +63,7 @@
     }
 
     function historyListById(itemId) {
-      //$state.go('bidding.history.list', { id: itemId });
+      $state.go('bidding.history.list', { id: itemId });
     }
 
     function submitBid(bidItem) {
