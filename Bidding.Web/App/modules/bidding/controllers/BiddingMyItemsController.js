@@ -55,7 +55,8 @@
     }
 
     function editItem(item) {
-
+      // edit mode
+      $state.go('bidding.details', { id: item.BiddingItemId });
     }
 
     function deleteItem(item) {
@@ -66,14 +67,21 @@
       };
       BootstrapDialog.confirmdirty(msgConfirm, function (result) {
         if (result) {
-          BiddingItem.delete(item.BiddingItemId)
-            .then(
-            function (res) {
-              var result = res;
+          var bid = new BiddingItem(item);
+          bid.$delete({ id: item.BiddingItemId },
+            function (response) {
             },
-            function (err) {
-              console.log(err);
+            function (error) {
             });
+
+          //BiddingItem.delete(item.BiddingItemId)
+          //  .then(
+          //  function (res) {
+          //    var result = res;
+          //  },
+          //  function (err) {
+          //    console.log(err);
+          //  });
 
         }
         else {
@@ -83,11 +91,12 @@
     }
 
     function sendEmail(item) {
-
+     
     }
 
     function viewItem(item) {
-
+      // view mode
+      $state.go('bidding.details', { id: item.BiddingItemId });
     }
     
   }
