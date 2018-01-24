@@ -1,0 +1,16 @@
+﻿<div class="item-card">
+    <div class="item-card-img-container" ng-mouseenter="vm.hover=true;" ng-mouseleave="vm.hover=false;">
+        <img src="{{vm.model.ImageUrl}}" err-src="Images/question_mark.png" class="item-card-img" />
+        <div class="item-card-img-hover btn-group">
+            <span ng-if="vm.hover&&vm.bidHandler" ng-click="vm.bidHandler({model:vm.model})" class="btn btn-sm btn-primary"><i class="fa fa-hand-paper-o" aria-hidden="true"></i>Bid</span>
+            <span ng-if="vm.hover&&vm.watchHandler" ng-click="vm.watchHandler({model:vm.model})" class="btn btn-sm btn-primary"><i class="fa fa-eye" aria-hidden="true"></i>Watch</span>
+        </div>
+    </div>
+    <div class="item-card-text-line">
+        <!--<div class="item-card-name">{{vm.model.Name}}</div>-->
+        <div ng-show="vm.model.Status=='ACTV'" class="item-card-countdown" countdown-to="vm.model.Setting.EndDate" title="Expiring on {{vm.model.Setting.EndDate}}"></div>
+        <div ng-show="vm.model.Status=='STAG'" class="item-card-countdown" countdown-to="vm.model.Setting.StartDate" title="Coming at {{vm.model.Setting.StartDate}}"></div>
+        <div class="item-card-price"><i class="fa fa-usd" aria-hidden="true"></i><span class="black" title="Current Price: {{vm.model.Price}}">&nbsp;{{vm.model.Price}}</span></div>
+        <div class="item-card-count"><i class="fa fa-users" aria-hidden="true"></i><span class="black" title="Bid Count: {{vm.model.BidTimes}}">&nbsp;{{vm.model.BidTimes}}</span></div>
+    </div>
+</div>

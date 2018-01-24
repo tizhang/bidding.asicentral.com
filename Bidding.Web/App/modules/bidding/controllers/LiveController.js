@@ -5,59 +5,128 @@
     .module('bidding')
     .controller('LiveController', LiveController);
 
-  LiveController.$inject = ['$scope', '$state', '$filter', '$q', 'ngTableParams'];
+  LiveController.$inject = ['$scope', '$state', '$filter', 'BiddingItem'];
 
-  function LiveController($scope, $state, $filter, $q, ngTableParams) {
+  function LiveController($scope, $state, $filter, BiddingItem) {
     var vm = this;
+    vm.activeItems = null;
+    vm.filterBy = {
+      '#activeGallery': {}, '#stagedGallery': {}
+    };
+    vm.filterOptions = { '#activeGallery': [], '#stagedGallery': [] };
+    vm.maxIndex = { '#activeGallery': 0, '#stagedGallery': 0 };
+    vm.showFromIndex = { '#activeGallery': 0, '#stagedGallery': 0 };
+    vm.sortBy = { '#activeGallery': '-CreateDate', '#stagedGallery': '-CreateDate' };
+    vm.sortOptions = { '#activeGallery': [], '#stagedGallery': [] };
+    vm.stagedItems = null;
+    vm.watchedIds = []; // TODO load
+    vm.biddedIds = []; // TODO load
 
-    vm.addWatch = addWatch;
-    vm.submitBid = submitBid;
+    vm.bid = bid;
+    vm.galleryDragMove = galleryDragMove;
+    vm.galleryMove = galleryMove;
+    vm.watch = watch;
+
+    vm.test = function () {
+      console.log(vm.filterBy['#activeGallery']);
+      console.log(vm.activeItems);
+    };
 
     init();
 
     function init() {
-      vm.tableAllLive = new ngTableParams(
-        //{ page: 1, count: 10, filter: $scope.filter_in_grid.filter, sorting: $scope.filter_in_grid.sorting },
-        {
-          page: 1,
-          count: 10
+      BiddingItem.getByGroup({ group: '', includeSettings: true, includeHistory: true })
+        .then(
+        function (resp) {
+          vm.activeItems = $filter('filter')(resp, { Status: "ACTV" });
+          vm.maxIndex['#activeGallery'] = vm.activeItems.length - 1;
+          generateSortFilterOptions('#activeGallery', vm.activeItems);
+          vm.stagedItems = $filter('filter')(resp, { Status: "STAG" });
+          vm.maxIndex['#stagedGallery'] = vm.stagedItems.length - 1;
+          generateSortFilterOptions('#stagedGallery', vm.stagedItems);
         },
-        {
-          total: 0,
-          getData: getAllLive
+        function (err) {
+          console.log(err);
+        });
+    }
+
+    function bid(model) {
+      console.log('bid');
+      console.log(model);
+    }
+
+
+    function watch(model) {
+      console.log('watch');
+      console.log(model);
+    }
+
+    function galleryMove(id, toRight) {
+      var str = angular.element(id).css('left');
+      var valueStr = str.substring(0, str.length - 2).trim();
+      var left = parseInt(valueStr);
+      if (toRight) {
+        left -= 220;
+        vm.showFromIndex[id]++;
+      } else {
+        left += 220;
+        vm.showFromIndex[id]--;
+      }
+      angular.element(id).css('left', left + 'px');
+    }
+
+    function galleryDragMove(id, distance, time) {
+      //var distance = dragResult.x;
+      //var id = '#' + dragResult.id;
+      //var time = dragResult.t;
+      var str = angular.element(id).css('left');
+      var valueStr = str.substring(0, str.length - 2).trim();
+      var left = parseInt(valueStr);
+      var step = Math.floor(distance * time / 50000);
+      left += 220 * step;
+      if (vm.showFromIndex[id] - step <= 0) {
+        left = 0;
+        vm.showFromIndex[id] = 0;
+      } else if (vm.showFromIndex[id] - step >= vm.maxIndex[id]) {
+        left = (- vm.maxIndex[id]) * 220;
+        vm.showFromIndex[id] = vm.maxIndex[id];
+      } else {
+        vm.showFromIndex[id] -= step;
+      }
+      angular.element(id).css('left', left + 'px');
+    }
+
+    function generateSortFilterOptions(id, items) {
+      var Groups = [{ name: 'All' }];
+      vm.filterOptions[id].Types = [{ name: 'All' }, { name: 'Bidded', code: { bidded: true } }, { name: 'Watching', code: { watched: true } }];
+      vm.sortOptions[id] = [
+        { name: 'Popularity', code: '+BidTimes' },
+        { name: 'Latest', code: '-CreateDate' },
+        { name: 'Start Date', code: '+Setting.StartDate' },
+        { name: 'End Date', code: '+Setting.EndDate' },
+        { name: 'Price', code: '+Price' }];
+      angular.forEach(items, function (value, index) {
+        if (value.Setting && value.Setting.Groups) {
+          angular.forEach(value.Setting.Groups, function (groupname, groupindex) {
+           Groups.push({ name: groupname, code: { Group: groupname } });
+          });
         }
-      );
-
-      vm.tableAllLive.reload();
+        items[index].custom = {};
+        items[index].custom.watched = vm.watchedIds.includes(value.Id);
+        items[index].custom.bidded = vm.biddedIds.includes(value.Id);
+        
+      });
+      vm.filterOptions[id].Groups = groupUnique(Groups);
+    }
+    function groupUnique(array){
+      var a = angular.copy(array);
+      for (var i = 0; i < a.length; ++i) {
+        for (var j = i + 1; j < a.length; ++j) {
+          if (a[i].name === a[j].name)
+            a.splice(j--, 1);
+        }
+      }
+      return a;
     };
-
-    function getAllLive($defer, params) {
-      vm.liveItems = [
-        { BiddingItemId: 1, Name: 'Pen', Description: 'Blue Pen', ImageUrl: '', BidTimes: 3, Price: 3, MinNextPrice: 4, TimeLeft: '1:10:20', Expiration: '1/26/2018', OwnerId: 1, OwnerEmail: 'tzhang@asicentral.com', Status: 'Live'},
-        { BiddingItemId: 2, Name: 'Mug', Description: 'Red Mug', ImageUrl: '', BidTimes: 3, Price: 5, MinNextPrice: 6, TimeLeft: '2:00:00', Expiration: '1/31/2018', OwnerId: 1, OwnerEmail: 'tzhang@asicentral.com', Status: 'Live'},
-        { BiddingItemId: 3, Name: 'T-Shirt', Description: 'White T-shirt', ImageUrl: '', BidTimes: 3, Price: 10, MinNextPrice: 11, TimeLeft: '3:00:00', Expiration: '1/31/2018', OwnerId: 1, OwnerEmail: 'tzhang@asicentral.com', Status: 'Live'}
-      ];
-
-      var data = params.sorting() ? $filter('orderBy')(vm.liveItems, params.orderBy()) : vm.liveItems;
-      data = params.filter() ? $filter('filter')(data, params.filter()) : data;
-      params.total(data.length);
-      vm.totalCount = data.length;
-      //vm.SelectedRows = data.slice((params.page() - 1) * params.count(), params.page() * params.count());
-      $defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-
-    }
-
-    function addWatch() {
-
-    }
-
-    function submitBid(bidItem) {
-      // add popup window to enter price
-
-      var action = new BiddingAction(bitItem);
-      action.$save().then(function (response) { },
-        function (error) { })
-    }
-
   }
 })();

@@ -23,6 +23,161 @@ textarea {
     max-width: 280px;
 }
 
-.nav-item {
-    cursor:pointer;
+h1, h2, h3, h4, h5, h6 {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
+
+.nav-item {
+    cursor: pointer;
+}
+
+.page-content {
+    width: 100%;
+    max-width: 1200px;
+    min-width: 200px;
+    margin: 0 auto;
+}
+
+.filters {
+    margin-top:20px;
+    margin-left:10px;
+}
+
+.input-sm {
+    height: 26px !important;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: 5px;
+}
+
+/*gallery related*/
+.gallery {
+    width: 100%;
+    min-width: 200px;
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.gallery-scroll {
+    position: relative;
+    display: inline-block;
+    transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out; /** Chrome & Safari **/
+    -moz-transition: all 0.5s ease-in-out; /** Firefox **/
+    -o-transition: all 0.5s ease-in-out; /** Opera **/
+}
+
+.gallery-item {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 200px;
+    height: auto;
+    display: inline-block;
+}
+
+.selection-group *{
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+/*item-card related*/
+.item-card {
+    width: 100%;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.item-card-img-container {
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid lightgrey;
+}
+
+.item-card-img {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+    max-height: 100%;
+}
+
+.item-card-img-hover {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.item-card-img-container:hover .item-card-img {
+    opacity: 0.3;
+}
+
+.item-card-img-container:hover .item-card-img-hover {
+    opacity: 1;
+}
+
+.item-card-text-line {
+    width: 100%;
+    height: auto;
+    min-height: 20px;
+    padding: 2px;
+}
+
+.item-card-name {
+    font: bold 15px arial,verdana;
+    color: black;
+    width: 50%;
+    max-width: 50%;
+    text-align: left;
+    float: left;
+    padding-left: 15px;
+}
+
+.item-card-price {
+    font: 15px arial,verdana;
+    color: darkgray;
+    width: 20%;
+    max-width: 20%;
+    text-align: center;
+    float: left;
+}
+
+.item-card-count {
+    font: 15px arial,verdana;
+    color: darkgray;
+    width: 20%;
+    max-width: 20%;
+    text-align: center;
+    float: left;
+}
+
+.item-card-countdown {
+    font: 15px arial,verdana;
+    color: black;
+    width: 58%;
+    max-width: 58%;
+    text-align: center;
+    float: right;
+}
+
+.black {
+    color: black;
+}
+
+.gray {
+    color: darkgray;
+}
+

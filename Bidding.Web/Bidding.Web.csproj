@@ -168,7 +168,14 @@
     <Content Include="App\modules\bidding\controllers\BiddingDetailsController.js" />
     <Content Include="App\modules\bidding\controllers\LiveController.js" />
     <Content Include="App\modules\bidding\controllers\MenuController.js" />
+    <Content Include="App\modules\bidding\directives\Countdown.directive.js" />
+    <Content Include="App\modules\bidding\directives\BiddingItemCard.directive.js" />
+    <Content Include="App\modules\bidding\directives\draggable.directive.js" />
+    <Content Include="App\modules\bidding\directives\ErrSrc.directive.js" />
+    <Content Include="App\modules\bidding\filters\complexfilter.filter.js" />
     <Content Include="App\modules\bidding\partials\biddingDetails.html" />
+    <Content Include="App\modules\bidding\partials\directives\countdown.html" />
+    <Content Include="App\modules\bidding\partials\directives\item-card.html" />
     <Content Include="App\modules\bidding\partials\live.html" />
     <Content Include="App\modules\bidding\partials\menu.html" />
     <Content Include="App\vendor\angular-model-factory.js" />
@@ -187,6 +194,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\question_mark.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -268,7 +276,6 @@
     <Content Include="Scripts\popper-utils.js.map" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\modules\bidding\directives\" />
     <Folder Include="App\modules\bidding\services\" />
     <Folder Include="App\modules\settings\" />
     <Folder Include="App_Data\" />
