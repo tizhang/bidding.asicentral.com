@@ -176,6 +176,7 @@
     <Content Include="App\modules\bidding\partials\live.html" />
     <Content Include="App\modules\bidding\partials\menu.html" />
     <Content Include="App\vendor\angular-model-factory.js" />
+    <Content Include="App\vendor\bootstrap-dialog.js" />
     <Content Include="App\vendor\ng-table-export.js" />
     <Content Include="App\vendor\ng-table-resizable-columns.js" />
     <Content Include="App\vendor\ng-table.js" />

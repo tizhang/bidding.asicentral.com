@@ -26,3 +26,92 @@ textarea {
 .nav-item {
     cursor:pointer;
 }
+
+.marginBottom20 {
+    margin-bottom: 20px;
+}
+
+.marginTop20 {
+    margin-top: 20px;
+}
+
+.results-bar {
+    border-radius: 4px;
+    border: 1px solid #c8dde7;
+    background: #eaf1f9;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.results-bar .results-count {
+    display: inline-block;
+    padding-right: 10px;
+}
+
+.results-bar .results-count span {
+    font-size: 18px;
+}
+
+.results-bar .results-group {
+    display: inline-block;
+    padding: 5px 10px;
+    border-left: 1px dashed #c3dbe4;
+    font-size: 12px;
+}
+
+hr.hr-dashed {
+    border-style: dashed;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.table.table-condensed th {
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.table > tbody > tr:hover {
+    background-color: #eaf1f9;
+    cursor: pointer;
+}
+
+.table .table.table-borderless {
+    background-color: transparent;
+}
+
+.table-responsive {
+    width: 100%;
+    margin-bottom: 15px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    border: 1px solid #ddd;
+    border-bottom: none;
+}
+
+.table-responsive > .table {
+    margin-bottom: 0;
+}
+
+.table-responsive > .table-bordered {
+    border: 0;
+}
+
+.table-responsive > .table-bordered > thead > tr > th:first-child, .table-responsive > .table-bordered > tbody > tr > th:first-child, .table-responsive > .table-bordered > tfoot > tr > th:first-child, .table-responsive > .table-bordered > thead > tr > td:first-child, .table-responsive > .table-bordered > tbody > tr > td:first-child, .table-responsive > .table-bordered > tfoot > tr > td:first-child {
+    border-left: 0;
+}
+
+.table-responsive > .table-bordered > thead > tr > th:last-child, .table-responsive > .table-bordered > tbody > tr > th:last-child, .table-responsive > .table-bordered > tfoot > tr > th:last-child, .table-responsive > .table-bordered > thead > tr > td:last-child, .table-responsive > .table-bordered > tbody > tr > td:last-child, .table-responsive > .table-bordered > tfoot > tr > td:last-child {
+    border-right: 0;
+}
+
+.table td.td-no-padding {
+    padding: 0px !important;
+    margin-top: -1px;
+}
+
+.table .table {
+    margin-bottom: 0;
+}
+
