@@ -426,5 +426,19 @@ namespace Bidding.Bol
             var items = notifications.Select(i => Mapper.Map<Notification>(i)).ToList();
             return items;
         }
+
+        public static User GetUser(string email, string password)
+        {
+            User user = null;
+            using (var db = new Data.BiddingContext())
+            {
+                var modelUser = db.Users.FirstOrDefault(u => u.Email.ToLower() == email.ToLower() && u.Password == password);
+                if( modelUser != null)
+                {
+                    user = Mapper.Map<User>(modelUser);
+                }
+            }
+            return user;
+        }
     }
 }

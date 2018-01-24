@@ -12,7 +12,7 @@ namespace Bidding.Api.Controllers
     [ApiVersion("1.0")]
     public class BiddingController : ApiController
     {
-
+        #region BiddingItem
         // GET: api/bidding/5
         // GET: api/v1/bidding/5
         [Route("bidding")]
@@ -90,7 +90,9 @@ namespace Bidding.Api.Controllers
         {
             return Ok();
         }
+        #endregion BiddingItem
 
+        #region action
         // GET: api/action/item/5
         // GET: api/v1/bidding/5
         [Route("action/{id}")]
@@ -121,6 +123,34 @@ namespace Bidding.Api.Controllers
             return Ok(item);
         }
 
+        [Route("action")]
+        //[Route("v{version:apiVersion}/action")]
+        //        [Authorize(Roles = "Administrators")]
+        [AllowAnonymous]
+        public IHttpActionResult PostAction([FromBody]BiddingAction action)
+        {
+            var error = "";
+            if (action != null && action.ItemId > 0)
+            {
+                var ret = BiddingManager.AddAction(action);
+                if (ret.Success)
+                {
+                    return Ok(action);
+                }
+                else
+                {
+                    error = ret.Message;
+                }
+            }
+            else
+            {
+                error = "No bidding action or bidding item id is provided!";
+            }
+            return BadRequest(error);
+        }
+        #endregion action
+
+        #region Notification & Watch
         [Route("notification/{userid}")]
         //[Route("v{version:apiVersion}/action/user/{id}")]
         [AllowAnonymous]
@@ -153,32 +183,18 @@ namespace Bidding.Api.Controllers
             var watchers = BiddingManager.GetWatchers(userid);
             return Ok(watchers);
         }
+        #endregion notification & watch
 
-
-        [Route("action")]
-        //[Route("v{version:apiVersion}/action")]
+        #region login/out
+        [Route("login")]
+        //[Route("v{version:apiVersion}/login")]
         //        [Authorize(Roles = "Administrators")]
         [AllowAnonymous]
-        public IHttpActionResult PostAction([FromBody]BiddingAction action)
+        public IHttpActionResult Login(string userName, string password)
         {
-            var error = "";
-            if (action != null && action.ItemId > 0)
-            {
-                var ret = BiddingManager.AddAction(action);
-                if (ret.Success)
-                {
-                    return Ok(action);
-                }
-                else
-                {
-                    error = ret.Message;
-                }
-            }
-            else
-            {
-                error = "No bidding action or bidding item id is provided!";
-            }
-            return BadRequest(error);
+            var user = BiddingManager.GetUser(userName, password);
+            return Ok(user);
         }
+        #endregion login/out
     }
 }
