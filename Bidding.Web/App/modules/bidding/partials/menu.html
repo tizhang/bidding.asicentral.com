@@ -1,11 +1,13 @@
-﻿<div class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Bidding Service</a>
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto">
-            <li ng-repeat="tab in vm.tabs" class="nav-item">
-                <a ng-click="vm.gotoTab(tab)" class="nav-link" ng-class="{'active':vm.currentTab.Code===tab.Code}">{{tab.Text}}</a>
-            </li>
-        </ul>
+﻿<div class="container">
+    <div class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Bidding Service</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li ng-repeat="tab in vm.tabs" class="nav-item">
+                    <a ng-click="vm.gotoTab(tab)" class="nav-link" ng-class="{'active':vm.currentTab.Code===tab.Code}">{{tab.Text}}</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 <!--<button ng-click="vm.test()">test</button>-->

@@ -1,0 +1,30 @@
+﻿<div class="container">
+    <div>My History!</div>
+    <div class="row marginTop20">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="bg-info results-bar">
+                    <div class="results-count">
+                        <span>{{vm.totalCount}}</span> Results
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-condensed checkboxheader" data-ng-table="vm.tableMyHistory" data-show-filter="true">
+                        <tr data-ng-repeat="Bidding in $data">
+                            <td data-title="'Name'" data-sortable="'Name'" data-filter="{ 'Name': 'text' }">{{Bidding.Name}}</td>
+                            <td data-title="'Description'" data-sortable="'Description'" data-filter="{ 'Description': 'text' }">{{Bidding.Description}}</td>
+                            <td data-title="'Image Url'" data-sortable="'ImageUrl'" data-filter="{ 'ImageUrl': 'text' }">{{Bidding.ImageUrl}}</td>
+                            <td data-title="'Highest Bid'" data-sortable="'Price'" data-filter="{ 'Price': 'text' }">{{Bidding.Price}}</td>
+                            <td data-title="'Expiration'" data-sortable="'Expiration'" data-filter="{ 'Expiration': 'text' }">{{Bidding.Expiration | date: 'dd MM yyyy'}}</td>
+                            <td data-title="'Status'" data-sortable="'Status'" data-filter="{ 'Status': 'text' }">{{Bidding.Status}}</td>
+                        </tr>
+                        <tr data-ng-hide="$data.length > 0">
+                            <td class="text-center" colspan="9">No Records Found</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div.
+</div>

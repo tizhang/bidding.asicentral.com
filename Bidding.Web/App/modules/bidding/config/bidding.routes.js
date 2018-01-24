@@ -46,10 +46,7 @@
         //}
       })
       .state('bidding.myitems', {
-        url: '/{id:int}',
-        params: {
-          id: { value: 0 }
-        },
+        url: '/myitems',
         views: {
           'content': {
             templateUrl: 'App/modules/bidding/partials/biddingMyItems.html',
@@ -62,13 +59,10 @@
         //}
       })
       .state('bidding.history', {
-        url: '/{id:int}',
-        params: {
-          id: { value: 0 }
-        },
+        url: '/history',
         views: {
           'content': {
-            templateUrl: 'App/modules/bidding/partials/biddinhistory.html',
+            templateUrl: 'App/modules/bidding/partials/biddingHistory.html',
             controller: 'BiddingHistoryController',
             controllerAs: 'vm',
           }
