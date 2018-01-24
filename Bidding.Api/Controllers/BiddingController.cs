@@ -190,9 +190,9 @@ namespace Bidding.Api.Controllers
         //[Route("v{version:apiVersion}/login")]
         //        [Authorize(Roles = "Administrators")]
         [AllowAnonymous]
-        public IHttpActionResult Login(string userName, string password)
+        public IHttpActionResult Login(string email, string password)
         {
-            var user = BiddingManager.GetUser(userName, password);
+            var user = BiddingManager.GetUser(email, password);
             return Ok(user);
         }
         #endregion login/out
