@@ -35,6 +35,16 @@
           method: 'GET',
           url: '/',
           wrap: false
+        },
+        'getMyItems': {
+          method: 'GET',
+          url: '/',
+          wrap: false
+        },
+        'getMyHistory': {
+          method: 'GET',
+          url: '/',
+          wrap: false
         }
       },
       instance: {
