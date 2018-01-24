@@ -62,7 +62,7 @@ namespace Bidding.Web.Helpers
             {
                 cookie = response.Cookies.Get(key);
             }
-            else if (request != null && request.Cookies != null && Array.IndexOf(response.Cookies.AllKeys, key) >= 0)
+            else if (request != null && request.Cookies != null && Array.IndexOf(request.Cookies.AllKeys, key) >= 0)
             {
                 cookie = request.Cookies.Get(key);
             }
