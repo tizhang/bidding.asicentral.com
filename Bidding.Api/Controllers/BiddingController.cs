@@ -47,7 +47,7 @@ namespace Bidding.Api.Controllers
         //[Route("v{version:apiVersion}/bidding")]
         //        [Authorize(Roles = "Administrators")]
         [AllowAnonymous]
-        public IHttpActionResult Post([FromBody]BiddingItem item)
+        public IHttpActionResult PostItem([FromBody]BiddingItem item)
         {
             if (item != null)
             {
@@ -62,7 +62,7 @@ namespace Bidding.Api.Controllers
         //[Route("v{version:apiVersion}/bidding")]
         //[Authorize(Roles = "Administrators")]
         [AllowAnonymous]
-        public IHttpActionResult Put([FromBody]BiddingItem item)
+        public IHttpActionResult PutItem([FromBody]BiddingItem item)
         {
             var error = "";
             if (item != null)
@@ -83,7 +83,7 @@ namespace Bidding.Api.Controllers
         // DELETE: api/bidding/5
         // DELETE: api/v1/bidding/5
         [Route("bidding/{id}")]
-        //[Route("v{version:apiVersion}/bidding/{id}")]
+        [Route("v{version:apiVersion}/bidding/{id}")]
         //[Authorize]
         [AllowAnonymous]
         public IHttpActionResult Delete(int id)
@@ -96,7 +96,7 @@ namespace Bidding.Api.Controllers
         [Route("action/{id}")]
         //[Route("v{version:apiVersion}/action/{id}")]
         [AllowAnonymous]
-        public IHttpActionResult Action(int id)
+        public IHttpActionResult GetAction(int id)
         {
             var item = BiddingManager.GetAction(id);
 
@@ -106,7 +106,7 @@ namespace Bidding.Api.Controllers
         [Route("action/item/{id}")]
         //[Route("v{version:apiVersion}/action/item/{id}")]
         [AllowAnonymous]
-        public IHttpActionResult ActionsByItem(int id)
+        public IHttpActionResult GetActionsByItem(int id)
         {
             var item = BiddingManager.GetActions(id, false);
             return Ok(item);
@@ -115,7 +115,7 @@ namespace Bidding.Api.Controllers
         [Route("action/user/{id}")]
         //[Route("v{version:apiVersion}/action/user/{id}")]
         [AllowAnonymous]
-        public IHttpActionResult ActionsByUser(int id)
+        public IHttpActionResult GetActionsByUser(int id)
         {
             var item = BiddingManager.GetActions(id, true);
             return Ok(item);
