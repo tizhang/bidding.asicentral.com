@@ -9,7 +9,7 @@
     return {
       restrict: 'A',
       scope: {
-        time: '=countdownTo',
+        originalTime: '=countdownTo',
         timeoutCallback: '='
       },
       controller: CountdownController,
@@ -25,12 +25,23 @@
   function CountdownController($rootScope, $scope, $interval) {
     var vm = this;
     // vm.time
+    vm.time = new Date(Date.parse(vm.originalTime));
     vm.countdown = '';
     vm.getCountDown = getCountDown;
     vm.pause = null;
     init();
 
     function init() {
+      $scope.$watch('vm.originalTime', function (newv, oldv) {
+        if (newv !== oldv) {
+          vm.time = new Date(Date.parse(newv));
+          //if (newv instanceof Date) {
+          //  vm.time = newv;
+          //} else {
+          //}
+        }
+      });
+      
       vm.pause = $interval(function () {
         vm.countdown = getCountDown();
       }, 1000);
@@ -39,8 +50,8 @@
       if (vm.time) {
         var millionseconds = vm.time.getTime() - new Date().getTime();
       }
-      if (millionseconds <= 0 && (timeoutCallback && {}.toString.call(timeoutCallback) === '[object Function]'))
-        timeoutCallback();
+      if (millionseconds <= 0 && (vm.timeoutCallback && {}.toString.call(vm.timeoutCallback) === '[object Function]'))
+        vm.timeoutCallback();
       return ms2dhms(millionseconds);
     }
 

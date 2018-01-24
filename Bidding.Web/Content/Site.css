@@ -23,8 +23,67 @@ textarea {
     max-width: 280px;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 .nav-item {
     cursor: pointer;
+}
+
+.page-content {
+    width: 100%;
+    max-width: 1200px;
+    min-width: 200px;
+    margin: 0 auto;
+}
+
+.filters {
+    margin-top:20px;
+    margin-left:10px;
+}
+
+.input-sm {
+    height: 26px !important;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: 5px;
+}
+
+/*gallery related*/
+.gallery {
+    width: 100%;
+    min-width: 200px;
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.gallery-scroll {
+    position: relative;
+    display: inline-block;
+    transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out; /** Chrome & Safari **/
+    -moz-transition: all 0.5s ease-in-out; /** Firefox **/
+    -o-transition: all 0.5s ease-in-out; /** Opera **/
+}
+
+.gallery-item {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 200px;
+    height: auto;
+    display: inline-block;
+}
+
+.selection-group *{
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 
 /*item-card related*/
@@ -117,3 +176,8 @@ textarea {
 .black {
     color: black;
 }
+
+.gray {
+    color: darkgray;
+}
+

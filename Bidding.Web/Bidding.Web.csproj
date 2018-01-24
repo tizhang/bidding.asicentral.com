@@ -170,7 +170,9 @@
     <Content Include="App\modules\bidding\controllers\MenuController.js" />
     <Content Include="App\modules\bidding\directives\Countdown.directive.js" />
     <Content Include="App\modules\bidding\directives\BiddingItemCard.directive.js" />
+    <Content Include="App\modules\bidding\directives\draggable.directive.js" />
     <Content Include="App\modules\bidding\directives\ErrSrc.directive.js" />
+    <Content Include="App\modules\bidding\filters\complexfilter.filter.js" />
     <Content Include="App\modules\bidding\partials\biddingDetails.html" />
     <Content Include="App\modules\bidding\partials\directives\countdown.html" />
     <Content Include="App\modules\bidding\partials\directives\item-card.html" />

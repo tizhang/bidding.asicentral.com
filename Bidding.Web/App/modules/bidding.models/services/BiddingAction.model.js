@@ -25,11 +25,13 @@
         },
         'getByItem': {
           method: 'GET',
-          url: '/item'
+          url: '/item',
+          wrap: false
         },
         'getByUser': {
           method: 'GET',
-          url: '/user'
+          url: '/user',
+          wrap: false
         }
       },
       instance: {
