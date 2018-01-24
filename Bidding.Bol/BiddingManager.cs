@@ -65,6 +65,11 @@ namespace Bidding.Bol
                 .ForMember(dest => dest.CreateDate, opts => opts.Ignore())
                 .ForMember(dest => dest.UpdateDate, opts => opts.Ignore());
 
+                cfg.CreateMap<Data.NotificationAck, Bol.NotificationAck>()
+                .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.NotificationAckId));
+
+                cfg.CreateMap<Bol.NotificationAck, Data.NotificationAck>()
+                .ForMember(dest => dest.NotificationAckId, opts => opts.MapFrom(src => src.Id));
 
             });
 
@@ -249,6 +254,7 @@ namespace Bidding.Bol
             }; 
             var dAction = Mapper.Map<Data.BiddingAction>(action);
             var notificationMessage = "";
+            var imageUrl = "";
             using (var db = new Data.BiddingContext())
             {
                 using (var dbContextTransaction = db.Database.BeginTransaction())
@@ -340,6 +346,7 @@ namespace Bidding.Bol
                                     item.Price = action.Price;
                                     item.BidTimes = item.Actions.Where(i => i.Status == BiddingAction.SuccessStatus).Count();
                                     notificationMessage = string.Format("bidder {0} submitted new bid price {1} for {2}", action.Bidder.Name, action.Price, item.Name);
+                                    imageUrl = item.ImageUrl;
                                 }
                                 db.SaveChanges();
                                 dbContextTransaction.Commit();
@@ -355,7 +362,7 @@ namespace Bidding.Bol
                 }
                 if (ret.Success && !string.IsNullOrEmpty(notificationMessage))
                 {
-                    AddNotification(action.ItemId, notificationMessage);
+                    AddNotification(action.ItemId, imageUrl, notificationMessage);
                 }
                 return ret;
             }
@@ -397,7 +404,18 @@ namespace Bidding.Bol
             return ret;
         }
 
-        public static BiddingReturn AddNotification(long itemId, string message, DateTime? eventTime = null)
+
+        public static NotificationAck GetNotificationAck(int userId)
+        {
+            Data.NotificationAck dack = null;
+            using (var db = new Data.BiddingContext())
+            {
+                dack = db.NotificationAcks.FirstOrDefault(n => n.UserId == userId);
+            }
+            return Mapper.Map<NotificationAck>(dack);
+        }
+
+        public static BiddingReturn AddOrUpdateNotificationAck(NotificationAck notificationAck)
         {
             BiddingReturn ret = new BiddingReturn()
             {
@@ -405,7 +423,30 @@ namespace Bidding.Bol
             };
             using (var db = new Data.BiddingContext())
             {
-                var notification = new Data.Notification() { BiddingItemId = itemId, Message = message, CreateDate = DateTime.Now, EventTime = eventTime.HasValue ? eventTime.Value : DateTime.Now };
+                var dack = db.NotificationAcks.FirstOrDefault(w => w.UserId == notificationAck.UserId);
+                if (dack != null)
+                {
+                    dack.LastAccessDate = notificationAck.LastAccessDate;
+                }
+                else
+                {
+                    dack = Mapper.Map<Data.NotificationAck>(notificationAck);
+                    db.NotificationAcks.Add(dack);
+                }
+                db.SaveChanges();
+            }
+            return ret;
+        }
+
+        public static BiddingReturn AddNotification(long itemId, string imageUrl, string message, DateTime? eventTime = null)
+        {
+            BiddingReturn ret = new BiddingReturn()
+            {
+                Success = true
+            };
+            using (var db = new Data.BiddingContext())
+            {
+                var notification = new Data.Notification() { BiddingItemId = itemId, ImageUrl = imageUrl, Message = message, CreateDate = DateTime.Now, EventTime = eventTime.HasValue ? eventTime.Value : DateTime.Now };
                 db.Notifications.Add(notification);
                 db.SaveChanges();
             }
@@ -418,10 +459,14 @@ namespace Bidding.Bol
             List<Data.Notification> notifications = null;
             using (var db = new Data.BiddingContext())
             {
+                var dack = db.NotificationAcks.FirstOrDefault(n => n.UserId == userId);
                 //find user's owned and participated and watched items
                 var itemIds = db.BiddingItems.Where(b => b.OwnerId == userId || b.Actions.Any(a => a.BidderId == userId)).Select(b => b.BiddingItemId).ToList();
                 itemIds.AddRange(db.Watchers.Where(w => w.UserId == userId && w.IsActive).Select(w => w.BiddingItemId));
-                notifications = db.Notifications.Where(n => (n.UserId.HasValue?n.UserId == userId:false || itemIds.Contains(n.BiddingItemId)) && n.EventTime <= DateTime.Now).ToList();
+                var query = db.Notifications.Where(n => (n.UserId.HasValue ? n.UserId == userId : false || itemIds.Contains(n.BiddingItemId)) && n.EventTime <= DateTime.Now);
+                if (dack != null)
+                    query = query.Where(n => n.EventTime >= dack.LastAccessDate);
+                notifications = query.ToList();
             }
             var items = notifications.Select(i => Mapper.Map<Notification>(i)).ToList();
             return items;
@@ -451,7 +496,7 @@ namespace Bidding.Bol
                 foreach (var item in items)
                 {
                     item.Status = BiddingItem.ActiveStatus;
-                    var notification = new Data.Notification() { BiddingItemId = item.BiddingItemId, Message = string.Format("Item({0}) {1} is ready for bidding", item.BiddingItemId, item.Name), CreateDate = DateTime.Now, EventTime = DateTime.Now };
+                    var notification = new Data.Notification() { BiddingItemId = item.BiddingItemId, ImageUrl = item.ImageUrl, Message = string.Format("Item({0}) {1} is ready for bidding", item.BiddingItemId, item.Name), CreateDate = DateTime.Now, EventTime = DateTime.Now };
                     db.Notifications.Add(notification);
                 }
                 //find all the items with ACTIVE status and end time is passed
@@ -481,7 +526,7 @@ namespace Bidding.Bol
                     {
                         message = string.Format("Bidding for item {0} failed because no bid met the owner's reserved price", item.Name);
                     }
-                    var notification = new Data.Notification() { BiddingItemId = item.BiddingItemId, Message = string.Format("Item({0}) {1} is ready for bidding", item.BiddingItemId, item.Name), CreateDate = DateTime.Now, EventTime = DateTime.Now };
+                    var notification = new Data.Notification() { BiddingItemId = item.BiddingItemId, ImageUrl = item.ImageUrl, Message = string.Format("Item({0}) {1} is ready for bidding", item.BiddingItemId, item.Name), CreateDate = DateTime.Now, EventTime = DateTime.Now };
                     db.Notifications.Add(notification);
                 }
                 db.SaveChanges();
