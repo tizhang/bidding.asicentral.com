@@ -35,18 +35,36 @@
     };
 
     function getMyItems($defer, params) {
-      vm.myItems = [
-        { BiddingItemId: 1, Name: 'Pen', Description: 'Blue Pen', ImageUrl: '', BidTimePerUser: 10, Price: 10, BiddingType: 'High Win', MinIncrement: 1, StartDate: '1/23/2018', EndDate: '2/10/2018', MinIncrement: 1, Status: 'ACTV'},
-        { BiddingItemId: 2, Name: 'Mug', Description: 'Red Mug', ImageUrl: '', BidTimePerUser: 10, Price: 15, BiddingType: 'Low Win', MinIncrement: 2, StartDate: '2/26/2018', EndDate: '2/28/2018', MinIncrement: 1, Status: 'DRAF'},
-        { BiddingItemId: 3, Name: 'T-Shirt', Description: 'White T-shirt', ImageUrl: '', BidTimePerUser: 10, Price: 10, BiddingType: 'High Win', MinIncrement: 3, StartDate: '1/28/2018', EndDate: '1/31/2018', MinIncrement: 1, Status: 'STAG'}
-      ];
+      // mock data
+      //vm.myItems = [
+      //  { BiddingItemId: 1, Name: 'Pen', Description: 'Blue Pen', ImageUrl: '', BidTimePerUser: 10, Price: 10, BiddingType: 'High Win', MinIncrement: 1, StartDate: '1/23/2018', EndDate: '2/10/2018', MinIncrement: 1, Status: 'ACTV'},
+      //  { BiddingItemId: 2, Name: 'Mug', Description: 'Red Mug', ImageUrl: '', BidTimePerUser: 10, Price: 15, BiddingType: 'Low Win', MinIncrement: 2, StartDate: '2/26/2018', EndDate: '2/28/2018', MinIncrement: 1, Status: 'DRAF'},
+      //  { BiddingItemId: 3, Name: 'T-Shirt', Description: 'White T-shirt', ImageUrl: '', BidTimePerUser: 10, Price: 10, BiddingType: 'High Win', MinIncrement: 3, StartDate: '1/28/2018', EndDate: '1/31/2018', MinIncrement: 1, Status: 'STAG'}
+      //];
+      //var data = params.sorting() ? $filter('orderBy')(vm.myItems, params.orderBy()) : vm.myItems;
+      //data = params.filter() ? $filter('filter')(data, params.filter()) : data;
+      //params.total(data.length);
+      //vm.totalCount = data.length;
+      //$defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
 
-      var data = params.sorting() ? $filter('orderBy')(vm.myItems, params.orderBy()) : vm.myItems;
-      data = params.filter() ? $filter('filter')(data, params.filter()) : data;
-      params.total(data.length);
-      vm.totalCount = data.length;
-      //vm.SelectedRows = data.slice((params.page() - 1) * params.count(), params.page() * params.count());
-      $defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+
+      // TODO: replace ownerId to user id from Login
+      BiddingItem.getByGroup({ group: '', ownerId: 2, includeSettings: true, includeHistory: true })
+        .then(
+        function (resp) {
+          vm.myItems = resp;
+          //vm.myItems = $filter('filter')(resp, { Status: "ACTV" });
+          var data = params.sorting() ? $filter('orderBy')(vm.myItems, params.orderBy()) : vm.myItems;
+          data = params.filter() ? $filter('filter')(data, params.filter()) : data;
+          params.total(data.length);
+          vm.totalCount = data.length;
+          //vm.SelectedRows = data.slice((params.page() - 1) * params.count(), params.page() * params.count());
+          $defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+        },
+        function (err) {
+          console.log(err);
+        });
+
 
     }
 
