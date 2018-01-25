@@ -23,7 +23,7 @@
 
   function watchBtnController($rootScope, $scope, myWatchList,$cookies) {
     var vm = this;
-    vm.watching = null;
+    vm.watching = false;
     vm.watch = watch;
     vm.unwatch = unwatch;
     init();

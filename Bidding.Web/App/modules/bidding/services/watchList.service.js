@@ -8,7 +8,7 @@
   myWatchList.$inject = ['Watcher'];
 
   function myWatchList(Watcher) {
-    var myWatchlist = null;
+    var myWatchlist = [];
     var userId = 0;
     return {
       iAm: iAm,
@@ -17,14 +17,14 @@
       unwatch: unwatch,
       list: myWatchlist
     };
-    function iAm(userid,callback) {
+    function iAm(userid, callback) {
       if (userid && userId != userid) {
         userId = userid;
         Watcher.getByUser({ userid: userId })
           .then(
           function (resp) {
             myWatchlist = resp;
-            if(callback)
+            if (callback)
               callback();
           },
           function () {
@@ -33,16 +33,19 @@
       }
     }
     function isWatching(itemId) {
-      return myWatchlist.includes(itemId);
+      return myWatchlist && myWatchlist.length && myWatchlist.includes(itemId);
     }
 
-    function watch(itemId,callback) {
-      if (!myWatchlist.includes(itemId)) {
+    function watch(itemId, callback) {
+      if (!isWatching(itemId)) {
         var watcher = new Watcher({ BiddingItemId: itemId, UserId: userId, IsActive: true });
         watcher.$save()
           .then(
           function () {
-            myWatchlist.push(itemId);
+            if (!myWatchlist || !myWatchlist.length)
+              myWatchlist = [itemId];
+            else
+              myWatchlist.push(itemId);
             if (callback)
               callback(true);
           },
@@ -58,7 +61,7 @@
     }
 
     function unwatch(itemId, callback) {
-      var index = myWatchlist.indexOf(itemId);
+      var index = myWatchlist && myWatchlist.length ? myWatchlist.indexOf(itemId) : -1;
       if (index >= 0) {
         var watcher = new Watcher({ BiddingItemId: itemId, UserId: userId, IsActive: false });
         watcher.$save()

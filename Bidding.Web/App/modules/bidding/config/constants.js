@@ -30,6 +30,15 @@
         resolve: {
           mode: function () { return 'view'; }
         }
+      },
+      viewItem: {
+        templateUrl: 'App/modules/bidding/partials/BidderItemDetail.html',
+        controller: 'MyItemDetailsController',
+        controllerAs: 'vm',
+        windowClass: 'modal-wide',
+        resolve: {
+          mode: function () { return 'view'; }
+        }
       }
     });
 

@@ -131,7 +131,7 @@
     };
 
     function view(model) {
-      modalFactory.open(model, modalOptions.viewMyItem);
+      modalFactory.open(model, modalOptions.viewItem);
     }
   }
 })();

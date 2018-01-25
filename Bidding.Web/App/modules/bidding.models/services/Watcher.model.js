@@ -27,11 +27,11 @@
           wrap: false,
           afterRequest: function (response) {
             var result = [];
-            angular.forEach(response, function (value, index) {
+            angular.forEach(response.data, function (value, index) {
               if (value.IsActive === true || value.IsActive === 'true')
                 result.push(value.BiddingItemId);
             });
-            return result;
+            response.data = result;
           }
         }
       },
