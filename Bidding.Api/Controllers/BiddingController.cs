@@ -136,7 +136,8 @@ namespace Bidding.Api.Controllers
                 var ret = BiddingManager.AddAction(action);
                 if (ret.Success)
                 {
-                    return Ok(action);
+                    var newAction = BiddingManager.GetAction(action.Id);
+                    return Ok(newAction);
                 }
                 else
                 {

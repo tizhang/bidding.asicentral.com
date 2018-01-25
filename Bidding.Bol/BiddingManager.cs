@@ -136,7 +136,7 @@ namespace Bidding.Bol
             return item;
         }
 
-        public static BiddingAction GetAction(int actionId)
+        public static BiddingAction GetAction(long actionId)
         {
             Data.BiddingAction action = null;
             using (var context = new Data.BiddingContext())
@@ -252,7 +252,9 @@ namespace Bidding.Bol
             BiddingReturn ret = new BiddingReturn()
             {
                 Success = true
-            }; 
+            };
+            if (action.ActionTime == DateTime.MinValue)
+                action.ActionTime = DateTime.Now;
             var dAction = Mapper.Map<Data.BiddingAction>(action);
             var notificationMessage = "";
             var imageUrl = "";
