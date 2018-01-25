@@ -21,7 +21,7 @@
             <div class="gallery" drag-drop-callback="vm.galleryDragMove('#activeGallery',x,t)">
                 <div id="activeGallery" class="gallery-scroll selection-group">
                     <div ng-repeat="item in vm.activeItems | orderBy:vm.sortBy['#activeGallery'] | complexfilter:vm.filterBy['#activeGallery']" class="gallery-item">
-                        <bidding-item-card ng-model="item" bid-handler="vm.bid(model)" watch-handler="vm.watch(model)"></bidding-item-card>
+                        <bidding-item-card ng-model="item" bid-handler="vm.bid(model)" watch-handler="vm.watch(model)" view-handler="vm.view(model)"></bidding-item-card>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,7 @@
             <div class="gallery" drag-drop-callback="vm.galleryDragMove('#stagedGallery',x,t)">
                 <div id="stagedGallery" class="gallery-scroll selection-group">
                     <div ng-repeat="item in vm.stagedItems | orderBy:vm.sortBy['#stagedGallery'] | complexfilter:vm.filterBy['#stagedGallery']" class="gallery-item">
-                        <bidding-item-card ng-model="item" bid-handler="vm.bid(model)" watch-handler="vm.watch(model)"></bidding-item-card>
+                        <bidding-item-card ng-model="item" bid-handler="vm.bid(model)" watch-handler="vm.watch(model)" view-handler="vm.view(model)"></bidding-item-card>
                     </div>
                 </div>
             </div>
