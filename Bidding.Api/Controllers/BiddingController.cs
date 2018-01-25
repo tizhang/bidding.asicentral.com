@@ -59,11 +59,12 @@ namespace Bidding.Api.Controllers
 
         // PUT: api/bidding/5
         // PUT: api/v1/bidding/5
-        [Route("bidding")]
+        [HttpPut]
+        [Route("bidding/{id}")]
         //[Route("v{version:apiVersion}/bidding")]
         //[Authorize(Roles = "Administrators")]
         [AllowAnonymous]
-        public IHttpActionResult PutItem([FromBody]BiddingItem item)
+        public IHttpActionResult PutItem(long id, [FromBody]BiddingItem item)
         {
             var error = "";
             if (item != null)

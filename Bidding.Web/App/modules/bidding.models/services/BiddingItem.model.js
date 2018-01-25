@@ -59,7 +59,11 @@
     }
 
     function beforeRequestCleanup(data) {
-      // data.Setting.beforeRequestCleanup();
+      if (data.Setting) {
+        if (!data.Setting.beforeRequestCleanup)
+          data.Setting = new Biddingsettings(data.Setting);
+        data.Setting.beforeRequestCleanup();
+      }
       delete data.custom;
     }
   }

@@ -35,7 +35,11 @@
     }
 
     function beforeRequestCleanup() {
+      if (this.StartDate)
+        this.StartDate = new Date(Date.parse(this.StartDate));
 
+      if (this.EndDate)
+        this.EndDate = new Date(Date.parse(this.EndDate));
     }
   }
 })();
