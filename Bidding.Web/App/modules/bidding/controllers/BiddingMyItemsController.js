@@ -5,9 +5,9 @@
     .module('bidding')
     .controller('BiddingMyItemsController', BiddingMyItemsController);
 
-  BiddingMyItemsController.$inject = ['$scope', '$state', '$filter', '$q', 'ngTableParams', 'BiddingItem'];
+  BiddingMyItemsController.$inject = ['$scope', '$state', '$filter', '$q', 'ngTableParams', 'BiddingItem', '$cookies', 'modalFactory', 'modalOptions'];
 
-  function BiddingMyItemsController($scope, $state, $filter, $q, ngTableParams, BiddingItem) {
+  function BiddingMyItemsController($scope, $state, $filter, $q, ngTableParams, BiddingItem, $cookies, modalFactory, modalOptions) {
     var vm = this;
 
     vm.addItem = addItem;
@@ -19,6 +19,8 @@
     init();
 
     function init() {
+      vm.UserId = $cookies.get('UserID');
+
       vm.tableMyItems = new ngTableParams(
         //{ page: 1, count: 10, filter: $scope.filter_in_grid.filter, sorting: $scope.filter_in_grid.sorting },
         {
@@ -48,12 +50,15 @@
       //$defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
 
 
-      // TODO: replace ownerId to user id from Login
-      BiddingItem.getByGroup({ group: '', ownerId: 2, includeSettings: true, includeHistory: true })
+      BiddingItem.getByGroup({ group: '', ownerId: vm.UserId, includeSettings: true, includeHistory: true })
         .then(
         function (resp) {
           vm.myItems = resp;
           //vm.myItems = $filter('filter')(resp, { Status: "ACTV" });
+          angular.forEach(vm.myItems, function (item) {
+            item.BiddingType = item.Setting.MinIncrement > 0 ? 'High Win' : 'Low Win';
+          });
+
           var data = params.sorting() ? $filter('orderBy')(vm.myItems, params.orderBy()) : vm.myItems;
           data = params.filter() ? $filter('filter')(data, params.filter()) : data;
           params.total(data.length);
@@ -69,12 +74,13 @@
     }
 
     function addItem() {
-
+      var item = new BiddingItem();
+      modalFactory.open(item, modalOptions.addItem);
     }
 
     function editItem(item) {
       // edit mode
-      $state.go('bidding.details', { id: item.BiddingItemId });
+      modalFactory.open(item, modalOptions.editItem);
     }
 
     function deleteItem(item) {
@@ -109,13 +115,13 @@
     }
 
     function sendEmail(item) {
-     
+
     }
 
     function viewItem(item) {
       // view mode
-      $state.go('bidding.details', { id: item.BiddingItemId });
+      modalFactory.open(item, modalOptions.viewMyItem);
     }
-    
+
   }
 })();

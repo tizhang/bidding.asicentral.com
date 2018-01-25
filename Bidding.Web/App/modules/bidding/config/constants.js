@@ -5,8 +5,8 @@
     .module('bidding')
     .constant('modalOptions', {
       addItem: {
-        templateUrl: 'App/modules/bidding/partials/MyBiddingItem.html',
-        controller: 'BiddingDetailsController',
+        templateUrl: 'App/modules/bidding/partials/MyItemDetail.html',
+        controller: 'MyItemDetailsController',
         controllerAs: 'vm',
         windowClass: 'modal-wide',
         resolve: {
@@ -14,8 +14,8 @@
         }
       },
       editItem: {
-        templateUrl: 'App/modules/bidding/partials/MyBiddingItem.html',
-        controller: 'BiddingDetailsController',
+        templateUrl: 'App/modules/bidding/partials/MyItemDetail.html',
+        controller: 'MyItemDetailsController',
         controllerAs: 'vm',
         windowClass: 'modal-wide',
         resolve: {
@@ -23,8 +23,17 @@
         }
       },
       viewMyItem: {
-        templateUrl: 'App/modules/bidding/partials/MyBiddingItem.html',
-        controller: 'BiddingDetailsController',
+        templateUrl: 'App/modules/bidding/partials/MyItemDetail.html',
+        controller: 'MyItemDetailsController',
+        controllerAs: 'vm',
+        windowClass: 'modal-wide',
+        resolve: {
+          mode: function () { return 'view'; }
+        }
+      },
+      viewItem: {
+        templateUrl: 'App/modules/bidding/partials/BidderItemDetail.html',
+        controller: 'MyItemDetailsController',
         controllerAs: 'vm',
         windowClass: 'modal-wide',
         resolve: {

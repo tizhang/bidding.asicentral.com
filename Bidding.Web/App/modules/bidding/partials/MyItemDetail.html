@@ -5,7 +5,7 @@
         <h4 ng-if="vm.mode=='edit'">Edit Bid</h4>
     </div>
     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6" ng-if="vm.tabs.length>1">
-        <select ng-options="tab as tab in vm.tabs" ng-model="vm.tab"></select>
+        <select class="pull-right marginTop20 form-control" ng-options="tab as tab for tab in vm.tabs" ng-model="vm.tab"></select>
     </div>
 </div>
 <div class="modal-body">
@@ -13,6 +13,7 @@
     <div ng-if="vm.tab=='history'" ng-include="'App/modules/bidding/partials/forms/actionList.html'"></div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary pull-left" ng-click="vm.save()">Create</button>
-    <button class="btn btn-default pull-left" ng-click="vm.close()">Cancel</button>
+    <button ng-if="vm.tab!='history'&&vm.mode=='add'" class="btn btn-primary pull-left" ng-click="vm.save()">Create</button>
+    <button ng-if="vm.tab!='history'&&vm.mode=='edit'" class="btn btn-primary pull-left" ng-click="vm.save()">Save</button>
+    <button class="btn btn-secondary pull-left" ng-click="vm.close()">Close</button>
 </div>

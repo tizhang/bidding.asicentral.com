@@ -6,9 +6,12 @@
                 <strong>{{vm.model.Name}}</strong>
             </div>
             <div class="item-card-img-hover-btm">
-                <span ng-if="vm.hover&&vm.bidHandler&&vm.model.Status=='ACTV'" ng-click="vm.bidHandler({model:vm.model})" class="btn btn-sm btn-primary"><i class="fa fa-hand-paper-o" aria-hidden="true"></i>Bid</span>
-                <span ng-if="vm.hover&&vm.watchHandler&&(vm.model.Status=='ACTV'||vm.model.Status=='STAG')" ng-click="vm.watchHandler({model:vm.model})" class="btn btn-sm btn-primary"><i class="fa fa-eye" aria-hidden="true"></i>Watch</span>
                 <span ng-if="vm.hover&&vm.viewHandler" ng-click="vm.viewHandler({model:vm.model})" class="btn btn-sm btn-primary"><i class="fa fa-bars" aria-hidden="true"></i>Detail</span>
+                <span ng-show="vm.hover&&vm.watchHandler&&(vm.model.Status=='ACTV'||vm.model.Status=='STAG')" watch-btn="vm.model"></span>
+                <span ng-show="vm.hover&&vm.bidHandler&&vm.model.Status=='ACTV'" bid-btn="vm.model"></span>
+                <!--<span ng-if="vm.hover&&vm.bidHandler&&vm.model.Status=='ACTV'" ng-click="vm.bidHandler({model:vm.model})" class="btn btn-sm btn-primary"><i class="fa fa-hand-paper-o" aria-hidden="true"></i>Bid</span>
+    <span ng-if="vm.hover&&vm.watchHandler&&(vm.model.Status=='ACTV'||vm.model.Status=='STAG')" ng-click="vm.watchHandler({model:vm.model})" class="btn btn-sm btn-primary"><i class="fa fa-eye" aria-hidden="true"></i>Watch</span>-->
+
             </div>
         </div>
     </div>
@@ -17,6 +20,6 @@
         <div ng-show="vm.model.Status=='ACTV'" class="item-card-countdown" countdown-to="vm.model.Setting.EndDate" title="Expiring on {{vm.model.Setting.EndDate}}"></div>
         <div ng-show="vm.model.Status=='STAG'" class="item-card-countdown" countdown-to="vm.model.Setting.StartDate" title="Coming at {{vm.model.Setting.StartDate}}"></div>
         <div class="item-card-price"><i class="fa fa-usd" aria-hidden="true"></i><span class="black" title="Current Price: {{vm.model.Price}}">&nbsp;{{vm.model.Price}}</span></div>
-        <div class="item-card-count"><i class="fa fa-users" aria-hidden="true"></i><span class="black" title="Bid Count: {{vm.model.BidTimes}}">&nbsp;{{vm.model.BidTimes}}</span></div>
+        <div ng-show="vm.model.Setting.CanSeeCurrentPrice" class="item-card-count"><i class="fa fa-users" aria-hidden="true"></i><span class="black" title="Bid Count: {{vm.model.BidTimes}}">&nbsp;{{vm.model.BidTimes}}</span></div>
     </div>
 </div>

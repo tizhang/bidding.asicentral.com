@@ -191,6 +191,7 @@ namespace Bidding.Bol
                 {
                     try
                     {
+                        dItem.CreateDate = DateTime.Now;
                         db.BiddingItems.Add(dItem);
                         db.SaveChanges();
                         dbContextTransaction.Commit();
@@ -274,7 +275,7 @@ namespace Bidding.Bol
                                 if (setting.Type == Data.BiddingType.HighWin)
                                 {
                                     var nextPrice = lastAction.Price + setting.MinIncrement;
-                                    if (action.Price <= nextPrice)
+                                    if (action.Price < nextPrice)
                                     {
                                         ret = new BiddingReturn()
                                         {
@@ -286,7 +287,7 @@ namespace Bidding.Bol
                                 else
                                 {
                                     var nextPrice = lastAction.Price - Math.Abs(setting.MinIncrement);
-                                    if (action.Price >= nextPrice)
+                                    if (action.Price > nextPrice)
                                     {
                                         ret = new BiddingReturn()
                                         {
