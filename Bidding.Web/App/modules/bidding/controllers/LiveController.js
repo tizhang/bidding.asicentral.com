@@ -5,9 +5,9 @@
     .module('bidding')
     .controller('LiveController', LiveController);
 
-  LiveController.$inject = ['$scope', '$state', '$filter', 'BiddingItem','$cookies'];
+  LiveController.$inject = ['$scope', '$state', '$filter', 'BiddingItem', 'modalFactory', 'modalOptions'];
 
-  function LiveController($scope, $state, $filter, BiddingItem, $cookies) {
+  function LiveController($scope, $state, $filter, BiddingItem, modalFactory, modalOptions) {
     var vm = this;
     vm.activeItems = null;
     vm.filterBy = {
@@ -25,10 +25,11 @@
     vm.bid = bid;
     vm.galleryDragMove = galleryDragMove;
     vm.galleryMove = galleryMove;
+    vm.view = view;
     vm.watch = watch;
 
     vm.test = function () {
-        console.log($cookies.get('UserID'));
+      console.log(vm.filterBy['#activeGallery']);
       console.log(vm.activeItems);
     };
 
@@ -39,10 +40,10 @@
         .then(
         function (resp) {
           vm.activeItems = $filter('filter')(resp, { Status: "ACTV" });
-          vm.maxIndex['#activeGallery'] = vm.activeItems.length - 1;
+          vm.maxIndex['#activeGallery'] = vm.activeItems.length ? vm.activeItems.length - 1 : 0;
           generateSortFilterOptions('#activeGallery', vm.activeItems);
           vm.stagedItems = $filter('filter')(resp, { Status: "STAG" });
-          vm.maxIndex['#stagedGallery'] = vm.stagedItems.length - 1;
+          vm.maxIndex['#stagedGallery'] = vm.stagedItems.length ? vm.stagedItems.length - 1 : 0;
           generateSortFilterOptions('#stagedGallery', vm.stagedItems);
         },
         function (err) {
@@ -108,17 +109,17 @@
       angular.forEach(items, function (value, index) {
         if (value.Setting && value.Setting.Groups) {
           angular.forEach(value.Setting.Groups, function (groupname, groupindex) {
-           Groups.push({ name: groupname, code: { Group: groupname } });
+            Groups.push({ name: groupname, code: { Group: groupname } });
           });
         }
         items[index].custom = {};
         items[index].custom.watched = vm.watchedIds.includes(value.Id);
         items[index].custom.bidded = vm.biddedIds.includes(value.Id);
-        
+
       });
       vm.filterOptions[id].Groups = groupUnique(Groups);
     }
-    function groupUnique(array){
+    function groupUnique(array) {
       var a = angular.copy(array);
       for (var i = 0; i < a.length; ++i) {
         for (var j = i + 1; j < a.length; ++j) {
@@ -128,5 +129,9 @@
       }
       return a;
     };
+
+    function view(model) {
+      modalFactory.open(model, modalOptions.addItem);
+    }
   }
 })();

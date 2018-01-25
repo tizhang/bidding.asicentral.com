@@ -51,6 +51,26 @@ h1, h2, h3, h4, h5, h6 {
     margin-left: 5px;
 }
 
+.modal.in .modal-dialog {
+    -webkit-transform: translate(0,0);
+    -ms-transform: translate(0,0);
+    -o-transform: translate(0,0);
+    transform: translate(0,0);
+}
+.modal.modal-wide .modal-dialog {
+    width: 80% !important;
+    max-width: 80% !important;
+    min-width: 200px !important;
+}
+.fade.in {
+    opacity: 1;
+}
+
+.modal-backdrop.in {
+    filter: alpha(opacity=50);
+    opacity: .5;
+}
+
 /*gallery related*/
 .gallery {
     width: 100%;
@@ -114,11 +134,34 @@ h1, h2, h3, h4, h5, h6 {
     transition: .5s ease;
     opacity: 0;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.item-card-img-hover-btm {
+    position: absolute;
+    top: 100%;
+    left: 100%;
+    transform: translate(-100%, -100%);
+    -ms-transform: translate(-100%, -100%);
+    -moz-transform: translate(-100%, -100%);
+    -webkit-transform: translate(-100%, -100%);
+    -o-transform: translate(-100%, -100%);
     text-align: center;
+}
+
+.item-card-img-hover-top {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    transform: translate(50%, 50%);
+    -ms-transform: translate(50%, 50%);
+    -moz-transform: translate(50%, 50%);
+    -webkit-transform: translate(50%, 50%);
+    -o-transform: translate(50%, 50%);
+    text-align: left;
 }
 
 .item-card-img-container:hover .item-card-img {
@@ -181,6 +224,42 @@ h1, h2, h3, h4, h5, h6 {
     color: darkgray;
 }
 
+/*form related*/
+
+.form-section {
+    border:1px solid lightgray;
+    border-radius:3px;
+    padding:5px;
+    display:grid;
+}
+
+.form-field {
+    margin-top:5px;
+}
+
+.form-label {
+    width: 35%;
+    float: left;
+}
+
+.form-input {
+    width: 60%;
+    float:left;
+}
+
+.form-image {
+    width: 100%;
+    min-width: 200px;
+    max-width: 450px;
+}
+
+.form-textarea {
+    height: 100px;
+    width: 60%;
+    float: left;
+}
+
+/**/
 
 .marginBottom20 {
     margin-bottom: 20px;

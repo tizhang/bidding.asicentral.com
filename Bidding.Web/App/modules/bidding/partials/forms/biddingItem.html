@@ -1,0 +1,72 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-sm-5 col-md-5 col-lg-5 col-xl-5">
+            <div class="form-section">
+                <h5 class="gray">Product</h5>
+                <div class="form-field">
+                    <img src="{{vm.model.ImageUrl}}" err-src="Images/question_mark.png" class="form-image"/>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Image Link</label>
+                    <input class="form-input form-control" type="text" ng-model="vm.model.ImageUrl"  ng-disable="vm.mode=='view'"/>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Name</label>
+                    <input class="form-input form-control" type="text" ng-model="vm.model.Name" ng-disable="vm.mode=='view'" />
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-textarea form-control" ng-model="vm.model.Description" ng-disable="vm.mode=='view'"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+            <div class="form-section">
+                <h5 class="gray">Pricing</h5>
+                <div class="form-field">
+                    <label class="form-label">Starting Price</label>
+                    <input class="form-input form-control" type="number" ng-model="vm.model.Setting.StartPrice" ng-disable="vm.mode=='view'"/>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Minimum Increment</label>
+                    <input class="form-input form-control" type="number" ng-model="vm.model.Setting.MinIncrement" ng-disable="vm.mode=='view'"/>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Accept Price</label>
+                    <input class="form-input form-control" type="number" ng-model="vm.model.Setting.AcceptPrice" ng-disable="vm.mode=='view'"/>
+                </div>
+            </div>
+            <div class="form-section">
+                <h5 class="gray">Time</h5>
+                <div class="form-field">
+                    <label class="form-label">Start Date</label>
+                    <input class="form-input form-control" type="text" ng-model="vm.model.Setting.StartDate" ng-disable="vm.mode=='view'"/>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">End Date</label>
+                    <input class="form-input form-control" type="text" ng-model="vm.model.Setting.EndDate" ng-disable="vm.mode=='view'"/>
+                </div>
+            </div>
+            <div class="form-section">
+                <h5 class="gray">Visibility</h5>
+                <div class="form-field">
+                    <label><input type="checkbox" ng-model="vm.model.Setting.ShowOwner" ng-disable="vm.mode=='view'"/>&nbsp;Show my Name with this Bid</label>
+                </div>
+                <div class="form-field">
+                    <label><input type="checkbox" ng-model="vm.model.Setting.ShowCurrentPrice" title="Blind bid if uncheck" ng-disable="vm.mode=='view'"/>&nbsp;Show current winning price</label>
+                </div>
+            </div>
+            <div class="form-section">
+                <h5 class="gray">Bidder Control</h5>
+                <div class="form-field">
+                    <label class="form-label"><input type="checkbox" ng-model="vm.enableBidTimes"  ng-disable="vm.mode=='view'"/>&nbsp;Restrict bid times</label>
+                    <input class="form-input form-control" type="number" ng-model="vm.model.Setting.BidTimePerUser" ng-disable="!vm.enableBidTimes||vm.mode=='view'"/>
+                </div>
+                <div class="form-field">
+                    <label class="form-label"><input type="checkbox" ng-model="vm.applyBidGroup" ng-disable="vm.mode=='view'"/>&nbsp;Restrict bidder group</label>
+                    <select class="form-input form-control" ng-options="group as group for group in vm.groups" ng-model="vm.model.Setting.Groups"ng-disable="!applyBidGroup||vm.mode=='view'"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
