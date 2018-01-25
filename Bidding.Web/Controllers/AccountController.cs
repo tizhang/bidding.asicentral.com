@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using Newtonsoft.Json;
 using Bidding.Web.Helpers;
+using Newtonsoft.Json;
 
 namespace Bidding.Web.Controllers
 {
@@ -40,13 +36,17 @@ namespace Bidding.Web.Controllers
             var webApiUrl = string.Format("http://local-bidding.asicentral.com/api/login?email={0}&password={1}", user.Email, user.Password);
             var response = await client.GetAsync(webApiUrl);
             var result = response.Content.ReadAsStringAsync().Result;
-            var pattern = @"""Id"":(\d+).*?Email"":""(.*?)"",""Groups";
-            var match = Regex.Match(result, pattern);
-            if( match.Success)
+            var userObject = JsonConvert.DeserializeObject<UserModel>(result);
+            if( userObject != null)
             {
-                CookieHelper.SetCookieValue(Request, Response, CookieHelper.COOKIE_USERID, match.Groups[1].Value);
+                CookieHelper.SetCookieValue(Request, Response, CookieHelper.COOKIE_USERID, userObject.Id.ToString());
+                if( userObject.Groups != null && userObject.Groups.Count > 0)
+                {
+                    CookieHelper.SetCookieValue(Request, Response, CookieHelper.COOKIE_GROUPS, string.Join(",", userObject.Groups));
+                }
                 return new RedirectResult("/");
             }
+
             return View(user);
         }
     }
@@ -55,7 +55,9 @@ namespace Bidding.Web.Controllers
     {
         public string Email { get; set; }
         public string Password { get; set; }
-        public int UserId { get; set; }
+        public int Id { get; set; }
         public string ErrorMessage { get; set; }
+
+        public List<string> Groups { get; set; }
     }
 }
