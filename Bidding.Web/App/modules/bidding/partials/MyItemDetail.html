@@ -13,6 +13,7 @@
     <div ng-if="vm.tab=='history'" ng-include="'App/modules/bidding/partials/forms/actionList.html'"></div>
 </div>
 <div class="modal-footer">
+    <button ng-if="vm.tab!='history'&&vm.mode=='edit'" class="btn btn-warning pull-left" ng-click="vm.stage()" title="Once post, the bid will be visible to possible bidders. You will not be abled to modify a post bid.">Post</button>
     <button ng-if="vm.tab!='history'&&vm.mode=='add'" class="btn btn-primary pull-left" ng-click="vm.save()">Create</button>
     <button ng-if="vm.tab!='history'&&vm.mode=='edit'" class="btn btn-primary pull-left" ng-click="vm.save()">Save</button>
     <button class="btn btn-secondary pull-left" ng-click="vm.close()">Close</button>
