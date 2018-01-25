@@ -13,8 +13,7 @@
       defualts: {
         Name: '',
         Email: '',
-        UserGroups: [],
-        WatchList: []
+        Groups: []
       }
     });
 

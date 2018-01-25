@@ -1,0 +1,14 @@
+﻿<span>
+    <span ng-if="vm.editing">
+        <input class="form-control-sm bid-input" type="number" ng-model="vm.price" title="Offer price for the bid" />
+        <button class="btn btn-sm btn-primary" ng-click="vm.submit()" title="Submit">
+            <i class="fa fa-check" aria-hidden="true"></i>
+        </button>
+        <button class="btn btn-sm btn-primary" ng-click="vm.cancel()" title="Cancel">
+            <i class="fa fa-times" aria-hidden="true"></i>
+        </button>
+    </span>
+    <span ng-if="!vm.editing">
+        <button class="btn btn-sm btn-primary" ng-click="vm.edit()"><i class="fa fa-hand-paper-o" aria-hidden="true"></i>Bid</button>
+    </span>
+</span>

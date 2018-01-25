@@ -5,9 +5,9 @@
     .module('bidding')
     .controller('BiddingMyItemsController', BiddingMyItemsController);
 
-  BiddingMyItemsController.$inject = ['$scope', '$state', '$filter', '$q', 'ngTableParams', 'BiddingItem', '$cookies'];
+  BiddingMyItemsController.$inject = ['$scope', '$state', '$filter', '$q', 'ngTableParams', 'BiddingItem', '$cookies', 'modalFactory', 'modalOptions'];
 
-  function BiddingMyItemsController($scope, $state, $filter, $q, ngTableParams, BiddingItem, $cookies) {
+  function BiddingMyItemsController($scope, $state, $filter, $q, ngTableParams, BiddingItem, $cookies, modalFactory, modalOptions) {
     var vm = this;
 
     vm.addItem = addItem;
@@ -74,12 +74,13 @@
     }
 
     function addItem() {
-
+      var item = new BiddingItem();
+      modalFactory.open(item, modalOptions.addItem);
     }
 
     function editItem(item) {
       // edit mode
-      $state.go('bidding.details', { id: item.BiddingItemId });
+      modalFactory.open(item, modalOptions.editItem);
     }
 
     function deleteItem(item) {
@@ -114,13 +115,13 @@
     }
 
     function sendEmail(item) {
-     
+
     }
 
     function viewItem(item) {
       // view mode
-      $state.go('bidding.details', { id: item.BiddingItemId });
+      modalFactory.open(item, modalOptions.viewMyItem);
     }
-    
+
   }
 })();
