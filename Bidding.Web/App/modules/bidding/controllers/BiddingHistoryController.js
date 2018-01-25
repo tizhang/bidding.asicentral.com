@@ -56,7 +56,7 @@
           });
 
           angular.forEach(vm.history, function (item) {
-            item.BiddingType = item.Setting.MinIncrement > 0 ? 'High Bid' : 'Low Bid';
+            item.BiddingType = item.Setting.MinIncrement > 0 ? 'High Win' : 'Low Win';
             var histList = $filter('filter')(item.History, function (rec) {
               return (rec.Bidder.Id == vm.UserId)
             });

@@ -13,10 +13,12 @@
                         <tr data-ng-repeat="Bidding in $data" data-ng-click="historyListById(Bidding.Id)">
                             <td data-title="'Name'" data-sortable="'Name'" data-filter="{ 'Name': 'text' }">{{Bidding.Name}}</td>
                             <td data-title="'Description'" data-sortable="'Description'" data-filter="{ 'Description': 'text' }">{{Bidding.Description}}</td>
-                            <td data-title="'Image'" class="" align="center"><img ng-src="{{ Bidding.ImageUrl }}" alt="{{Bidding.ImageUrl}}" width="121" height="54" /></td>                            <td data-title="'Highest Bid'" data-sortable="'Price'" data-filter="{ 'Price': 'text' }">{{Bidding.Price}}</td>
+                            <td data-title="'Image'" class="" align="center"><img ng-src="{{ Bidding.ImageUrl }}" alt="{{Bidding.ImageUrl}}" width="121" height="54" /></td>
+                            <td data-title="'Highest Bid'" data-sortable="'Price'" data-filter="{ 'Price': 'text' }">{{Bidding.Price}}</td>
                             <td data-title="'My Last Bid'" data-sortable="'MyLastBid'" data-filter="{ 'MyLastBid': 'text' }">{{Bidding.MyLastBid}}</td>
-                            <td data-title="'StartDate'" data-sortable="'StartDate'" data-filter="{ 'StartDate': 'text' }">{{Bidding.Setting.StartDate | date: 'MM/dd/yyyy'}}</td>
-                            <td data-title="'EndDate'" data-sortable="'EndDate'" data-filter="{ 'EndDate': 'text' }">{{Bidding.Setting.EndDate | date: 'MM/dd/yyyy'}}</td>
+                            <td data-title="'Bidding Type'" data-sortable="'BiddingType'" data-filter="{ 'BiddingType': 'text' }">{{Bidding.BiddingType}}</td>
+                            <td data-title="'StartDate'" data-sortable="'StartDate'" data-filter="{ 'StartDate': 'text' }">{{Bidding.Setting.StartDate | date: 'MM/dd/yyyy HH:mm:sss'}}</td>
+                            <td data-title="'EndDate'" data-sortable="'EndDate'" data-filter="{ 'EndDate': 'text' }">{{Bidding.Setting.EndDate | date: 'MM/dd/yyyy HH:mm:sss'}}</td>
                             <td data-title="'Status'" data-sortable="'Status'" data-filter="{ 'Status': 'text' }">{{Bidding.Status}}</td>
                         </tr>
                         <tr data-ng-hide="$data.length > 0">
