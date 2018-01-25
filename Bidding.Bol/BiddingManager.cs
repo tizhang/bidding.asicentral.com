@@ -191,6 +191,7 @@ namespace Bidding.Bol
                 {
                     try
                     {
+                        dItem.CreateDate = DateTime.Now;
                         db.BiddingItems.Add(dItem);
                         db.SaveChanges();
                         dbContextTransaction.Commit();
