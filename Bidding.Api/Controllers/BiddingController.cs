@@ -19,11 +19,11 @@ namespace Bidding.Api.Controllers
         [Route("bidding")]
         //[Route("v{version:apiVersion}/bidding")]
         [AllowAnonymous]
-        public IHttpActionResult GetItems(string group=null, string status=null, int? ownerId=null, int? bidderId=null, bool includeSettings=false, bool includeHistory=false)
+        public IHttpActionResult GetItems(string group = null, string status = null, int? ownerId = null, int? bidderId = null, bool includeSettings = false, bool includeHistory = false)
         {
             var items = BiddingManager.GetItems(group, status, ownerId, bidderId);
             if (!includeHistory)
-             {
+            {
                 items.ForEach(i => i.History = null);
             }
             if (!includeSettings)
@@ -174,9 +174,10 @@ namespace Bidding.Api.Controllers
         [Route("notificationAck/{userid}")]
         //[Route("v{version:apiVersion}/action/user/{id}")]
         [AllowAnonymous]
-        public IHttpActionResult PostNotificationAck(int userid, DateTime lastAccessDate)
+        public IHttpActionResult PostNotificationAck(int userid, NotificationAck ack)
         {
-            var ack = new NotificationAck() { UserId = userid, LastAccessDate = lastAccessDate };
+            //DateTime lastAccessDate = nack.LastAccessDate;
+            //var ack = new NotificationAck() { UserId = userid, LastAccessDate = lastAccessDate };
             var ret = BiddingManager.AddOrUpdateNotificationAck(ack);
             if (ret.Success)
             {

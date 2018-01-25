@@ -59,6 +59,7 @@
     }
 
     function beforeRequestCleanup(data) {
+      // data.Setting.beforeRequestCleanup();
       delete data.custom;
     }
   }

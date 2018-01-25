@@ -5,11 +5,11 @@
     .module('bidding')
     .controller('BiddingHistoryController', BiddingHistoryController);
 
-  BiddingHistoryController.$inject = ['$scope', '$state', '$filter', '$q', 'ngTableParams', 'BiddingItem', '$cookies'];
+  BiddingHistoryController.$inject = ['$scope', '$state', '$filter', '$q', 'ngTableParams', 'BiddingItem', '$cookies', 'modalFactory', 'modalOptions'];
 
-  function BiddingHistoryController($scope, $state, $filter, $q, ngTableParams, BiddingItem, $cookies) {
+  function BiddingHistoryController($scope, $state, $filter, $q, ngTableParams, BiddingItem, $cookies, modalFactory, modalOptions) {
     var vm = this;
-    vm.historyListById = historyListById;
+    vm.viewHistoryDetail = viewHistoryDetail;
 
     init();
 
@@ -52,7 +52,7 @@
 
           // only STAG/ACTV/SUCC/FAIL
           vm.history = $filter('filter')(resp, function (status) {
-          return(resp.status != 'DRAF');
+            return (resp.status != 'DRAF');
           });
 
           angular.forEach(vm.history, function (item) {
@@ -69,7 +69,7 @@
             else {
               item.MyLastBid = null;
             }
-            });
+          });
 
 
           var data = params.sorting() ? $filter('orderBy')(vm.history, params.orderBy()) : vm.history;
@@ -85,13 +85,12 @@
 
     }
 
-    function historyListById(itemId) {
-      //$state.go('bidding.history.list', { id: itemId });
+    function viewHistoryDetail(model) {
+      modalFactory.open(model, modalOptions.viewItem);
     }
 
     function submitBid(bidItem) {
       // add popup window to enter price
-
       var action = new BiddingAction(bitItem);
       action.$save().then(function (response) { },
         function (error) { })
