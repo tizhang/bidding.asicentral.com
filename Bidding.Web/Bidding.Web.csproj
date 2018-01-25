@@ -159,6 +159,7 @@
     <Content Include="App\app.js" />
     <Content Include="App\modules\bidding.models\bidding.model.module.js" />
     <Content Include="App\modules\bidding.models\services\BiddingAction.model.js" />
+    <Content Include="App\modules\bidding.models\services\Notification.model.js" />
     <Content Include="App\modules\bidding.models\services\BiddingSettings.model.js" />
     <Content Include="App\modules\bidding.models\services\BiddingItem.model.js" />
     <Content Include="App\modules\bidding.models\services\httpInterceptor.js" />

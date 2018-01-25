@@ -5,9 +5,9 @@
     .module('bidding')
     .controller('MenuController', MenuController);
 
-  MenuController.$inject = ['$scope','$state'];
+  MenuController.$inject = ['$scope', '$state', 'Notification'];
 
-  function MenuController($scope, $state) {
+  function MenuController($scope, $state, Notification) {
     var vm = this;
     vm.currentTab = null;
     vm.tabs = [
@@ -27,11 +27,21 @@
     function init() {
       vm.currentTab = angular.copy(vm.tabs[0]);
 
-      vm.AlertList = [
-        { Id: 1, BiddingItemId: 1, ImageUrl: '', Message: 'bidder tbidding1 submitted new bid price 2 for pen', CreateDate: '2018-01-24T09:43:43.313', EventTime: '2018-01-24T09:43:43.313'},
-        { Id: 2, BiddingItemId: 1, ImageUrl: '', Message: 'bidder tbidding2 submitted new bid price 16 for pen', CreateDate: '2018-01-24T09:43:43.327', EventTime: '2018-01-24T09:43:43.327' },
-        { Id: 5, BiddingItemId: 1, ImageUrl: '', Message: 'bidder yfang submitted new bid price 2 for lanyard', CreateDate: '2018-01-24T09:43:43.343', EventTime: '2018-01-24T09:43:43.343' }
-      ];
+      //vm.AlertList = [
+      //  { Id: 1, BiddingItemId: 1, ImageUrl: '', Message: 'bidder tbidding1 submitted new bid price 2 for pen', CreateDate: '2018-01-24T09:43:43.313', EventTime: '2018-01-24T09:43:43.313'},
+      //  { Id: 2, BiddingItemId: 1, ImageUrl: '', Message: 'bidder tbidding2 submitted new bid price 16 for pen', CreateDate: '2018-01-24T09:43:43.327', EventTime: '2018-01-24T09:43:43.327' },
+      //  { Id: 5, BiddingItemId: 1, ImageUrl: '', Message: 'bidder yfang submitted new bid price 2 for lanyard', CreateDate: '2018-01-24T09:43:43.343', EventTime: '2018-01-24T09:43:43.343' }
+      //];
+
+      vm.UserId = 6;
+      Notification.get(vm.UserId)
+        .then(
+        function (resp) {
+          vm.AlertList = resp;
+        },
+        function (err) {
+          console.log(err);
+        });
     }
     function gotoTab(tab) {
       if (tab && tab.State) {

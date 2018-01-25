@@ -16,7 +16,7 @@
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu notification-dropdown" role="menu">
-                        <li data-ng-repeat="alert in vm.AlertList"><a href="#" data-ng-click="viewItem(alert)"><img src="{{alert.ImageUrl}}" err-src="Images/question_mark.png" class="notification-img" />{{alert.Message}}</a></li>
+                        <li data-ng-repeat="alert in vm.AlertList"><a href="#" data-ng-click="viewItem(alert)"><img ng-if="alert.ImageUrl" src="{{alert.ImageUrl}}" err-src="Images/question_mark.png" class="notification-img" />{{alert.Message}}</a></li>
                     </ul>
                 </div>
             </div>
