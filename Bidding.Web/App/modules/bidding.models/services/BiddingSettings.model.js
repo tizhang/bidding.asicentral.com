@@ -22,12 +22,20 @@
         BidtimePerUser: null,
         AcceptMinimumPrice: 0.00
       },
-      init: init
+      init: init,
+      instance: {
+        beforeRequestCleanup: beforeRequestCleanup
+      }
     });
 
     return model;
 
     function init(instance) {
+
+    }
+
+    function beforeRequestCleanup() {
+
     }
   }
 })();

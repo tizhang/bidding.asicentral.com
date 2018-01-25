@@ -51,19 +51,6 @@
             controllerAs: 'vm',
           }
         }
-      })
-      .state('bidding.history.list', {
-        url: '/history/bidder/{id:int}',
-        params: {
-          id: { value: 0 }
-        },
-        views: {
-          'content': {
-            templateUrl: 'App/modules/bidding/partials/biddingHistoryList.html',
-            controller: 'BiddingHistoryListController',
-            controllerAs: 'vm',
-          }
-        }
       });
 
 
