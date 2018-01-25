@@ -56,7 +56,7 @@
           vm.myItems = resp;
           //vm.myItems = $filter('filter')(resp, { Status: "ACTV" });
           angular.forEach(vm.myItems, function (item) {
-            item.BiddingType = item.Setting.MinIncrement > 0 ? 'High Bid' : 'Low Bid';
+            item.BiddingType = item.Setting.MinIncrement > 0 ? 'High Win' : 'Low Win';
           });
 
           var data = params.sorting() ? $filter('orderBy')(vm.myItems, params.orderBy()) : vm.myItems;

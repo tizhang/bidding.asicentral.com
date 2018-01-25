@@ -29,8 +29,8 @@
                             <td data-title="'BidTimePerUser'" data-sortable="'BidTimePerUser'" data-filter="{ 'BidTimePerUser': 'text' }">{{Bidding.Setting.BidTimePerUser}}</td>
                             <td data-title="'Bidding Type'" data-sortable="'BiddingType'" data-filter="{ 'BiddingType': 'text' }">{{Bidding.BiddingType}}</td>
                             <td data-title="'Min Increment'" data-sortable="'MinIncrement'" data-filter="{ 'MinIncrement': 'text' }">{{Bidding.Setting.MinIncrement}}</td>
-                            <td data-title="'StartDate'" data-sortable="'StartDate'" data-filter="{ 'StartDate': 'text' }">{{Bidding.Setting.StartDate | date: 'MM/dd/yyyy'}}</td>
-                            <td data-title="'EndDate'" data-sortable="'EndDate'" data-filter="{ 'EndDate': 'text' }">{{Bidding.Setting.EndDate | date: 'MM/dd/yyyy'}}</td>
+                            <td data-title="'StartDate'" data-sortable="'StartDate'" data-filter="{ 'StartDate': 'text' }">{{Bidding.Setting.StartDate | date: 'MM/dd/yyyy HH:mm:sss'}}</td>
+                            <td data-title="'EndDate'" data-sortable="'EndDate'" data-filter="{ 'EndDate': 'text' }">{{Bidding.Setting.EndDate | date: 'MM/dd/yyyy HH:mm:sss'}}</td>
                             <td data-title="'Status'" data-sortable="'Status'" data-filter="{ 'Status': 'text' }">{{Bidding.Status}}</td>
                             <td width="100px" style="text-align: center" data-title="'Actions'" data-ng-click="$event.stopPropagation()">
                                 <a id="lnkView" data-ng-click="vm.viewItem(Bidding)" class="nobr small" ng-show="Bidding.Status != 'DRAF'">View</a>
