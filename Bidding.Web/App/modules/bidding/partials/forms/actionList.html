@@ -1,0 +1,31 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="form-section">
+                <h5 class="gray">History</h5>
+                <div class="form-field">
+                    <div ng-repeat="history in vm.model.History">
+                        <span>{{history.ActionTime}}</span>
+                        <span>{{history.Price}}</span>
+                        <span>{{history.Bidder.Name}}</span>
+                        <!--<span>{{history.Comment}}</span>-->
+                        <span>{{history.Status}}</span>
+                        <a><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Image Link</label>
+                    <input class="form-input form-control" type="text" ng-model="vm.model.ImageUrl"  ng-disable="vm.mode=='view'"/>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Name</label>
+                    <input class="form-input form-control" type="text" ng-model="vm.model.Name" ng-disable="vm.mode=='view'" />
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-textarea form-control" ng-model="vm.model.Description" ng-disable="vm.mode=='view'"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
