@@ -5,15 +5,17 @@
     .module('bidding')
     .controller('BiddingHistoryListController', BiddingHistoryListController);
 
-  BiddingHistoryListController.$inject = ['$scope', '$state', '$filter', '$q', 'ngTableParams', 'BiddingItem'];
+  BiddingHistoryListController.$inject = ['$scope', '$state', '$filter', '$q', 'ngTableParams', 'BiddingItem', '$cookies'];
 
-  function BiddingHistoryListController($scope, $state, $filter, $q, ngTableParams, BiddingItem) {
+  function BiddingHistoryListController($scope, $state, $filter, $q, ngTableParams, BiddingItem, $cookies) {
     var vm = this;
     vm.historyListById = historyListById;
 
     init();
 
     function init() {
+      vm.UserId = $cookies.get('UserID');
+
       vm.tableMyHistoryList = new ngTableParams(
         //{ page: 1, count: 10, filter: $scope.filter_in_grid.filter, sorting: $scope.filter_in_grid.sorting },
         {
@@ -43,8 +45,7 @@
       //$defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
 
 
-      // TODO: replace bidderId to user id from Login
-      BiddingItem.getByGroup({ group: '', bidderId: 6, includeSettings: true, includeHistory: true })
+      BiddingItem.getByGroup({ group: '', bidderId: vm.UserId, includeSettings: true, includeHistory: true })
         .then(
         function (resp) {
           vm.history = resp;
