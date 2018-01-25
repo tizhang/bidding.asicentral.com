@@ -5,15 +5,17 @@
     .module('bidding')
     .controller('BiddingHistoryController', BiddingHistoryController);
 
-  BiddingHistoryController.$inject = ['$scope', '$state', '$filter', '$q', 'ngTableParams', 'BiddingItem'];
+  BiddingHistoryController.$inject = ['$scope', '$state', '$filter', '$q', 'ngTableParams', 'BiddingItem', '$cookies'];
 
-  function BiddingHistoryController($scope, $state, $filter, $q, ngTableParams, BiddingItem) {
+  function BiddingHistoryController($scope, $state, $filter, $q, ngTableParams, BiddingItem, $cookies) {
     var vm = this;
     vm.historyListById = historyListById;
 
     init();
 
     function init() {
+      vm.UserId = $cookies.get('UserID');
+
       vm.tableMyHistory = new ngTableParams(
         //{ page: 1, count: 10, filter: $scope.filter_in_grid.filter, sorting: $scope.filter_in_grid.sorting },
         {
@@ -43,8 +45,6 @@
       //$defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
 
 
-      // TODO: replace bidderId to user id from Login
-      vm.UserId = 6;
       BiddingItem.getByGroup({ group: '', bidderId: vm.UserId, includeSettings: true, includeHistory: true })
         .then(
         function (resp) {
@@ -56,13 +56,19 @@
           });
 
           angular.forEach(vm.history, function (item) {
+            item.BiddingType = item.Setting.MinIncrement > 0 ? 'High Bid' : 'Low Bid';
             var histList = $filter('filter')(item.History, function (rec) {
               return (rec.Bidder.Id == vm.UserId)
             });
 
-              var bidderHistory = $filter('orderBy')(histList, 'Price');
+            var bidderHistory = $filter('orderBy')(histList, 'Price');
+            if (bidderHistory.length > 0) {
               bidderHistory.reverse();
               item.MyLastBid = bidderHistory[0].Price;
+            }
+            else {
+              item.MyLastBid = null;
+            }
             });
 
 
