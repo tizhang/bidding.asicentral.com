@@ -43,10 +43,10 @@ namespace Bidding.UnitTest
             AddBiddingActions(item, "twesp1", "twesp2");
             AddBiddingItem("shirt", "1000 Gildan Ladies Heavy Cotton 100% Cotton V-Neck T-Shirt", "http://media.asicdn.com/images/jpgb/81020000/81022564.jpg", "mzhang", 2000, DateTime.Now, "SESP", BiddingItem.DraftStatus, -10);
 
-            AddBiddingItem("shirt", "1000 Red House (R) Ladies' Nailhead Non-Iron Button-Down Shirt", "http://media.asicdn.com/images/jpgb/20950000/20956175.jpg", "mzhang", 2000, DateTime.Now, "SESP", BiddingItem.ActiveStatus, -10);
+            item = AddBiddingItem("shirt", "1000 Red House (R) Ladies' Nailhead Non-Iron Button-Down Shirt", "http://media.asicdn.com/images/jpgb/20950000/20956175.jpg", "mzhang", 2000, DateTime.Now, "SESP", BiddingItem.ActiveStatus, -10);
             AddBiddingActions(item, "tsesp1", "tsesp2");
 
-            AddBiddingItem("chocolate", "1000 bags of Chocolate Sports Balls Soccer", "http://media.asicdn.com/images/jpgb/21150000/21152160.jpg", "mzhang", 400, DateTime.Now, "SESP", BiddingItem.ActiveStatus, -10);
+            item = AddBiddingItem("chocolate", "1000 bags of Chocolate Sports Balls Soccer", "http://media.asicdn.com/images/jpgb/21150000/21152160.jpg", "mzhang", 400, DateTime.Now, "SESP", BiddingItem.ActiveStatus, -10);
             AddBiddingActions(item, "tsesp1", "tsesp2");
 
 
@@ -81,10 +81,11 @@ namespace Bidding.UnitTest
         {
             var user = UserManager.GetUser(owner);
             var item = new BiddingItem() { Name = name, Description = description, ImageUrl = imgUrl, Owner = user, CreateDate = DateTime.Now, Status = status };
+            bool HighWin = minIncrement.HasValue ? minIncrement.Value > 0 : true;
             item.Setting = new BiddingSetting()
             {
                 MinIncrement = minIncrement.HasValue? minIncrement.Value : Math.Min(acceptPrice / 10, 50),
-                StartPrice = acceptPrice * 0.1,
+                StartPrice = acceptPrice * (HighWin? 0.1 :2.0),
                 StartDate = startTime.HasValue?startTime.Value:DateTime.Now,
                 EndDate = DateTime.Now.AddHours(2),
                 AcceptPrice = acceptPrice,
