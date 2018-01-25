@@ -3,31 +3,35 @@
 
   angular
     .module('bidding')
-    .controller('BiddingDetailsController', BiddingDetailsController);
+    .controller('MyItemDetailsController', MyItemDetailsController);
 
-  BiddingDetailsController.$inject = ['$scope', 'BiddingItem', 'model', '$uibModalInstance', 'mode'];
+  MyItemDetailsController.$inject = ['$scope', 'BiddingItem', 'model', '$uibModalInstance', 'mode'];
 
-  function BiddingDetailsController($scope, BiddingItem, model, $uibModalInstance, mode) {
+  function MyItemDetailsController($scope, BiddingItem, model, $uibModalInstance, mode) {
     var vm = this;
 
     vm.applyBidGroup = false;
     vm.enableBidTimes = false;
     vm.groups = [['WESP'], ['SESP'], ['ADMT']];
     vm.mode = 'view';
-    vm.model = null;
+    vm.model = model;
     vm.tabs = ['detail'];
     vm.tab = 'detail';
 
     vm.bid = bid;
     vm.cancel = cancel;
     vm.close = close;
+    vm.email = email;
     vm.save = save;
     vm.watch = watch;
 
     init();
     function init() {
-      if (mode == 'add')
+      if (mode == 'add') {
         vm.model = new BiddingItem();
+        vm.model.Setting.StartDate = new Date();
+        vm.model.Setting.EndDate = new Date();
+      }
       if (vm.model.Status == 'DRAF')
         vm.mode = mode;
       vm.applyBidGroup = vm.model.Setting.Groups && vm.model.Setting.Groups.length;
@@ -45,6 +49,10 @@
     function watch(model) {
       console.log('watch');
       console.log(model);
+    }
+
+    function email(string) {
+      alert(string);
     }
 
     function cancel() {

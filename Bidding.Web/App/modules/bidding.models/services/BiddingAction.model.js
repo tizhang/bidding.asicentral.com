@@ -5,15 +5,16 @@
     .module('bidding.models')
     .factory('BiddingAction', BiddingAction);
 
-  BiddingAction.$inject = ['$modelFactory', 'httpInterceptor'];
+  BiddingAction.$inject = ['$modelFactory', 'httpInterceptor', 'BiddingUser'];
 
-  function BiddingAction($modelFactory, httpInterceptor) {
+  function BiddingAction($modelFactory, httpInterceptor, BiddingUser) {
     var model = $modelFactory('api/action', {
       pk: 'Id',
       map: {
       },
       defaults: {
         ItemId: null,
+        Bidder: null,
         BidderId: null,
         Price: null,
         ActionTimeUTC: null,
@@ -35,6 +36,12 @@
         }
       },
       instance: {
+        prepareBidderById: function (userid) {
+          if (userid) {
+            this.BidderId = userid;
+            this.Bidder = new BiddingUser({ Id: userid });
+          }
+        }
       }
     });
 

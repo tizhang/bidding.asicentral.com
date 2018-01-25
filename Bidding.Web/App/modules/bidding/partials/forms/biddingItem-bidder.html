@@ -1,0 +1,48 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-sm-5 col-md-5 col-lg-5 col-xl-5">
+            <div class="form-section">
+                <h5 class="gray">Product</h5>
+                <div class="form-field">
+                    <img src="{{vm.model.ImageUrl}}" err-src="Images/question_mark.png" class="form-image"/>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Name</label>
+                    <input class="form-input form-control" type="text" ng-model="vm.model.Name" ng-disabled="vm.mode=='view'" />
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-textarea form-control" ng-model="vm.model.Description" ng-disabled="vm.mode=='view'"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+            <div class="form-section">
+                <h5 class="gray">Pricing</h5>
+                <div class="form-field">
+                    <label class="form-label">Current Price</label>
+                    <input class="form-input form-control" type="number" ng-model="vm.model.Setting.StartPrice" ng-disabled="vm.mode=='view'" />
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Increment</label>
+                    <input class="form-input form-control" type="number" ng-model="vm.model.Setting.StartPrice" ng-disabled="vm.mode=='view'" />
+                </div>
+            </div>
+            <div class="form-section">
+                <h5 class="gray">Time</h5>
+                <div class="form-field">
+                    <label class="form-label">Status</label>
+                    <input class="form-input form-control" ng-model="vm.model.Setting.StartDate" datetime-picker future-only ng-disabled="vm.mode=='view'" />
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Start Date</label>
+                    <input class="form-input form-control" ng-model="vm.model.Setting.StartDate" datetime-picker future-only ng-disabled="vm.mode=='view'" />
+                </div>
+                <div class="form-field">
+                    <label class="form-label">End Date</label>
+                    <input class="form-input form-control" ng-model="vm.model.Setting.EndDate" datetime-picker future-only ng-disabled="vm.mode=='view'" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

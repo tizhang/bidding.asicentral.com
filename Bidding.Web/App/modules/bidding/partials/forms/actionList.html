@@ -4,26 +4,32 @@
             <div class="form-section">
                 <h5 class="gray">History</h5>
                 <div class="form-field">
-                    <div ng-repeat="history in vm.model.History">
-                        <span>{{history.ActionTime}}</span>
-                        <span>{{history.Price}}</span>
-                        <span>{{history.Bidder.Name}}</span>
-                        <!--<span>{{history.Comment}}</span>-->
-                        <span>{{history.Status}}</span>
-                        <a><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                                <strong>Bid Time</strong>
+                            </div>
+                            <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <strong>Offered Price</strong>
+                            </div>
+                            <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                                <strong>Bidder Name</strong>
+                            </div>
+                            <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <strong>Status</strong>
+                            </div>
+                            <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <strong>Action</strong>
+                            </div>
+                        </div>
+                        <div class="row" ng-repeat="history in vm.model.History">
+                            <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">{{history.ActionTime}}</div>
+                            <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">{{history.Price}}</div>
+                            <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">{{history.Bidder.Name}}</div>
+                            <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">{{history.Status}}</div>
+                            <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"><button ng-click="vm.alert({history.Bidder.Email)"><i class="fa fa-envelope" aria-hidden="true"></i></button></div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-field">
-                    <label class="form-label">Image Link</label>
-                    <input class="form-input form-control" type="text" ng-model="vm.model.ImageUrl"  ng-disable="vm.mode=='view'"/>
-                </div>
-                <div class="form-field">
-                    <label class="form-label">Name</label>
-                    <input class="form-input form-control" type="text" ng-model="vm.model.Name" ng-disable="vm.mode=='view'" />
-                </div>
-                <div class="form-field">
-                    <label class="form-label">Description</label>
-                    <textarea class="form-textarea form-control" ng-model="vm.model.Description" ng-disable="vm.mode=='view'"></textarea>
                 </div>
             </div>
         </div>

@@ -1,0 +1,10 @@
+﻿<div ng-if="vm.editing">
+    <input type="number" ng-model="vm.price" title="Offer price for the bid" />
+    <button ng-click="vm.submit()" title="Submit">
+        <i class="fa fa-check" aria-hidden="true"></i>
+    </button>
+    <button ng-click="vm.cancel()" title="Cancel">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+</div>
+<button ng-click="vm.edit()">Bid</button>

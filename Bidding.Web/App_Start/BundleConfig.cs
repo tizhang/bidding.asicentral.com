@@ -31,6 +31,7 @@ namespace Bidding.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/ng-table.css",
+                      "~/App/vendor/node_modules/angularjs-datetime-picker/angularjs-datetime-picker.css",
                       "~/Content/site.css"));
 
             var angModules = new Dictionary<string, string>() {
