@@ -21,7 +21,7 @@
         ImageUrl: '',
         BidTimes: 0,
         Price: 0.00,
-        Status: 'Draft',
+        Status: 'DRAF',
         CreateDate: null,
       },
       actions: {

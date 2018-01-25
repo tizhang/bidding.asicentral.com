@@ -168,6 +168,7 @@
     <Content Include="App\modules\bidding.models\services\User.model.js" />
     <Content Include="App\modules\bidding\bidding.module.js" />
     <Content Include="App\modules\bidding\config\bidding.routes.js" />
+    <Content Include="App\modules\bidding\config\constants.js" />
     <Content Include="App\modules\bidding\controllers\BiddingDetailsController.js" />
     <Content Include="App\modules\bidding\controllers\BiddingHistoryListController.js" />
     <Content Include="App\modules\bidding\controllers\BiddingHistoryController.js" />
@@ -183,10 +184,14 @@
     <Content Include="App\modules\bidding\partials\biddingHistoryList.html" />
     <Content Include="App\modules\bidding\partials\biddingHistory.html" />
     <Content Include="App\modules\bidding\partials\biddingMyItems.html" />
+    <Content Include="App\modules\bidding\partials\forms\actionList.html" />
+    <Content Include="App\modules\bidding\partials\MyBiddingItem.html" />
     <Content Include="App\modules\bidding\partials\directives\countdown.html" />
     <Content Include="App\modules\bidding\partials\directives\item-card.html" />
+    <Content Include="App\modules\bidding\partials\forms\biddingItem.html" />
     <Content Include="App\modules\bidding\partials\live.html" />
     <Content Include="App\modules\bidding\partials\menu.html" />
+    <Content Include="App\modules\bidding\services\modal.service.js" />
     <Content Include="App\vendor\angular-model-factory.js" />
     <Content Include="App\vendor\bootstrap-dialog.js" />
     <Content Include="App\vendor\ng-table-export.js" />
@@ -287,7 +292,6 @@
     <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\modules\bidding\services\" />
     <Folder Include="App\modules\settings\" />
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />

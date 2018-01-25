@@ -12,7 +12,7 @@
         model: '=ngModel',
         bidHandler: '&',
         watchHandler: '&',
-        clickHandler: '&',
+        viewHandler: '&',
       },
       controller: BiddingItemCardController,
       controllerAs: 'vm',

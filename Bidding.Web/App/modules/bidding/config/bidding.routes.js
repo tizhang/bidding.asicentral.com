@@ -29,22 +29,6 @@
           }
         }
       })
-      .state('bidding.details', {
-        url: '/{id:int}',
-        params: {
-          id: { value: 0 }
-        },
-        views: {
-          'content': {
-            templateUrl: 'App/modules/bidding/partials/biddingDetails.html',
-            controller: 'BiddingDetailsController',
-            controllerAs: 'vm',
-          }
-        },
-        //resolve: {
-        //  resolvedItem: getBiddingItem
-        //}
-      })
       .state('bidding.myitems', {
         url: '/myitems',
         views: {
