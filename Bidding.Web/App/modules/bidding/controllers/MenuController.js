@@ -5,9 +5,9 @@
     .module('bidding')
     .controller('MenuController', MenuController);
 
-  MenuController.$inject = ['$scope', '$state', 'Notification'];
+  MenuController.$inject = ['$scope', '$state', 'Notification', '$cookies'];
 
-  function MenuController($scope, $state, Notification) {
+  function MenuController($scope, $state, Notification, $cookies) {
     var vm = this;
     vm.currentTab = null;
     vm.tabs = [
@@ -26,6 +26,7 @@
 
     function init() {
       vm.currentTab = angular.copy(vm.tabs[0]);
+      vm.UserId = $cookies.get('UserID');
 
       //vm.AlertList = [
       //  { Id: 1, BiddingItemId: 1, ImageUrl: '', Message: 'bidder tbidding1 submitted new bid price 2 for pen', CreateDate: '2018-01-24T09:43:43.313', EventTime: '2018-01-24T09:43:43.313'},
@@ -33,8 +34,7 @@
       //  { Id: 5, BiddingItemId: 1, ImageUrl: '', Message: 'bidder yfang submitted new bid price 2 for lanyard', CreateDate: '2018-01-24T09:43:43.343', EventTime: '2018-01-24T09:43:43.343' }
       //];
 
-      vm.UserId = 6;
-      Notification.get(vm.UserId)
+      Notification.getByUserId({ userid:vm.UserId })
         .then(
         function (resp) {
           vm.AlertList = resp;

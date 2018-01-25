@@ -22,6 +22,11 @@
       actions: {
         'base': {
           interceptor: httpInterceptor
+        },
+        'getByUserId': {
+          method: 'GET',
+          url: '{userid}',
+          wrap: false
         }
       },
       instance: {
