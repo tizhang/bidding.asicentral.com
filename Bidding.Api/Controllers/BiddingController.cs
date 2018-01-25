@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using Bidding.Api.Filters;
@@ -80,16 +81,16 @@ namespace Bidding.Api.Controllers
             return BadRequest(error);
         }
 
-        // DELETE: api/bidding/5
-        // DELETE: api/v1/bidding/5
-        [Route("bidding/{id}")]
-        [Route("v{version:apiVersion}/bidding/{id}")]
-        //[Authorize]
-        [AllowAnonymous]
-        public IHttpActionResult Delete(int id)
-        {
-            return Ok();
-        }
+        //// DELETE: api/bidding/5
+        //// DELETE: api/v1/bidding/5
+        //[Route("bidding/{id}")]
+        ////[Route("v{version:apiVersion}/bidding/{id}")]
+        ////[Authorize]
+        //[AllowAnonymous]
+        //public IHttpActionResult Delete(int id)
+        //{
+        //    return Ok();
+        //}
         #endregion BiddingItem
 
         #region action
@@ -160,6 +161,29 @@ namespace Bidding.Api.Controllers
             return Ok(items);
         }
 
+        [Route("notificationAck/{userid}")]
+        //[Route("v{version:apiVersion}/action/user/{id}")]
+        [AllowAnonymous]
+        public IHttpActionResult GetNotificationAck(int userid)
+        {
+            var item = BiddingManager.GetNotificationAck(userid);
+            return Ok(item);
+        }
+
+        [Route("notificationAck/{userid}")]
+        //[Route("v{version:apiVersion}/action/user/{id}")]
+        [AllowAnonymous]
+        public IHttpActionResult PostNotificationAck(int userid, DateTime lastAccessDate)
+        {
+            var ack = new NotificationAck() { UserId = userid, LastAccessDate = lastAccessDate };
+            var ret = BiddingManager.AddOrUpdateNotificationAck(ack);
+            if (ret.Success)
+            {
+                return Ok();
+            }
+            return BadRequest(ret.Message);
+        }
+
         [Route("watch")]
         //[Route("v{version:apiVersion}/action")]
         //        [Authorize(Roles = "Administrators")]
@@ -186,6 +210,7 @@ namespace Bidding.Api.Controllers
         #endregion notification & watch
 
         #region login/out
+        [HttpGet]
         [Route("login")]
         //[Route("v{version:apiVersion}/login")]
         //        [Authorize(Roles = "Administrators")]

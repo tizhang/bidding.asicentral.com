@@ -1,5 +1,5 @@
 ﻿(function (app) {
   'use strict';
 
-  app.registerModule('bidding', ['ui.router', 'bidding.models', 'ngTable']);
+  app.registerModule('bidding', ['ui.router', 'bidding.models', 'ngTable', 'ngCookies']);
 })(ApplicationConfiguration);

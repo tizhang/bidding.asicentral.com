@@ -5,9 +5,9 @@
     .module('bidding')
     .controller('LiveController', LiveController);
 
-  LiveController.$inject = ['$scope', '$state', '$filter', 'BiddingItem'];
+  LiveController.$inject = ['$scope', '$state', '$filter', 'BiddingItem','$cookies'];
 
-  function LiveController($scope, $state, $filter, BiddingItem) {
+  function LiveController($scope, $state, $filter, BiddingItem, $cookies) {
     var vm = this;
     vm.activeItems = null;
     vm.filterBy = {
@@ -28,7 +28,7 @@
     vm.watch = watch;
 
     vm.test = function () {
-      console.log(vm.filterBy['#activeGallery']);
+        console.log($cookies.get('UserID'));
       console.log(vm.activeItems);
     };
 

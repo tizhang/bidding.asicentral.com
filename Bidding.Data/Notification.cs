@@ -10,6 +10,7 @@ namespace Bidding.Data
     {
         public long NotificationId { get; set; }
         public long BiddingItemId { get; set; }
+        public string ImageUrl { get; set; }
         public int? UserId { get; set; }
         public string Message { get; set; }
         public DateTime CreateDate { get; set; }
