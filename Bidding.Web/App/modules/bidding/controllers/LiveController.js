@@ -40,10 +40,10 @@
         .then(
         function (resp) {
           vm.activeItems = $filter('filter')(resp, { Status: "ACTV" });
-          vm.maxIndex['#activeGallery'] = vm.activeItems.length - 1;
+          vm.maxIndex['#activeGallery'] = vm.activeItems.length ? vm.activeItems.length - 1 : 0;
           generateSortFilterOptions('#activeGallery', vm.activeItems);
           vm.stagedItems = $filter('filter')(resp, { Status: "STAG" });
-          vm.maxIndex['#stagedGallery'] = vm.stagedItems.length - 1;
+          vm.maxIndex['#stagedGallery'] = vm.stagedItems.length ? vm.stagedItems.length - 1 : 0;
           generateSortFilterOptions('#stagedGallery', vm.stagedItems);
         },
         function (err) {
