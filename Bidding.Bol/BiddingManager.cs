@@ -255,6 +255,10 @@ namespace Bidding.Bol
             };
             if (action.ActionTime == DateTime.MinValue)
                 action.ActionTime = DateTime.Now;
+            if (string.IsNullOrEmpty(action.Bidder.Name) && action.Bidder.Id > 0)
+            {
+                action.Bidder = UserManager.GetUser(action.Bidder.Id);
+            }
             var dAction = Mapper.Map<Data.BiddingAction>(action);
             var notificationMessage = "";
             var imageUrl = "";
@@ -282,7 +286,7 @@ namespace Bidding.Bol
                                         ret = new BiddingReturn()
                                         {
                                             Success = false,
-                                            Message = string.Format("Bidding Price is lower than the next required price {0}!", nextPrice)
+                                            Message = string.Format("Bidding Price is lower than the next required price ${0}!", nextPrice)
                                         };
                                     }
                                 }
@@ -294,7 +298,7 @@ namespace Bidding.Bol
                                         ret = new BiddingReturn()
                                         {
                                             Success = false,
-                                            Message = string.Format("Bidding Price is higher than the next required price {0}!", nextPrice)
+                                            Message = string.Format("Bidding Price is higher than the next required price ${0}!", nextPrice)
                                         };
                                     }
                                 }
@@ -309,7 +313,7 @@ namespace Bidding.Bol
                                         ret = new BiddingReturn()
                                         {
                                             Success = false,
-                                            Message = string.Format("Bidding price is lower than the minimum start price: {0}", setting.StartPrice)
+                                            Message = string.Format("Bidding price is lower than the minimum start price: ${0}", setting.StartPrice)
                                         };
                                     }
                                     else if (setting.Type == Data.BiddingType.LowWin && action.Price > setting.StartPrice)
@@ -317,7 +321,7 @@ namespace Bidding.Bol
                                         ret = new BiddingReturn()
                                         {
                                             Success = false,
-                                            Message = string.Format("Bidding price is higher than the maximum start price: {0}", setting.StartPrice)
+                                            Message = string.Format("Bidding price is higher than the maximum start price: ${0}", setting.StartPrice)
                                         };
                                     }
                                 }
@@ -348,7 +352,7 @@ namespace Bidding.Bol
                                 {
                                     item.Price = action.Price;
                                     item.BidTimes = item.Actions.Where(i => i.Status == BiddingAction.SuccessStatus).Count();
-                                    notificationMessage = string.Format("bidder {0} submitted new bid price {1} for {2}", action.Bidder.Name, action.Price, item.Name);
+                                    notificationMessage = string.Format("{0} submitted new bid price of ${1} for '{2}'", action.Bidder.Name, action.Price, item.Name);
                                     imageUrl = item.ImageUrl;
                                 }
                                 db.SaveChanges();
@@ -469,7 +473,7 @@ namespace Bidding.Bol
                 var query = db.Notifications.Where(n => (n.UserId.HasValue ? n.UserId == userId : false || itemIds.Contains(n.BiddingItemId)) && n.EventTime <= DateTime.Now);
                 if (dack != null)
                     query = query.Where(n => n.EventTime >= dack.LastAccessDate);
-                notifications = query.ToList();
+                notifications = query.OrderByDescending(n => n.EventTime).ToList();
             }
             var items = notifications.Select(i => Mapper.Map<Notification>(i)).ToList();
             return items;
@@ -499,7 +503,7 @@ namespace Bidding.Bol
                 foreach (var item in items)
                 {
                     item.Status = BiddingItem.ActiveStatus;
-                    var notification = new Data.Notification() { BiddingItemId = item.BiddingItemId, ImageUrl = item.ImageUrl, Message = string.Format("Item({0}) {1} is ready for bidding", item.BiddingItemId, item.Name), CreateDate = DateTime.Now, EventTime = DateTime.Now };
+                    var notification = new Data.Notification() { BiddingItemId = item.BiddingItemId, ImageUrl = item.ImageUrl, Message = string.Format("'{0}' is ready for bidding", item.Name), CreateDate = DateTime.Now, EventTime = DateTime.Now };
                     db.Notifications.Add(notification);
                 }
                 //find all the items with ACTIVE status and end time is passed
@@ -511,11 +515,15 @@ namespace Bidding.Bol
                     {
                         case Data.BiddingType.HighWin:
                             if (item.Price >= item.Setting.AcceptPrice)
+                            {
                                 newStatus = BiddingItem.SuccessStatus;
+                            }
                             break;
                         case Data.BiddingType.LowWin:
                             if (item.Price > 0 && item.Price <= item.Setting.AcceptPrice)
+                            {
                                 newStatus = BiddingItem.SuccessStatus;
+                            }
                             break;
                     }
 
@@ -523,13 +531,19 @@ namespace Bidding.Bol
                     string message = "";
                     if (newStatus == BiddingItem.SuccessStatus)
                     {
-                        message = string.Format("Item {0} has a winning bid of {1}", item.Name, item.Price);
+                        User winner = null;
+                        var winningAction = item.Actions.FirstOrDefault(a => a.Status == BiddingAction.SuccessStatus && a.Price == item.Price);
+                        if (winningAction != null)
+                        {
+                            winner = UserManager.GetUser(winningAction.BidderId);
+                        }
+                        message = string.Format("{0} won the bid for '{1}' with price of ${2}", winner.Name, item.Name, item.Price);
                     }
                     else
                     {
-                        message = string.Format("Bidding for item {0} failed because no bid met the owner's reserved price", item.Name);
+                        message = string.Format("Bidding for '{0}' failed", item.Name);
                     }
-                    var notification = new Data.Notification() { BiddingItemId = item.BiddingItemId, ImageUrl = item.ImageUrl, Message = string.Format("Item({0}) {1} is ready for bidding", item.BiddingItemId, item.Name), CreateDate = DateTime.Now, EventTime = DateTime.Now };
+                    var notification = new Data.Notification() { BiddingItemId = item.BiddingItemId, ImageUrl = item.ImageUrl, Message = message, CreateDate = DateTime.Now, EventTime = DateTime.Now };
                     db.Notifications.Add(notification);
                 }
                 db.SaveChanges();

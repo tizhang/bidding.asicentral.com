@@ -1,6 +1,6 @@
 ﻿<div class="item-card">
     <div class="item-card-img-container" ng-mouseenter="vm.hover=true;" ng-mouseleave="vm.hover=false;">
-        <img src="{{vm.model.ImageUrl}}" err-src="Images/question_mark.png" class="item-card-img" />
+        <img ng-src="{{vm.model.ImageUrl}}" err-src="Images/question_mark.png" class="item-card-img" />
         <div class="item-card-img-hover btn-group">
             <div class="item-card-img-hover-top">
                 <strong>{{vm.model.Name}}</strong>

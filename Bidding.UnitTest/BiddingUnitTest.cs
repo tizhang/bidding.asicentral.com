@@ -221,5 +221,12 @@ namespace Bidding.UnitTest
                 PrintBiddingItem(item);
             }
         }
+
+        [TestMethod]
+        public void ProcessNotifications()
+        {
+            BiddingManager.ProcessStatusChange();
+        }
+
     }
 }
