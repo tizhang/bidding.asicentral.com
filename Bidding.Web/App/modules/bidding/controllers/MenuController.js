@@ -46,8 +46,8 @@
       Notification.getByUserId({ userid: vm.UserId })
         .then(
         function (resp) {
+          vm.todoList = getNewer(vm.AlertList, resp);
           vm.AlertList = resp;
-          vm.todoList = resp;
           callback(true);
         },
         function (err) {
@@ -110,6 +110,14 @@
         return new Date(result);
       }
       return new Date();
+    }
+
+    function getNewer(origin, updated) {
+      var result = [];
+      if (origin.length < 1)
+        return updated;
+      var LastTime = Date.parse(origin[0].EventTime);
+      return updated.filter(function (a) { return Date.parse(a.EventTime) > LastTime });
     }
     
   }
