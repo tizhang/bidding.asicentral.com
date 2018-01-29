@@ -59,6 +59,7 @@
       vm.action.Price = vm.price;
       vm.action.$save().then(
         function (resp) {
+          vm.model.Price = resp.Price;
           init();
           vm.editing = false;
         },
