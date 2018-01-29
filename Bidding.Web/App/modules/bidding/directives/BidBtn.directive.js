@@ -23,8 +23,12 @@
 
   function bidBtnController($rootScope, $scope, BiddingAction, $cookies) {
     var vm = this;
-    vm.editing = false;
-    vm.price = vm.model.Price + vm.model.Setting.MinIncrement
+	vm.editing = false;
+	if (vm.model.Price > 0) {
+		vm.price = vm.model.Price + vm.model.Setting.MinIncrement;
+	} else {
+		vm.price = vm.model.Setting.StartPrice;
+	}
 
     vm.cancel = cancel;
     vm.edit = edit;
@@ -59,11 +63,14 @@
       vm.action.Price = vm.price;
       vm.action.$save().then(
         function (resp) {
+          vm.model.Price = resp.Price;
           init();
           vm.editing = false;
         },
-        function (err) {
-          alert(err);
+		function (err) {
+		  err = err.data ? err.data : err;
+		  if (err.Message)
+			alert(err.Message);
           vm.editing = false;
         });
     }
