@@ -197,6 +197,7 @@
     <Content Include="App\modules\bidding\partials\forms\biddingItem.html" />
     <Content Include="App\modules\bidding\partials\live.html" />
     <Content Include="App\modules\bidding\partials\menu.html" />
+    <Content Include="App\modules\bidding\services\HeartBeat.service.js" />
     <Content Include="App\modules\bidding\services\modal.service.js" />
     <Content Include="App\modules\bidding\services\watchList.service.js" />
     <Content Include="App\vendor\angular-model-factory.js" />

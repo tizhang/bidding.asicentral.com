@@ -66,7 +66,7 @@
       var rd = d > 0 ? d + 'd' : '';
       var rh = h > 0 ? (h > 9 ? h + 'h' : '0' + h + 'h') : '';
       var rm = m > 0 ? (m > 9 ? m + 'm' : '0' + m + 'm') : '';
-      var rs = s > 0 ? (s > 9 ? s + 's' : '0' + s + 's') : '00s';
+      var rs = s > 0 ? (s > 9 ? s + 's' : '0' + s + 's') : '';
       return rd + rh + rm + rs;
     }
   }

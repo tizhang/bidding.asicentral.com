@@ -5,9 +5,9 @@
     .module('bidding')
     .controller('MenuController', MenuController);
 
-  MenuController.$inject = ['$scope', '$state', 'Notification', '$cookies', 'modalFactory', 'modalOptions', 'BiddingItem', 'NotificationAck'];
+  MenuController.$inject = ['$scope', '$state', 'Notification', '$cookies', 'modalFactory', 'modalOptions', 'BiddingItem', 'NotificationAck', 'heartBeat'];
 
-  function MenuController($scope, $state, Notification, $cookies, modalFactory, modalOptions, BiddingItem, NotificationAck) {
+  function MenuController($scope, $state, Notification, $cookies, modalFactory, modalOptions, BiddingItem, NotificationAck, heartBeat) {
     var vm = this;
     vm.currentTab = null;
     vm.tabs = [
@@ -17,6 +17,7 @@
       { Code: 'Watch', Text: 'Watch', State: 'watch', UpdatesCount: 0 }
     ];
     vm.AlertList = [];
+    vm.todoList = [];
 
     vm.gotoTab = gotoTab;
     vm.noteAck = noteAck;;
@@ -28,8 +29,9 @@
       var tab = findTabByState($state.current.name);
       vm.currentTab = tab ? angular.copy(tab) : angular.copy(vm.tabs[0]);
       vm.UserId = $cookies.get('UserID');
-      loadNotifications();
-
+      //loadNotifications();
+      heartBeat.init(5000);
+      heartBeat.register('notification', loadNotifications, handleNotification);
 
       function findTabByState(state) {
         for (var i = 0; i < vm.tabs.length; i++) {
@@ -40,15 +42,31 @@
       }
     }
 
-    function loadNotifications() {
+    function loadNotifications(callback) {
       Notification.getByUserId({ userid: vm.UserId })
         .then(
         function (resp) {
+          vm.todoList = getNewer(vm.AlertList, resp);
           vm.AlertList = resp;
+          callback(true);
         },
         function (err) {
           console.log(err);
+          callback(false);
         });
+    }
+
+    function handleNotification() {
+      for (var i = 0; i < vm.todoList.length; i++) {
+        BiddingItem.get(vm.todoList[i].BiddingItemId).then(
+          function (item) {
+            $rootScope.$broadcast('itemChanged', item);
+          },
+          function (err) {
+            console.log(err);
+          });
+
+      }
     }
 
     function gotoTab(tab) {
@@ -93,5 +111,14 @@
       }
       return new Date();
     }
+
+    function getNewer(origin, updated) {
+      var result = [];
+      if (origin.length < 1)
+        return updated;
+      var LastTime = Date.parse(origin[0].EventTime);
+      return updated.filter(function (a) { return Date.parse(a.EventTime) > LastTime });
+    }
+    
   }
 })();
