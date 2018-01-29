@@ -80,6 +80,8 @@
       //var distance = dragResult.x;
       //var id = '#' + dragResult.id;
       //var time = dragResult.t;
+      if (distance < 50)
+        return;
       var str = angular.element(id).css('left');
       var valueStr = str.substring(0, str.length - 2).trim();
       var left = parseInt(valueStr);

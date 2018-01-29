@@ -50,7 +50,7 @@
     }
 
     function submit() {
-      if (vm.model.Setting.CanSeeCurrentPrice) {
+      if (vm.model.Setting.ShowCurrentPrice) {
         if (vm.model.Setting.MinIncrement > 0 && vm.price < vm.model.Price + vm.model.Setting.MinIncrement) {
           alert('Price should not be less than' + (vm.model.Price + vm.model.Setting.MinIncrement));
           return;
