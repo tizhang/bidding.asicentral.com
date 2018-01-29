@@ -8,7 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="pull-right"><a href="/Account/Logout/">logout</a>&nbsp;&nbsp;&nbsp;</div>
+    <div class="pull-right">Hello, @Bidding.Web.Helpers.CookieHelper.GetCookieValue(Request, Response, "Name" ) <a href="/Account/Logout/">logout</a>&nbsp;&nbsp;&nbsp;</div>
     <br/><br />
 
     @RenderBody()
