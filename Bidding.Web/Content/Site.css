@@ -437,6 +437,12 @@ hr.hr-dashed {
         color: white;
     }
 
+.model-subtab {
+    padding: 0 !important;
+    margin: 0px 0px 0px 20px !important;
+    display: inline-block;
+}
+
 /*animation*/
 .highlight-animation {
     -webkit-animation: red-highlight 2s ease-in-out;

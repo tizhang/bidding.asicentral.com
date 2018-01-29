@@ -4,24 +4,30 @@
         <h4 ng-if="vm.mode=='add'">Create New Bid</h4>
         <h4 ng-if="vm.mode=='edit'">Edit Bid</h4>
     </div>
-    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6" ng-if="vm.tabs.length>1">
-        <!--<select class="pull-right marginTop20 form-control" ng-options="tab as tab for tab in vm.tabs" ng-model="vm.tab"></select>-->
-        <div class="navbar navbar-expand-lg navbar-light bg-light pull-left right" style="display: inline-block;">
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav mr-auto nav-tabs">
-                    <li ng-repeat="tab in vm.tabs" class="nav-item">
-                        <a ng-click="vm.tab=tab;" class="nav-link" ng-class="{'active':vm.tab===tab}">{{tab}}</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
     </div>
 </div>
 <div class="modal-body">
-    <div ng-if="vm.tab!='history'&&vm.tab!='statistics'" ng-include="'App/modules/bidding/partials/forms/biddingItem.html'"></div>
-    <div ng-if="vm.tab=='history'" ng-include="'App/modules/bidding/partials/forms/actionList.html'"></div>
-    <div ng-if="vm.tab=='statistics'" ng-include="'App/modules/bidding/partials/forms/statistics.html'"></div>
-
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="navbar navbar-expand-lg navbar-light bg-light pull-left right model-subtab">
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav mr-auto nav-tabs">
+                            <li ng-repeat="tab in vm.tabs" class="nav-item">
+                                <a ng-click="vm.tab=tab;" class="nav-link" ng-class="{'active':vm.tab===tab}">{{tab}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" ng-if="vm.tab!='history'&&vm.tab!='statistics'" ng-include="'App/modules/bidding/partials/forms/biddingItem.html'"></div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" ng-if="vm.tab=='history'" ng-include="'App/modules/bidding/partials/forms/actionList.html'"></div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" ng-if="vm.tab=='statistics'" ng-include="'App/modules/bidding/partials/forms/statistics.html'"></div>
+        </div>
+    </div>
 </div>
 <div class="modal-footer">
     <button ng-if="vm.tab!='history'&&vm.mode=='edit'" class="btn btn-warning pull-left" ng-click="vm.stage()" title="Once post, the bid will be visible to possible bidders. You will not be abled to modify a post bid.">Post</button>
