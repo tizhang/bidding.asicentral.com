@@ -40,7 +40,7 @@ namespace Bidding.Web.Controllers
             if( userObject != null)
             {
                 CookieHelper.SetCookieValue(Request, Response, CookieHelper.COOKIE_USERID, userObject.Id.ToString());
-                CookieHelper.SetCookieValue(Request, Response, CookieHelper.COOKIE_USERID, userObject.Name);
+                CookieHelper.SetCookieValue(Request, Response, CookieHelper.COOKIE_NAME, userObject.Name);
                 if ( userObject.Groups != null && userObject.Groups.Count > 0)
                 {
                     CookieHelper.SetCookieValue(Request, Response, CookieHelper.COOKIE_GROUPS, string.Join(",", userObject.Groups));
