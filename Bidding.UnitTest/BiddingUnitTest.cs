@@ -24,14 +24,14 @@ namespace Bidding.UnitTest
                 new Bidding.Data.User() { Name = "mzhang",FirstName="May", LastName="Zhang",  Email = "mzhang@asicentral.com", Password = "password1", Groups = "WESP,SESP,ADMG", CreateDate = DateTime.Now },
                 new Bidding.Data.User() { Name = "cchen",FirstName="Caroline", LastName="Chen",  Email = "cchen@asicentral.com", Password = "password1", Groups = "WESP,SESP,ADMG", CreateDate = DateTime.Now },
                 new Bidding.Data.User() { Name = "yfang",FirstName="Yoyo", LastName="Fang",  Email = "yfang@asicentral.com", Password = "password1", Groups = "WESP,SESP,ADMG", CreateDate = DateTime.Now },
-                new Bidding.Data.User() { Name = "twesp1",FirstName="Test1", LastName="Bidding1", Email = "tbidding1@asicentral.com", Password = "password1", Groups = "WESP", CreateDate = DateTime.Now },
-                new Bidding.Data.User() { Name = "tsesp1",FirstName="Test2", LastName="Bidding2", Email = "tbidding2@asicentral.com", Password = "password1", Groups = "SESP", CreateDate = DateTime.Now },
-                new Bidding.Data.User() { Name = "tadmg1",FirstName="Test3", LastName="Bidding3", Email = "tbidding3@asicentral.com", Password = "password1", Groups = "ADMG", CreateDate = DateTime.Now },
-                new Bidding.Data.User() { Name = "twesp2",FirstName="Test4", LastName="Bidding4", Email = "tbidding4@asicentral.com", Password = "password1", Groups = "WESP", CreateDate = DateTime.Now },
-                new Bidding.Data.User() { Name = "tsesp2",FirstName="Test5", LastName="Bidding5", Email = "tbidding5@asicentral.com", Password = "password1", Groups = "SESP", CreateDate = DateTime.Now },
-                new Bidding.Data.User() { Name = "tadmg2",FirstName="Test6", LastName="Bidding6", Email = "tbidding6@asicentral.com", Password = "password1", Groups = "ADMG", CreateDate = DateTime.Now },
-                new Bidding.Data.User() { Name = "twesp3",FirstName="Test7", LastName="Bidding7", Email = "tbidding7@asicentral.com", Password = "password1", Groups = "WESP", CreateDate = DateTime.Now },
-                new Bidding.Data.User() { Name = "tsesp3",FirstName="Test8", LastName="Bidding8", Email = "tbidding8@asicentral.com", Password = "password1", Groups = "SESP", CreateDate = DateTime.Now }
+                new Bidding.Data.User() { Name = "twesp1",FirstName="Test1", LastName="Twesp1", Email = "twesp1@asicentral.com", Password = "password1", Groups = "WESP", CreateDate = DateTime.Now },
+                new Bidding.Data.User() { Name = "tsesp1",FirstName="Test2", LastName="Tsesp1", Email = "tsesp1@asicentral.com", Password = "password1", Groups = "SESP", CreateDate = DateTime.Now },
+                new Bidding.Data.User() { Name = "tadmg1",FirstName="Test3", LastName="Tadmg1", Email = "tadmg1@asicentral.com", Password = "password1", Groups = "ADMG", CreateDate = DateTime.Now },
+                new Bidding.Data.User() { Name = "twesp2",FirstName="Test4", LastName="Twesp2", Email = "twesp2@asicentral.com", Password = "password1", Groups = "WESP", CreateDate = DateTime.Now },
+                new Bidding.Data.User() { Name = "tsesp2",FirstName="Test5", LastName="Tsesp2", Email = "tsesp2@asicentral.com", Password = "password1", Groups = "SESP", CreateDate = DateTime.Now },
+                new Bidding.Data.User() { Name = "tadmg2",FirstName="Test6", LastName="Tadmg2", Email = "tadmg2@asicentral.com", Password = "password1", Groups = "ADMG", CreateDate = DateTime.Now },
+                new Bidding.Data.User() { Name = "twesp3",FirstName="Test7", LastName="Twesp3", Email = "twesp3@asicentral.com", Password = "password1", Groups = "WESP", CreateDate = DateTime.Now },
+                new Bidding.Data.User() { Name = "tsesp3",FirstName="Test8", LastName="Tsesp3", Email = "tsesp3@asicentral.com", Password = "password1", Groups = "SESP", CreateDate = DateTime.Now }
             };
             using (var db = new Data.BiddingContext())
             {
