@@ -82,11 +82,13 @@ namespace Bidding.UnitTest
             bool HighWin = minIncrement.HasValue ? minIncrement.Value > 0 : true;
             item.Setting = new BiddingSetting()
             {
-                MinIncrement = minIncrement.HasValue? minIncrement.Value : Math.Min(acceptPrice / 10, 50),
-                StartPrice = acceptPrice * (HighWin? 0.1 :2.0),
-                StartDate = startTime.HasValue?startTime.Value:DateTime.Now,
-                EndDate = endTime.HasValue? endTime.Value: DateTime.Now.AddDays(5),
+                MinIncrement = minIncrement.HasValue ? minIncrement.Value : Math.Min(acceptPrice / 10, 50),
+                StartPrice = acceptPrice * (HighWin ? 0.1 : 2.0),
+                StartDate = startTime.HasValue ? startTime.Value : DateTime.Now,
+                EndDate = endTime.HasValue ? endTime.Value : DateTime.Now.AddDays(5),
                 AcceptPrice = acceptPrice,
+                ShowCurrentPrice = true,
+                ShowOwner = true,
                 Groups = new List<string> { group }
             };
             BiddingManager.CreateItem(item);
