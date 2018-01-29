@@ -40,7 +40,8 @@ namespace Bidding.Web.Controllers
             if( userObject != null)
             {
                 CookieHelper.SetCookieValue(Request, Response, CookieHelper.COOKIE_USERID, userObject.Id.ToString());
-                if( userObject.Groups != null && userObject.Groups.Count > 0)
+                CookieHelper.SetCookieValue(Request, Response, CookieHelper.COOKIE_USERID, userObject.Name);
+                if ( userObject.Groups != null && userObject.Groups.Count > 0)
                 {
                     CookieHelper.SetCookieValue(Request, Response, CookieHelper.COOKIE_GROUPS, string.Join(",", userObject.Groups));
                 }
@@ -54,6 +55,7 @@ namespace Bidding.Web.Controllers
     public class UserModel
     {
         public string Email { get; set; }
+        public string Name { get; set; }
         public string Password { get; set; }
         public int Id { get; set; }
         public string ErrorMessage { get; set; }
