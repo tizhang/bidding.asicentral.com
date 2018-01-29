@@ -1,5 +1,5 @@
 ﻿(function (app) {
   'use strict';
 
-  app.registerModule('bidding', ['ui.router', 'bidding.models', 'ngTable', 'ui.bootstrap', 'ngCookies', 'angularjs-datetime-picker']);
+  app.registerModule('bidding', ['ui.router', 'bidding.models', 'ngTable', 'ui.bootstrap', 'ngCookies', 'angularjs-datetime-picker', 'chart.js']);
 })(ApplicationConfiguration);

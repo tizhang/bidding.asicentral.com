@@ -26,7 +26,8 @@
     vm.stage = stage;
     vm.watch = watch;
 
-    init();
+	init();
+	initChart();
     function init() {
       if (mode == 'add') {
         vm.model = new BiddingItem();
@@ -42,8 +43,39 @@
       if (vm.model.Status != 'DRAF' && vm.model.Status != 'STAG' && vm.model.History && vm.model.History.length) {
         vm.tabs.push('history');
         vm.tabs.push('statistics');
-      }
+	  }
+	  	
     }
+
+	function initChart() {
+		$scope.labels = ['created (' + new Date(vm.model.CreateDate).toLocaleDateString() + ')'];
+		var prices = [Number(vm.model.Setting.StartPrice)];
+		angular.forEach(vm.model.History, function (value, key) {
+			$scope.labels.push(value.Bidder.Name + ' (' + new Date(value.ActionTime).toLocaleDateString()+')');
+			prices.push(Number(value.Price));
+		});
+		$scope.series = ['Bidding History'];
+
+		$scope.data = [
+			prices
+		];
+		$scope.onClick = function (points, evt) {
+			console.log(points, evt);
+		};
+		$scope.datasetOverride = [{ yAxisID: 'y-axis-1' }];
+		$scope.options = {
+			scales: {
+				yAxes: [
+					{
+						id: 'y-axis-1',
+						type: 'linear',
+						display: true,
+						position: 'left'
+					}
+				]
+			}
+		};
+	}
 
     function bid(model) {
       console.log('bid');

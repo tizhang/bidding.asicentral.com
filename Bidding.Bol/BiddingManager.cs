@@ -474,7 +474,7 @@ namespace Bidding.Bol
                 itemIds.AddRange(db.Watchers.Where(w => w.UserId == userId && w.IsActive).Select(w => w.BiddingItemId));
                 var query = db.Notifications.Where(n => (n.UserId.HasValue ? n.UserId == userId : false || itemIds.Contains(n.BiddingItemId)) && n.EventTime <= DateTime.Now);
                 if (dack != null)
-                    query = query.Where(n => n.EventTime >= dack.LastAccessDate);
+                    query = query.Where(n => n.EventTime > dack.LastAccessDate);
                 notifications = query.OrderByDescending(n => n.EventTime).ToList();
             }
             var items = notifications.Select(i => Mapper.Map<Notification>(i)).ToList();
