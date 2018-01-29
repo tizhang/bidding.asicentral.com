@@ -60,7 +60,7 @@
       for (var i = 0; i < vm.todoList.length; i++) {
         BiddingItem.get(vm.todoList[i].BiddingItemId).then(
           function (item) {
-            $rootScope.$broadcast('itemChanged', item);
+            $scope.$broadcast('itemChanged', item);
           },
           function (err) {
             console.log(err);

@@ -13,8 +13,8 @@
       defualts: {
         ItemId: null,
         BidderGroups: [],
-        CanSeeOwner: false,
-        CanSeeCurrentPrice: false,
+        ShowOwner: false,
+        ShowCurrentPrice: false,
         Increment: 1.00,
         StartPrice: 0.00,
         StartDate: null,

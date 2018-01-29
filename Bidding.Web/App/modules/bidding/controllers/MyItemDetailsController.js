@@ -41,6 +41,7 @@
       vm.enableBidTimes = vm.model.Setting.BidTimePerUser > 0;
       if (vm.model.Status != 'DRAF' && vm.model.Status != 'STAG' && vm.model.History && vm.model.History.length) {
         vm.tabs.push('history');
+        vm.tabs.push('statistics');
       }
     }
 

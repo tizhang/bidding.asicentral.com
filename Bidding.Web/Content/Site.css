@@ -295,10 +295,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .results-bar {
     border-radius: 4px;
-    border: 1px solid #c8dde7;
-    background: #eaf1f9;
+    border: 1px solid lightgray;
+    background: rgb(221,221,221);
     margin-bottom: 20px;
-    padding: 10px;
+    padding-top: 5px;
 }
 
     .results-bar .results-count {
@@ -313,7 +313,7 @@ h1, h2, h3, h4, h5, h6 {
     .results-bar .results-group {
         display: inline-block;
         padding: 5px 10px;
-        border-left: 1px dashed #c3dbe4;
+        border-left: 1px dashed lightgray;
         font-size: 12px;
     }
 
@@ -406,9 +406,11 @@ hr.hr-dashed {
     font: 14px arial, venrdana;
     color: gray;
 }
+
     .notification-text:hover {
         color: lightgray;
     }
+
 .notification-btn {
     opacity: 1;
     display: block;
@@ -426,3 +428,75 @@ hr.hr-dashed {
     .notification-btn:hover {
         color: lightgray;
     }
+
+.btn-gray {
+    padding: 0 !important;
+}
+
+    .btn-gray:hover {
+        color: white;
+    }
+
+/*animation*/
+.highlight-animation {
+    -webkit-animation: red-highlight 2s ease-in-out;
+    -moz-animation: red-highlight 2s ease-in-out;
+    -o-animation: red-highlight 2s ease-in-out;
+    animation: red-highlight 2s ease-in-out1;
+}
+
+@-webkit-keyframes red-highlight {
+    0% {
+        background-color: none;
+    }
+
+    50% {
+        background-color: none;
+    }
+
+    100% {
+        background-color: none;
+    }
+}
+
+@-moz-keyframes red-highlight {
+    0% {
+        background-color: none;
+    }
+
+    50% {
+        background-color: none;
+    }
+
+    100% {
+        background-color: none;
+    }
+}
+
+@-o-keyframes red-highlight {
+    0% {
+        background-color: none;
+    }
+
+    50% {
+        background-color: none;
+    }
+
+    100% {
+        background-color: none;
+    }
+}
+
+@keyframes red-highlight {
+    0% {
+        background-color: none;
+    }
+
+    50% {
+        background-color: none;
+    }
+
+    100% {
+        background-color: none;
+    }
+}

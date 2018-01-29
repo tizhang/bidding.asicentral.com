@@ -19,7 +19,7 @@
         <!--<div class="item-card-name">{{vm.model.Name}}</div>-->
         <div ng-show="vm.model.Status=='ACTV'" class="item-card-countdown" countdown-to="vm.model.Setting.EndDate" title="Expiring on {{vm.model.Setting.EndDate}}"></div>
         <div ng-show="vm.model.Status=='STAG'" class="item-card-countdown" countdown-to="vm.model.Setting.StartDate" title="Coming at {{vm.model.Setting.StartDate}}"></div>
-        <div class="item-card-price"><i class="fa fa-usd" aria-hidden="true"></i><span class="black" title="Current Price: {{vm.model.Price}}">&nbsp;{{vm.model.Price}}</span></div>
-        <div ng-show="vm.model.Setting.CanSeeCurrentPrice" class="item-card-count"><i class="fa fa-users" aria-hidden="true"></i><span class="black" title="Bid Count: {{vm.model.BidTimes}}">&nbsp;{{vm.model.BidTimes}}</span></div>
+        <div ng-show="vm.model.Setting.ShowCurrentPrice" class="item-card-price"><i class="fa fa-usd" aria-hidden="true"></i><span class="black" title="Current Price: {{vm.model.Price}}">&nbsp;{{vm.model.Price}}</span></div>
+        <div class="item-card-count"><i class="fa fa-users" aria-hidden="true"></i><span class="black" title="Bid Count: {{vm.model.BidTimes}}">&nbsp;{{vm.model.BidTimes}}</span></div>
     </div>
 </div>
