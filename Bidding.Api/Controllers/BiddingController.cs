@@ -179,6 +179,7 @@ namespace Bidding.Api.Controllers
         {
             //DateTime lastAccessDate = nack.LastAccessDate;
             //var ack = new NotificationAck() { UserId = userid, LastAccessDate = lastAccessDate };
+            ack.LastAccessDate = ack.LastAccessDate.ToLocalTime();
             var ret = BiddingManager.AddOrUpdateNotificationAck(ack);
             if (ret.Success)
             {

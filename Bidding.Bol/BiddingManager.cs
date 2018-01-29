@@ -255,6 +255,8 @@ namespace Bidding.Bol
             };
             if (action.ActionTime == DateTime.MinValue)
                 action.ActionTime = DateTime.Now;
+            else
+                action.ActionTime = action.ActionTime.ToLocalTime();
             if (string.IsNullOrEmpty(action.Bidder.Name) && action.Bidder.Id > 0)
             {
                 action.Bidder = UserManager.GetUser(action.Bidder.Id);
