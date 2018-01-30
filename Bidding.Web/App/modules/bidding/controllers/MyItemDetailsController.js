@@ -5,9 +5,9 @@
     .module('bidding')
     .controller('MyItemDetailsController', MyItemDetailsController);
 
-  MyItemDetailsController.$inject = ['$scope', 'BiddingItem', 'model', '$uibModalInstance', 'mode', '$cookies'];
+  MyItemDetailsController.$inject = ['$scope', 'BiddingItem', 'model', '$uibModalInstance', 'mode', '$cookies','$filter'];
 
-  function MyItemDetailsController($scope, BiddingItem, model, $uibModalInstance, mode, $cookies) {
+  function MyItemDetailsController($scope, BiddingItem, model, $uibModalInstance, mode, $cookies, $filter) {
     var vm = this;
 
     vm.applyBidGroup = false;
@@ -48,10 +48,11 @@
     }
 
 	function initChart() {
-		$scope.labels = ['created (' + new Date(vm.model.CreateDate).toLocaleDateString() + ')'];
+
+		$scope.labels = ['started (' + $filter('date')(vm.model.Setting.StartDate, 'MM/dd/yy@h:mma') + ')'];
 		var prices = [Number(vm.model.Setting.StartPrice)];
 		angular.forEach(vm.model.History, function (value, key) {
-			$scope.labels.push(value.Bidder.Name + ' (' + new Date(value.ActionTime).toLocaleDateString()+')');
+			$scope.labels.push(value.Bidder.Name + ' (' + $filter('date')(value.ActionTime, 'MM/dd/yy@h:mma')+')');
 			prices.push(Number(value.Price));
 		});
 		$scope.series = ['Bidding History'];
