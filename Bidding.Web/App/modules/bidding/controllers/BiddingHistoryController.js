@@ -92,8 +92,9 @@
     function submitBid(bidItem) {
       // add popup window to enter price
       var action = new BiddingAction(bitItem);
-      action.$save().then(function (response) { },
-        function (error) { })
+      action.$save()
+        .then(function (response) { })
+        .catch(function (error) { });
     }
 
   }

@@ -5,9 +5,9 @@
     .module('bidding')
     .controller('LiveController', LiveController);
 
-  LiveController.$inject = ['$scope', '$state', '$filter', 'BiddingItem', 'modalFactory', 'modalOptions'];
+  LiveController.$inject = ['$scope', '$state', '$filter', 'BiddingItem', 'modalFactory', 'modalOptions', 'myWatchList', '$cookies'];
 
-  function LiveController($scope, $state, $filter, BiddingItem, modalFactory, modalOptions) {
+  function LiveController($scope, $state, $filter, BiddingItem, modalFactory, modalOptions, myWatchList, $cookies) {
     var vm = this;
     vm.activeItems = null;
     vm.filterBy = {
@@ -19,7 +19,7 @@
     vm.sortBy = { '#activeGallery': '-CreateDate', '#stagedGallery': '-CreateDate' };
     vm.sortOptions = { '#activeGallery': [], '#stagedGallery': [] };
     vm.stagedItems = null;
-    vm.watchedIds = []; // TODO load
+    //vm.watchedIds = myWatchList; // TODO load
     vm.biddedIds = []; // TODO load
 
     vm.bid = bid;
@@ -39,12 +39,14 @@
       BiddingItem.getByGroup({ group: '', includeSettings: true, includeHistory: true })
         .then(
         function (resp) {
-          vm.activeItems = $filter('filter')(resp, { Status: "ACTV" });
-          vm.maxIndex['#activeGallery'] = vm.activeItems.length ? vm.activeItems.length - 1 : 0;
-          generateSortFilterOptions('#activeGallery', vm.activeItems);
-          vm.stagedItems = $filter('filter')(resp, { Status: "STAG" });
-          vm.maxIndex['#stagedGallery'] = vm.stagedItems.length ? vm.stagedItems.length - 1 : 0;
-          generateSortFilterOptions('#stagedGallery', vm.stagedItems);
+          myWatchList.iAm($cookies.get('UserID'), function () {
+            vm.activeItems = $filter('filter')(resp, { Status: "ACTV" });
+            vm.maxIndex['#activeGallery'] = vm.activeItems.length ? vm.activeItems.length - 1 : 0;
+            generateSortFilterOptions('#activeGallery', vm.activeItems);
+            vm.stagedItems = $filter('filter')(resp, { Status: "STAG" });
+            vm.maxIndex['#stagedGallery'] = vm.stagedItems.length ? vm.stagedItems.length - 1 : 0;
+            generateSortFilterOptions('#stagedGallery', vm.stagedItems);
+          });
         },
         function (err) {
           console.log(err);
@@ -115,7 +117,7 @@
           });
         }
         items[index].custom = {};
-        items[index].custom.watched = vm.watchedIds.includes(value.Id);
+        items[index].custom.watched = myWatchList.isWatching(value.Id);
         items[index].custom.bidded = vm.biddedIds.includes(value.Id);
 
       });
@@ -137,8 +139,8 @@
     }
 
     $scope.$on('itemChanged', function (evnet, data) {
-      if(!findUpdate(vm.activeItems,data))
-        findUpdate(vm.stagedItems,data);
+      if (!findUpdate(vm.activeItems, data))
+        findUpdate(vm.stagedItems, data);
       //vm.activeItems = $filter('filter')(resp, { Status: "ACTV" });
       //vm.maxIndex['#activeGallery'] = vm.activeItems.length ? vm.activeItems.length - 1 : 0;
       //generateSortFilterOptions('#activeGallery', vm.activeItems);

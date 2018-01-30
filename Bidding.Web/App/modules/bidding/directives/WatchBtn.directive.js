@@ -37,12 +37,16 @@
     function watch() {
       myWatchList.watch(vm.model.Id, function (watching) {
         vm.watching = watching;
+        if (vm.model.custom)
+          vm.model.custom.watched = watching;
       });
     }
 
     function unwatch() {
       myWatchList.unwatch(vm.model.Id, function (watching) {
         vm.watching = watching;
+        if (vm.model.custom)
+          vm.model.custom.watched = watching;
       });
     }
   }

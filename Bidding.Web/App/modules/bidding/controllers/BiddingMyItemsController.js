@@ -75,12 +75,18 @@
 
     function addItem() {
       var item = new BiddingItem();
-      modalFactory.open(item, modalOptions.addItem);
+      modalFactory.open(item, modalOptions.addItem).closed.then(
+        function (resp) {
+          vm.tableMyItems.reload();
+        });
     }
 
     function editItem(item) {
       // edit mode
-      modalFactory.open(item, modalOptions.editItem);
+      modalFactory.open(item, modalOptions.editItem).closed.then(
+        function (resp) {
+          vm.tableMyItems.reload();
+        });
     }
 
     function deleteItem(item) {

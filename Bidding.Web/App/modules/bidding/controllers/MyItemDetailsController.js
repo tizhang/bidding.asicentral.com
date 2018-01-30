@@ -7,9 +7,9 @@
 
   MyItemDetailsController.$inject = ['$scope', 'BiddingItem', 'model', '$uibModalInstance', 'mode', '$cookies'];
 
-  function MyItemDetailsController($scope, BiddingItem, model, $uibModalInstance, mode,$cookies) {
+  function MyItemDetailsController($scope, BiddingItem, model, $uibModalInstance, mode, $cookies) {
     var vm = this;
-    
+
     vm.applyBidGroup = false;
     vm.enableBidTimes = false;
     vm.groups = [['WESP'], ['SESP'], ['ADMG']];
@@ -38,8 +38,8 @@
       if (vm.model.Status == 'DRAF')
         vm.mode = mode;
       vm.model = new BiddingItem(vm.model);
-      vm.applyBidGroup = vm.model.Setting.Groups && vm.model.Setting.Groups.length;
-      vm.enableBidTimes = vm.model.Setting.BidTimePerUser > 0;
+      vm.applyBidGroup = (vm.model.Setting.Groups && vm.model.Setting.Groups.length) ? true : false;
+      vm.enableBidTimes = vm.model.Setting.BidTimePerUser > 0 ? true : false;
       if (vm.model.Status != 'DRAF' && vm.model.Status != 'STAG' && vm.model.History && vm.model.History.length) {
         vm.tabs.push('history');
         vm.tabs.push('statistics');
@@ -113,7 +113,8 @@
           } else if (vm.mode == 'edit' && vm.model.Status != 'DRAF') {
             vm.mode = 'view'
           }
-        },
+          $uibModalInstance.close(vm.model);
+        }).catch(
         function (err) {
           $uibModalInstance.dismiss('error');
         });
