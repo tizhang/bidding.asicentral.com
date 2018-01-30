@@ -10,6 +10,7 @@
   function myWatchList(Watcher) {
     var myWatchlist = [];
     var userId = 0;
+    var loaded = false;
     return {
       iAm: iAm,
       isWatching: isWatching,
@@ -18,18 +19,23 @@
       list: myWatchlist
     };
     function iAm(userid, callback) {
-      if (userid && userId != userid) {
+      if (!userid)
+        return;
+      if (userId != userid) {
         userId = userid;
         Watcher.getByUser({ userid: userId })
           .then(
           function (resp) {
             myWatchlist = resp;
+            loaded = true;
             if (callback)
               callback();
           },
           function () {
             console.log("Error in myWatchList");
           });
+      } else if (loaded && callback){
+          callback();
       }
     }
     function isWatching(itemId) {
