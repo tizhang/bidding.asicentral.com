@@ -113,7 +113,8 @@
           } else if (vm.mode == 'edit' && vm.model.Status != 'DRAF') {
             vm.mode = 'view'
           }
-        },
+          $uibModalInstance.close(vm.model);
+        }).catch(
         function (err) {
           $uibModalInstance.dismiss('error');
         });
