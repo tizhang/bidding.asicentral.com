@@ -54,8 +54,7 @@
               myWatchlist.push(itemId);
             if (callback)
               callback(true);
-          },
-          function () {
+          }).catch(function () {
             console.log("Error in myWatchList");
             if (callback)
               callback(false);
@@ -76,7 +75,7 @@
             myWatchlist.splice(index, 1);
             if (callback)
               callback(false);
-          },
+          }).catch(
           function () {
             console.log("Error in myWatchList");
             if (callback)

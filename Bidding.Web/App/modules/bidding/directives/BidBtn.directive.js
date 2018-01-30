@@ -64,13 +64,14 @@
       vm.action.$save().then(
         function (resp) {
           vm.model.Price = resp.Price;
+          if (vm.model.custom)
+            vm.model.custom.bidded = true;
           init();
           vm.editing = false;
-        },
-		function (err) {
-		  err = err.data ? err.data : err;
-		  if (err.Message)
-			alert(err.Message);
+        }).catch(function (err) {
+          err = err.data ? err.data : err;
+          if (err.Message)
+            alert(err.Message);
           vm.editing = false;
         });
     }
