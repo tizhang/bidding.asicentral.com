@@ -55,6 +55,11 @@
 			$scope.labels.push(value.Bidder.Name + ' (' + $filter('date')(value.ActionTime, 'MM/dd/yy@h:mma')+')');
 			prices.push(Number(value.Price));
 		});
+		if (vm.model.Status == 'FAIL' || vm.model.Status == 'SUCC')
+		{
+			$scope.labels.push('ended (' + $filter('date')(vm.model.Setting.EndDate, 'MM/dd/yy@h:mma') + ')');
+			prices.push(Number(vm.model.Price));
+		}
 		$scope.series = ['Bidding History'];
 
 		$scope.data = [
@@ -73,7 +78,12 @@
 						display: true,
 						position: 'left'
 					}
-				]
+				],
+				xAxes: [{
+					ticks: {
+						autoSkip: false
+					}
+				}]
 			}
 		};
 	}
