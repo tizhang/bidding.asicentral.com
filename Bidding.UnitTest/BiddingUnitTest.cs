@@ -43,11 +43,11 @@ namespace Bidding.UnitTest
 
             item = AddBiddingItem("pen", "1000 blue pen", "http://media.asicdn.com/images/jpgb/20480000/20488855.jpg", "tzhang", 1000, DateTime.Now.AddHours(-1), "WESP", BiddingItem.ActiveStatus, 20, DateTime.Now.AddHours(4));
             AddBiddingActions(item, new string[] { "twesp1" });
-            AddBiddingItem("shirt", "1000 Gildan Ladies Heavy Cotton 100% Cotton V-Neck T-Shirt", "http://media.asicdn.com/images/jpgb/81020000/81022564.jpg", "mzhang", 2000, DateTime.Now, "SESP", BiddingItem.DraftStatus, -10);
+            AddBiddingItem("1000 shirt", "1000 Gildan Ladies Heavy Cotton 100% Cotton V-Neck T-Shirt", "http://media.asicdn.com/images/jpgb/81020000/81022564.jpg", "mzhang", 2000, DateTime.Now.AddMinutes(1), "SESP", BiddingItem.DraftStatus, -10);
 
-            AddBiddingItem("watch", "1 Citizen Eco-Drive Skyhawk A-T Black Dial Mens Watch", "http://media.asicdn.com/images/jpgb/22290000/22297307.jpg", "mzhang", 100, DateTime.Now.AddMinutes(3), "WESP", BiddingItem.StagingStatus, 20, DateTime.Now.AddHours(10));
-            AddBiddingItem("calendar", "3000 Fisherman's Guide appointment calendar", "http://media.asicdn.com/images/jpgb/20770000/20777767.jpg", "mzhang", 2000, DateTime.Now.AddMinutes(3), "WESP", BiddingItem.StagingStatus, 20);
-            AddBiddingItem("Hoodie", "100 Heavy Blend (TM) Hood", "http://media.asicdn.com/images/jpgb/7690000/7691233.jpg", "mzhang", 800, DateTime.Now.AddMinutes(3), "WESP", BiddingItem.StagingStatus, 20);
+            AddBiddingItem("watch", "1 Citizen Eco-Drive Skyhawk A-T Black Dial Mens Watch", "http://media.asicdn.com/images/jpgb/22290000/22297307.jpg", "mzhang", 100, DateTime.Now.AddMinutes(1), "WESP", BiddingItem.StagingStatus, 20, DateTime.Now.AddMinutes(3));
+            AddBiddingItem("calendar", "3000 Fisherman's Guide appointment calendar", "http://media.asicdn.com/images/jpgb/20770000/20777767.jpg", "mzhang", 2000, DateTime.Now.AddMinutes(1), "WESP", BiddingItem.DraftStatus, 20, DateTime.Now.AddMinutes(3));
+            AddBiddingItem("Hoodie", "100 Heavy Blend (TM) Hood", "http://media.asicdn.com/images/jpgb/7690000/7691233.jpg", "mzhang", 800, DateTime.Now.AddMinutes(1), "WESP", BiddingItem.StagingStatus, 20, DateTime.Now.AddMinutes(4));
             
             item = AddBiddingItem("mug", "200 Sporty Travel Mugs with Handles", "http://media.asicdn.com/images/jpgo/7880000/7887725.jpg", "yfang", 800, DateTime.Now.AddHours(-3),"WESP", BiddingItem.ActiveStatus, 20);
             AddBiddingActions(item, new string[] { "twesp3", "tzhang", "cchen", "yfang" });

@@ -33,7 +33,9 @@ namespace Bidding.Bol
                 cfg.CreateMap<Bol.BiddingSetting, Data.BiddingSetting>()
                 .ForMember(dest => dest.BiddingSettingId, opts => opts.MapFrom(src => src.Id))
                 .ForMember(dest => dest.GroupNames, opts => opts.MapFrom(src => src.Groups != null ? string.Join(",", src.Groups) : null))
-                .ForMember(dest => dest.Type, opts => opts.MapFrom(src => src.MinIncrement > 0 ? Data.BiddingType.HighWin : Data.BiddingType.LowWin));
+                .ForMember(dest => dest.Type, opts => opts.MapFrom(src => src.MinIncrement > 0 ? Data.BiddingType.HighWin : Data.BiddingType.LowWin))
+                .ForMember(dest => dest.StartDate, opts => opts.MapFrom(src => src.StartDate > DateTime.MinValue ? src.StartDate.ToLocalTime() : src.StartDate))
+                .ForMember(dest => dest.EndDate, opts => opts.MapFrom(src => src.EndDate > DateTime.MinValue ? src.EndDate.ToLocalTime() : src.EndDate));
 
 
                 cfg.CreateMap<Data.BiddingAction, Bol.BiddingAction>()
@@ -70,6 +72,8 @@ namespace Bidding.Bol
 
                 cfg.CreateMap<Bol.NotificationAck, Data.NotificationAck>()
                 .ForMember(dest => dest.NotificationAckId, opts => opts.MapFrom(src => src.Id));
+
+                cfg.CreateMap<Data.BiddingSetting, Data.BiddingSetting>();
 
             });
 
