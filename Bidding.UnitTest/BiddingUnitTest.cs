@@ -38,29 +38,29 @@ namespace Bidding.UnitTest
                 db.Users.AddRange(users);
                 db.SaveChanges();
             }
-            var item = AddBiddingItem("apron", "1000 Aprons", "http://media.asicdn.com/images/jpgb/20070000/20070850.jpg", "yfang", 4000, DateTime.Now.AddHours(-3), "WESP", BiddingItem.ActiveStatus, 20);
+            var item = AddBiddingItem("1000 aprons", "1000 Aprons", "http://media.asicdn.com/images/jpgb/20070000/20070850.jpg", "yfang", 4000, DateTime.Now.AddHours(-3), "WESP", BiddingItem.ActiveStatus, 20);
             AddBiddingActions(item, new string[] { "twesp1" });
 
-            item = AddBiddingItem("pen", "1000 blue pen", "http://media.asicdn.com/images/jpgb/20480000/20488855.jpg", "tzhang", 1000, DateTime.Now.AddHours(-1), "WESP", BiddingItem.ActiveStatus, 20, DateTime.Now.AddHours(4));
+            item = AddBiddingItem("1000 pen", "1000 blue pen", "http://media.asicdn.com/images/jpgb/20480000/20488855.jpg", "tzhang", 1000, DateTime.Now.AddHours(-1), "WESP", BiddingItem.ActiveStatus, 20, DateTime.Now.AddHours(4));
             AddBiddingActions(item, new string[] { "twesp1" });
             AddBiddingItem("1000 shirt", "1000 Gildan Ladies Heavy Cotton 100% Cotton V-Neck T-Shirt", "http://media.asicdn.com/images/jpgb/81020000/81022564.jpg", "mzhang", 2000, DateTime.Now.AddMinutes(1), "SESP", BiddingItem.DraftStatus, -10);
 
-            AddBiddingItem("watch", "1 Citizen Eco-Drive Skyhawk A-T Black Dial Mens Watch", "http://media.asicdn.com/images/jpgb/22290000/22297307.jpg", "mzhang", 100, DateTime.Now.AddMinutes(1), "WESP", BiddingItem.StagingStatus, 20, DateTime.Now.AddMinutes(3));
-            AddBiddingItem("calendar", "3000 Fisherman's Guide appointment calendar", "http://media.asicdn.com/images/jpgb/20770000/20777767.jpg", "mzhang", 2000, DateTime.Now.AddMinutes(1), "WESP", BiddingItem.DraftStatus, 20, DateTime.Now.AddMinutes(3));
-            AddBiddingItem("Hoodie", "100 Heavy Blend (TM) Hood", "http://media.asicdn.com/images/jpgb/7690000/7691233.jpg", "mzhang", 800, DateTime.Now.AddMinutes(1), "WESP", BiddingItem.StagingStatus, 20, DateTime.Now.AddMinutes(4));
+            AddBiddingItem("1 watch", "1 Citizen Eco-Drive Skyhawk A-T Black Dial Mens Watch", "http://media.asicdn.com/images/jpgb/22290000/22297307.jpg", "mzhang", 100, DateTime.Now.AddMinutes(1), "WESP", BiddingItem.StagingStatus, 20, DateTime.Now.AddMinutes(15));
+            AddBiddingItem("3000 calendars", "3000 Fisherman's Guide appointment calendar", "http://media.asicdn.com/images/jpgb/20770000/20777767.jpg", "mzhang", 2000, DateTime.Now.AddMinutes(1), "WESP", BiddingItem.DraftStatus, 20, DateTime.Now.AddMinutes(5));
+            AddBiddingItem("100 Hoodies", "100 Heavy Blend (TM) Hood", "http://media.asicdn.com/images/jpgb/7690000/7691233.jpg", "mzhang", 800, DateTime.Now.AddMinutes(2), "WESP", BiddingItem.DraftStatus, 20, DateTime.Now.AddMinutes(5));
             
-            item = AddBiddingItem("mug", "200 Sporty Travel Mugs with Handles", "http://media.asicdn.com/images/jpgo/7880000/7887725.jpg", "yfang", 800, DateTime.Now.AddHours(-3),"WESP", BiddingItem.ActiveStatus, 20);
+            item = AddBiddingItem("200 mug", "200 Sporty Travel Mugs with Handles", "http://media.asicdn.com/images/jpgo/7880000/7887725.jpg", "yfang", 800, DateTime.Now.AddHours(-3),"WESP", BiddingItem.ActiveStatus, 20);
             AddBiddingActions(item, new string[] { "twesp3", "tzhang", "cchen", "yfang" });
 
-            item = AddBiddingItem("tool", "1000 7-in-1 Multi-Tool", "http://media.asicdn.com/images/jpgb/7910000/7915335.jpg", "yfang", 3000, DateTime.Now.AddHours(-3), "WESP", BiddingItem.ActiveStatus, 20);
+            item = AddBiddingItem("1000 tools", "1000 7-in-1 Multi-Tool", "http://media.asicdn.com/images/jpgb/7910000/7915335.jpg", "yfang", 3000, DateTime.Now.AddHours(-3), "WESP", BiddingItem.ActiveStatus, 20);
             AddBiddingActions(item, new string[] { "twesp2", "mzhang" });
-            item = AddBiddingItem("watches", "5000 Elegant LED Bracelet Watches", "http://media.asicdn.com/images/jpgb/22620000/22620415.jpg", "yfang", 8000, DateTime.Now.AddHours(-3), "WESP", BiddingItem.ActiveStatus, 20);
+            item = AddBiddingItem("5000 watches", "5000 Elegant LED Bracelet Watches", "http://media.asicdn.com/images/jpgb/22620000/22620415.jpg", "mzhang", 8000, DateTime.Now.AddHours(-3), "WESP", BiddingItem.ActiveStatus, 20);
             AddBiddingActions(item, new string[] { "twesp1", "twesp2", "twesp3", "cchen", "yfang" });
 
-            item = AddBiddingItem("shirt", "1000 Red House (R) Ladies' Nailhead Non-Iron Button-Down Shirt", "http://media.asicdn.com/images/jpgb/20950000/20956175.jpg", "mzhang", 2000, DateTime.Now, "SESP", BiddingItem.ActiveStatus, -10, DateTime.Now.AddHours(10));
+            item = AddBiddingItem("1000 shirt", "1000 Red House (R) Ladies' Nailhead Non-Iron Button-Down Shirt", "http://media.asicdn.com/images/jpgb/20950000/20956175.jpg", "mzhang", 2000, DateTime.Now, "SESP", BiddingItem.ActiveStatus, -10, DateTime.Now.AddHours(10));
             AddBiddingActions(item, new string[] { "tsesp1", "tsesp2" });
 
-            item = AddBiddingItem("chocolate", "1000 bags of Chocolate Sports Balls Soccer", "http://media.asicdn.com/images/jpgb/21150000/21152160.jpg", "mzhang", 400, DateTime.Now, "SESP", BiddingItem.ActiveStatus, -10, DateTime.Now.AddDays(3));
+            item = AddBiddingItem("1000 bags of chocolate", "1000 bags of Chocolate Sports Balls Soccer", "http://media.asicdn.com/images/jpgb/21150000/21152160.jpg", "mzhang", 400, DateTime.Now, "SESP", BiddingItem.ActiveStatus, -10, DateTime.Now.AddDays(3));
             AddBiddingActions(item, new string[] { "tsesp1", "tsesp2", "tsesp3" });
 
             item = AddBiddingItem("PFP usb", "ESP PFP usb product will be shown as position 1 in search results on our apps", "http://media.asicdn.com/images/jpgb/6360000/6360473.jpg", "cchen", 400, DateTime.Now.AddHours(-2), "ADMG", BiddingItem.ActiveStatus, 10, DateTime.Now.AddDays(10));
@@ -96,10 +96,11 @@ namespace Bidding.UnitTest
         private static void AddBiddingActions(BiddingItem item, string[] bidders)
         {
             var newPrice = item.Setting.StartPrice;
+            var rand = new Random();
             foreach (var bidder in bidders)
             {
                 var obidder = UserManager.GetUser(bidder);
-                newPrice = newPrice + item.Setting.MinIncrement;
+                newPrice = newPrice + item.Setting.MinIncrement * rand.Next(1,5);
                 var action = new BiddingAction() { ItemId = item.Id, Bidder = obidder, Price = newPrice, ActionTime = DateTime.Now, Status = BiddingAction.SuccessStatus };
                 BiddingManager.AddAction(action);
             }
