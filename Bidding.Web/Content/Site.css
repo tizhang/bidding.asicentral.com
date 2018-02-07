@@ -176,24 +176,50 @@ h1, h2, h3, h4, h5, h6 {
     position: absolute;
     top: 0%;
     left: 0%;
-    transform: translate(50%, 50%);
-    -ms-transform: translate(50%, 50%);
-    -moz-transform: translate(50%, 50%);
-    -webkit-transform: translate(50%, 50%);
-    -o-transform: translate(50%, 50%);
+    transform: translate(0%, 50%);
+    -ms-transform: translate(0%, 50%);
+    -moz-transform: translate(0%, 50%);
+    -webkit-transform: translate(0%, 50%);
+    -o-transform: translate(0%, 50%);
     text-align: left;
 }
 
-.item-card-img-hover-top-right {
+.item-card-img-cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.item-card-img-top-right {
     position: absolute;
     top: 0%;
     left: 100%;
-    transform: translate(50%, -100%);
-    -ms-transform: translate(50%, -100%);
-    -moz-transform: translate(50%, -100%);
-    -webkit-transform: translate(50%, -100%);
-    -o-transform: translate(50%, -100%);
+    transform: translate(-100%, 0%);
+    -ms-transform: translate(-100%, 0%);
+    -moz-transform: translate(-100%, 0%);
+    -webkit-transform: translate(-100%, 0%);
+    -o-transform: translate(-100%, 0%);
     text-align: center;
+}
+
+.red-white-label {
+    padding: 2px 4px 2px 4px;
+    color: white;
+    background-color: red;
+}
+
+.blue-white-label {
+    padding: 2px 4px 2px 4px;
+    color: white;
+    background-color: dodgerblue;
+}
+
+.green-white-label {
+    padding: 2px 4px 2px 4px;
+    color: white;
+    background-color: lawngreen;
 }
 
 .item-card-img-container:hover .item-card-img {
@@ -202,6 +228,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .item-card-img-container:hover .item-card-img-hover {
     opacity: 1;
+    z-index:500;
+}
+
+
+.item-card-img-container:hover .item-card-img-cover {
+    opacity: 0;
+    z-index: 490;
 }
 
 .item-card-text-line {

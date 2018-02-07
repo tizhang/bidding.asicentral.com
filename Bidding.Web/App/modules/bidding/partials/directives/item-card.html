@@ -5,13 +5,21 @@
             <div class="item-card-img-hover-top">
                 <strong>{{vm.model.Name}}</strong>
             </div>
-            <div class="item-card-img-hover-top-right" ng-if="vm.model.Setting.GroupNames[0]==='ADMG'" style="color:white;background-color:red;">
-                <strong>ASI</strong>
-            </div>
             <div class="item-card-img-hover-btm">
                 <span ng-if="vm.hover&&vm.viewHandler" ng-click="vm.viewHandler({model:vm.model})" class="btn btn-sm btn-primary"><i class="fa fa-bars" aria-hidden="true"></i>Detail</span>
                 <span ng-show="vm.hover&&vm.watchHandler&&(vm.model.Status=='ACTV'||vm.model.Status=='STAG')" watch-btn="vm.model"></span>
                 <span ng-show="vm.hover&&vm.bidHandler&&vm.model.Status=='ACTV'" bid-btn="vm.model"></span>
+            </div>
+        </div>
+        <div class="item-card-img-cover">
+            <div class="item-card-img-top-right red-white-label" ng-if="vm.model.Setting.Groups[0]==='ADMG'">
+                <strong>ASI</strong>
+            </div>
+            <div class="item-card-img-top-right blue-white-label" ng-if="vm.model.Setting.Groups[0]==='SESP'">
+                <strong>Supplier</strong>
+            </div>
+            <div class="item-card-img-top-right green-white-label" ng-if="vm.model.Setting.Groups[0]==='WESP'">
+                <strong>Distributor</strong>
             </div>
         </div>
     </div>
