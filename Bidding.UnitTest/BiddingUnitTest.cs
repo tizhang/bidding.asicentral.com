@@ -20,48 +20,48 @@ namespace Bidding.UnitTest
         public void InitializeDB()
         {
             var users = new List<Bidding.Data.User>() {
-                new Bidding.Data.User() { Name = "tzhang",FirstName="Tianyun", LastName="Zhang", Email = "tzhang@asicentral.com", Password = "password1", Groups = "WESP,SESP,ADMG", CreateDate = DateTime.Now },
-                new Bidding.Data.User() { Name = "mzhang",FirstName="May", LastName="Zhang",  Email = "mzhang@asicentral.com", Password = "password1", Groups = "WESP,SESP,ADMG", CreateDate = DateTime.Now },
-                new Bidding.Data.User() { Name = "cchen",FirstName="Caroline", LastName="Chen",  Email = "cchen@asicentral.com", Password = "password1", Groups = "WESP,SESP,ADMG", CreateDate = DateTime.Now },
-                new Bidding.Data.User() { Name = "yfang",FirstName="Yoyo", LastName="Fang",  Email = "yfang@asicentral.com", Password = "password1", Groups = "WESP,SESP,ADMG", CreateDate = DateTime.Now },
-                new Bidding.Data.User() { Name = "twesp1",FirstName="Test1", LastName="Twesp1", Email = "twesp1@asicentral.com", Password = "password1", Groups = "WESP", CreateDate = DateTime.Now },
-                new Bidding.Data.User() { Name = "tsesp1",FirstName="Test2", LastName="Tsesp1", Email = "tsesp1@asicentral.com", Password = "password1", Groups = "SESP", CreateDate = DateTime.Now },
+                new Bidding.Data.User() { Name = "tzhang",FirstName="Tianyun", LastName="Zhang", Email = "tzhang@asicentral.com", Password = "password1", Groups = "DIST,SPLR,ADMG", CreateDate = DateTime.Now },
+                new Bidding.Data.User() { Name = "mzhang",FirstName="May", LastName="Zhang",  Email = "mzhang@asicentral.com", Password = "password1", Groups = "DIST,SPLR,ADMG", CreateDate = DateTime.Now },
+                new Bidding.Data.User() { Name = "cchen",FirstName="Caroline", LastName="Chen",  Email = "cchen@asicentral.com", Password = "password1", Groups = "DIST,SPLR,ADMG", CreateDate = DateTime.Now },
+                new Bidding.Data.User() { Name = "yfang",FirstName="Yoyo", LastName="Fang",  Email = "yfang@asicentral.com", Password = "password1", Groups = "DIST,SPLR,ADMG", CreateDate = DateTime.Now },
+                new Bidding.Data.User() { Name = "tdist1",FirstName="Test1", LastName="Tdist1", Email = "tdist1@asicentral.com", Password = "password1", Groups = "DIST", CreateDate = DateTime.Now },
+                new Bidding.Data.User() { Name = "tsplr1",FirstName="Test2", LastName="Tsplr1", Email = "tsplr1@asicentral.com", Password = "password1", Groups = "SPLR", CreateDate = DateTime.Now },
                 new Bidding.Data.User() { Name = "tadmg1",FirstName="Test3", LastName="Tadmg1", Email = "tadmg1@asicentral.com", Password = "password1", Groups = "ADMG", CreateDate = DateTime.Now },
-                new Bidding.Data.User() { Name = "twesp2",FirstName="Test4", LastName="Twesp2", Email = "twesp2@asicentral.com", Password = "password1", Groups = "WESP", CreateDate = DateTime.Now },
-                new Bidding.Data.User() { Name = "tsesp2",FirstName="Test5", LastName="Tsesp2", Email = "tsesp2@asicentral.com", Password = "password1", Groups = "SESP", CreateDate = DateTime.Now },
+                new Bidding.Data.User() { Name = "tdist2",FirstName="Test4", LastName="Tdist2", Email = "tdist2@asicentral.com", Password = "password1", Groups = "DIST", CreateDate = DateTime.Now },
+                new Bidding.Data.User() { Name = "tsplr2",FirstName="Test5", LastName="Tsplr2", Email = "tsplr2@asicentral.com", Password = "password1", Groups = "SPLR", CreateDate = DateTime.Now },
                 new Bidding.Data.User() { Name = "tadmg2",FirstName="Test6", LastName="Tadmg2", Email = "tadmg2@asicentral.com", Password = "password1", Groups = "ADMG", CreateDate = DateTime.Now },
-                new Bidding.Data.User() { Name = "twesp3",FirstName="Test7", LastName="Twesp3", Email = "twesp3@asicentral.com", Password = "password1", Groups = "WESP", CreateDate = DateTime.Now },
-                new Bidding.Data.User() { Name = "tsesp3",FirstName="Test8", LastName="Tsesp3", Email = "tsesp3@asicentral.com", Password = "password1", Groups = "SESP", CreateDate = DateTime.Now }
+                new Bidding.Data.User() { Name = "tdist3",FirstName="Test7", LastName="Tdist3", Email = "tdist3@asicentral.com", Password = "password1", Groups = "DIST", CreateDate = DateTime.Now },
+                new Bidding.Data.User() { Name = "tsplr3",FirstName="Test8", LastName="Tsplr3", Email = "tsplr3@asicentral.com", Password = "password1", Groups = "SPLR", CreateDate = DateTime.Now }
             };
             using (var db = new Data.BiddingContext())
             {
                 db.Users.AddRange(users);
                 db.SaveChanges();
             }
-            var item = AddBiddingItem("1000 aprons", "1000 Aprons", "http://media.asicdn.com/images/jpgb/20070000/20070850.jpg", "yfang", 4000, DateTime.Now.AddHours(-3), "WESP", BiddingItem.ActiveStatus, 20);
-            AddBiddingActions(item, new string[] { "twesp1" });
+            var item = AddBiddingItem("1000 aprons", "1000 Aprons", "http://media.asicdn.com/images/jpgb/20070000/20070850.jpg", "yfang", 4000, DateTime.Now.AddHours(-3), "DIST", BiddingItem.ActiveStatus, 20);
+            AddBiddingActions(item, new string[] { "tdist1" });
 
-            item = AddBiddingItem("1000 pen", "1000 blue pen", "http://media.asicdn.com/images/jpgb/20480000/20488855.jpg", "tzhang", 1000, DateTime.Now.AddHours(-1), "WESP", BiddingItem.ActiveStatus, 20, DateTime.Now.AddHours(4));
-            AddBiddingActions(item, new string[] { "twesp1" });
-            AddBiddingItem("1000 shirt", "1000 Gildan Ladies Heavy Cotton 100% Cotton V-Neck T-Shirt", "http://media.asicdn.com/images/jpgb/81020000/81022564.jpg", "mzhang", 2000, DateTime.Now.AddMinutes(1), "SESP", BiddingItem.DraftStatus, -10);
+            item = AddBiddingItem("1000 pen", "1000 blue pen", "http://media.asicdn.com/images/jpgb/20480000/20488855.jpg", "tzhang", 1000, DateTime.Now.AddHours(-1), "DIST", BiddingItem.ActiveStatus, 20, DateTime.Now.AddHours(4));
+            AddBiddingActions(item, new string[] { "tdist1" });
+            AddBiddingItem("1000 shirt", "1000 Gildan Ladies Heavy Cotton 100% Cotton V-Neck T-Shirt", "http://media.asicdn.com/images/jpgb/81020000/81022564.jpg", "mzhang", 2000, DateTime.Now.AddMinutes(1), "SPLR", BiddingItem.DraftStatus, -10);
 
-            AddBiddingItem("1 watch", "1 Citizen Eco-Drive Skyhawk A-T Black Dial Mens Watch", "http://media.asicdn.com/images/jpgb/22290000/22297307.jpg", "mzhang", 100, DateTime.Now.AddMinutes(1), "WESP", BiddingItem.StagingStatus, 20, DateTime.Now.AddMinutes(15));
-            AddBiddingItem("3000 calendars", "3000 Fisherman's Guide appointment calendar", "http://media.asicdn.com/images/jpgb/20770000/20777767.jpg", "mzhang", 2000, DateTime.Now.AddMinutes(1), "WESP", BiddingItem.DraftStatus, 20, DateTime.Now.AddMinutes(5));
-            AddBiddingItem("100 Hoodies", "100 Heavy Blend (TM) Hood", "http://media.asicdn.com/images/jpgb/7690000/7691233.jpg", "mzhang", 800, DateTime.Now.AddMinutes(2), "WESP", BiddingItem.DraftStatus, 20, DateTime.Now.AddMinutes(5));
+            AddBiddingItem("1 watch", "1 Citizen Eco-Drive Skyhawk A-T Black Dial Mens Watch", "http://media.asicdn.com/images/jpgb/22290000/22297307.jpg", "mzhang", 100, DateTime.Now.AddMinutes(1), "DIST", BiddingItem.StagingStatus, 20, DateTime.Now.AddMinutes(15));
+            AddBiddingItem("3000 calendars", "3000 Fisherman's Guide appointment calendar", "http://media.asicdn.com/images/jpgb/20770000/20777767.jpg", "mzhang", 2000, DateTime.Now.AddMinutes(1), "DIST", BiddingItem.DraftStatus, 20, DateTime.Now.AddMinutes(5));
+            AddBiddingItem("100 Hoodies", "100 Heavy Blend (TM) Hood", "http://media.asicdn.com/images/jpgb/7690000/7691233.jpg", "mzhang", 500, DateTime.Now.AddMinutes(2), "DIST", BiddingItem.DraftStatus, 100, DateTime.Now.AddMinutes(5));
             
-            item = AddBiddingItem("200 mug", "200 Sporty Travel Mugs with Handles", "http://media.asicdn.com/images/jpgo/7880000/7887725.jpg", "yfang", 800, DateTime.Now.AddHours(-3),"WESP", BiddingItem.ActiveStatus, 20);
-            AddBiddingActions(item, new string[] { "twesp3", "tzhang", "cchen", "yfang" });
+            item = AddBiddingItem("200 mug", "200 Sporty Travel Mugs with Handles", "http://media.asicdn.com/images/jpgo/7880000/7887725.jpg", "yfang", 800, DateTime.Now.AddHours(-3),"DIST", BiddingItem.ActiveStatus, 20);
+            AddBiddingActions(item, new string[] { "tdist3", "tzhang", "cchen", "yfang" });
 
-            item = AddBiddingItem("1000 tools", "1000 7-in-1 Multi-Tool", "http://media.asicdn.com/images/jpgb/7910000/7915335.jpg", "yfang", 3000, DateTime.Now.AddHours(-3), "WESP", BiddingItem.ActiveStatus, 20);
-            AddBiddingActions(item, new string[] { "twesp2", "mzhang" });
-            item = AddBiddingItem("5000 watches", "5000 Elegant LED Bracelet Watches", "http://media.asicdn.com/images/jpgb/22620000/22620415.jpg", "mzhang", 8000, DateTime.Now.AddHours(-3), "WESP", BiddingItem.ActiveStatus, 20);
-            AddBiddingActions(item, new string[] { "twesp1", "twesp2", "twesp3", "cchen", "yfang" });
+            item = AddBiddingItem("1000 tools", "1000 7-in-1 Multi-Tool", "http://media.asicdn.com/images/jpgb/7910000/7915335.jpg", "yfang", 3000, DateTime.Now.AddHours(-3), "DIST", BiddingItem.ActiveStatus, 20);
+            AddBiddingActions(item, new string[] { "tdist2", "mzhang" });
+            item = AddBiddingItem("5000 watches", "5000 Elegant LED Bracelet Watches", "http://media.asicdn.com/images/jpgb/22620000/22620415.jpg", "mzhang", 8000, DateTime.Now.AddMinutes(4), "DIST", BiddingItem.ActiveStatus, 200);
+            AddBiddingActions(item, new string[] { "tdist1", "tdist2", "tdist3", "cchen", "yfang", "tdist1", "tdist2" });
 
-            item = AddBiddingItem("1000 shirt", "1000 Red House (R) Ladies' Nailhead Non-Iron Button-Down Shirt", "http://media.asicdn.com/images/jpgb/20950000/20956175.jpg", "mzhang", 2000, DateTime.Now, "SESP", BiddingItem.ActiveStatus, -10, DateTime.Now.AddHours(10));
-            AddBiddingActions(item, new string[] { "tsesp1", "tsesp2" });
+            item = AddBiddingItem("1000 shirt", "1000 Red House (R) Ladies' Nailhead Non-Iron Button-Down Shirt", "http://media.asicdn.com/images/jpgb/20950000/20956175.jpg", "mzhang", 2000, DateTime.Now, "SPLR", BiddingItem.ActiveStatus, -10, DateTime.Now.AddMinutes(10));
+            AddBiddingActions(item, new string[] { "tsplr1", "tsplr2" });
 
-            item = AddBiddingItem("1000 bags of chocolate", "1000 bags of Chocolate Sports Balls Soccer", "http://media.asicdn.com/images/jpgb/21150000/21152160.jpg", "mzhang", 400, DateTime.Now, "SESP", BiddingItem.ActiveStatus, -10, DateTime.Now.AddDays(3));
-            AddBiddingActions(item, new string[] { "tsesp1", "tsesp2", "tsesp3" });
+            item = AddBiddingItem("1000 bags of chocolate", "1000 bags of Chocolate Sports Balls Soccer", "http://media.asicdn.com/images/jpgb/21150000/21152160.jpg", "mzhang", 400, DateTime.Now, "SPLR", BiddingItem.ActiveStatus, -10, DateTime.Now.AddDays(3));
+            AddBiddingActions(item, new string[] { "tsplr1", "tsplr2", "tsplr3" });
 
             item = AddBiddingItem("PFP usb", "ESP PFP usb product will be shown as position 1 in search results on our apps", "http://media.asicdn.com/images/jpgb/6360000/6360473.jpg", "cchen", 400, DateTime.Now.AddHours(-2), "ADMG", BiddingItem.ActiveStatus, 10, DateTime.Now.AddDays(10));
             AddBiddingActions(item, new string[] { "tadmg1", "tzhang", "mzhang", "yfang", "tadmg2" });
@@ -109,8 +109,8 @@ namespace Bidding.UnitTest
         [TestMethod]
         public void AddBidding()
         {
-            var item = AddBiddingItem("bag", "1000 lunch bag", "http://media.asicdn.com/images/jpgb/6100000/6108942.jpg", "tzhang", 1500, DateTime.Now.AddHours(-2), "WESP", BiddingItem.ActiveStatus);
-            AddBiddingActions(item, new string[] { "twesp1", "cchen", "yfang" });
+            var item = AddBiddingItem("bag", "1000 lunch bag", "http://media.asicdn.com/images/jpgb/6100000/6108942.jpg", "tzhang", 1500, DateTime.Now.AddHours(-2), "DIST", BiddingItem.ActiveStatus);
+            AddBiddingActions(item, new string[] { "tdist1", "cchen", "yfang" });
         }
 
         [TestMethod]
@@ -160,7 +160,7 @@ namespace Bidding.UnitTest
         [TestMethod]
         public void GetItemByGroup()
         {
-            var bidItems = Bidding.Bol.BiddingManager.GetItems("WESP","ACTV,STAG");
+            var bidItems = Bidding.Bol.BiddingManager.GetItems("DIST","ACTV,STAG");
             foreach (var bidItem in bidItems)
             {
                 PrintBiddingItem(bidItem);
@@ -215,7 +215,7 @@ namespace Bidding.UnitTest
         [TestMethod]
         public void GetItemsByBidderId()
         {
-            var bidder1 = UserManager.GetUser("twesp1");
+            var bidder1 = UserManager.GetUser("tdist1");
             var items = BiddingManager.GetItems(bidderId: bidder1.Id);
             foreach (var item in items)
             {
