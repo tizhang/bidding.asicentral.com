@@ -35,8 +35,10 @@
 
     init();
 
-    function init() {
-      BiddingItem.getByGroup({ groups: $cookies.get('Groups'), includeSettings: true, includeHistory: true })
+	function init() {
+
+	  var groups = $cookies.get('Groups');
+      BiddingItem.getByGroup({ groups: groups, includeSettings: true, includeHistory: true })
         .then(
         function (resp) {
           myWatchList.iAm($cookies.get('UserID'), function () {

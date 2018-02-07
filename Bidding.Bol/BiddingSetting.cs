@@ -13,7 +13,7 @@ namespace Bidding.Bol
             set;
         }
 
-        public List<string> Groups
+        public string Group
         {
             get;
             set;

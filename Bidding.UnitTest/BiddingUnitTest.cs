@@ -38,15 +38,16 @@ namespace Bidding.UnitTest
                 db.Users.AddRange(users);
                 db.SaveChanges();
             }
-            var item = AddBiddingItem("1000 aprons", "1000 Aprons", "http://media.asicdn.com/images/jpgb/20070000/20070850.jpg", "yfang", 4000, DateTime.Now.AddHours(-3), "DIST", BiddingItem.ActiveStatus, 20);
+            var item = AddBiddingItem("1000 aprons", "1000 Aprons", "http://media.asicdn.com/images/jpgb/20070000/20070850.jpg", "yfang", 4000, DateTime.Now.AddDays(3), "DIST", BiddingItem.StagingStatus, 20, DateTime.Now.AddDays(10));
             AddBiddingActions(item, new string[] { "tdist1" });
 
             item = AddBiddingItem("1000 pen", "1000 blue pen", "http://media.asicdn.com/images/jpgb/20480000/20488855.jpg", "tzhang", 1000, DateTime.Now.AddHours(-1), "DIST", BiddingItem.ActiveStatus, 20, DateTime.Now.AddHours(4));
             AddBiddingActions(item, new string[] { "tdist1" });
             AddBiddingItem("1000 shirt", "1000 Gildan Ladies Heavy Cotton 100% Cotton V-Neck T-Shirt", "http://media.asicdn.com/images/jpgb/81020000/81022564.jpg", "mzhang", 2000, DateTime.Now.AddMinutes(1), "SPLR", BiddingItem.DraftStatus, -10);
 
-            AddBiddingItem("1 watch", "1 Citizen Eco-Drive Skyhawk A-T Black Dial Mens Watch", "http://media.asicdn.com/images/jpgb/22290000/22297307.jpg", "mzhang", 100, DateTime.Now.AddMinutes(1), "DIST", BiddingItem.StagingStatus, 20, DateTime.Now.AddMinutes(15));
+            AddBiddingItem("1 watch", "1 Citizen Eco-Drive Skyhawk A-T Black Dial Mens Watch", "http://media.asicdn.com/images/jpgb/22290000/22297307.jpg", "mzhang", 100, DateTime.Now.AddMinutes(10), "DIST", BiddingItem.StagingStatus, 20, DateTime.Now.AddMinutes(100));
             AddBiddingItem("3000 calendars", "3000 Fisherman's Guide appointment calendar", "http://media.asicdn.com/images/jpgb/20770000/20777767.jpg", "mzhang", 2000, DateTime.Now.AddMinutes(1), "DIST", BiddingItem.DraftStatus, 20, DateTime.Now.AddMinutes(5));
+
             AddBiddingItem("100 Hoodies", "100 Heavy Blend (TM) Hood", "http://media.asicdn.com/images/jpgb/7690000/7691233.jpg", "mzhang", 500, DateTime.Now.AddMinutes(2), "DIST", BiddingItem.DraftStatus, 100, DateTime.Now.AddMinutes(5));
             
             item = AddBiddingItem("200 mug", "200 Sporty Travel Mugs with Handles", "http://media.asicdn.com/images/jpgo/7880000/7887725.jpg", "yfang", 800, DateTime.Now.AddHours(-3),"DIST", BiddingItem.ActiveStatus, 20);
@@ -88,7 +89,7 @@ namespace Bidding.UnitTest
                 AcceptPrice = acceptPrice,
                 ShowCurrentPrice = true,
                 ShowOwner = true,
-                Groups = new List<string> { group }
+                Group = group
             };
             BiddingManager.CreateItem(item);
             return item;
@@ -141,7 +142,7 @@ namespace Bidding.UnitTest
                 bidItem.Owner.Name,
                 bidItem.Price,
                 bidItem.Status,
-                bidItem.Setting.Groups?.FirstOrDefault());
+                bidItem.Setting.Group);
             var actions = bidItem.History.OrderBy(a => a.ActionTime);
             if (actions != null)
             {
