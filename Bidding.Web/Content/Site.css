@@ -184,6 +184,18 @@ h1, h2, h3, h4, h5, h6 {
     text-align: left;
 }
 
+.item-card-img-hover-top-right {
+    position: absolute;
+    top: 0%;
+    left: 100%;
+    transform: translate(50%, -100%);
+    -ms-transform: translate(50%, -100%);
+    -moz-transform: translate(50%, -100%);
+    -webkit-transform: translate(50%, -100%);
+    -o-transform: translate(50%, -100%);
+    text-align: center;
+}
+
 .item-card-img-container:hover .item-card-img {
     opacity: 0.3;
 }
