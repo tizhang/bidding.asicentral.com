@@ -45,7 +45,7 @@
       //$defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
 
 
-      BiddingItem.getByGroup({ group: '', bidderId: vm.UserId, includeSettings: true, includeHistory: true })
+      BiddingItem.getByGroup({ groups: $cookies.get('Groups'), bidderId: vm.UserId, includeSettings: true, includeHistory: true })
         .then(
         function (resp) {
           //vm.history = resp;

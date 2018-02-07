@@ -36,7 +36,7 @@
     init();
 
     function init() {
-      BiddingItem.getByGroup({ group: '', includeSettings: true, includeHistory: true })
+      BiddingItem.getByGroup({ groups: $cookies.get('Groups'), includeSettings: true, includeHistory: true })
         .then(
         function (resp) {
           myWatchList.iAm($cookies.get('UserID'), function () {
@@ -111,10 +111,8 @@
         { name: 'End Date', code: '+Setting.EndDate' },
         { name: 'Price', code: '+Price' }];
       angular.forEach(items, function (value, index) {
-        if (value.Setting && value.Setting.Groups) {
-          angular.forEach(value.Setting.Groups, function (groupname, groupindex) {
-            Groups.push({ name: groupname, code: { Group: groupname } });
-          });
+        if (value.Setting && value.Setting.Group) {
+          Groups.push({ name: value.Setting.Group, code: { Group: value.Setting.Group } });
         }
         items[index].custom = {};
         items[index].custom.watched = myWatchList.isWatching(value.Id);

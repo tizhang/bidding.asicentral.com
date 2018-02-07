@@ -12,7 +12,7 @@
       pk: 'Id',
       defualts: {
         ItemId: null,
-        BidderGroups: [],
+        Group: null,
         ShowOwner: false,
         ShowCurrentPrice: false,
         Increment: 1.00,

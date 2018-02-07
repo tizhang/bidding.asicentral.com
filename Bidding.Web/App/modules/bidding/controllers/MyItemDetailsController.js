@@ -12,7 +12,7 @@
 
     vm.applyBidGroup = false;
     vm.enableBidTimes = false;
-    vm.groups = [['DIST'], ['SPLR'], ['ADMG']];
+    vm.groups = $cookies.get('Groups').spplit(',');
     vm.mode = 'view';
     vm.model = model;
     vm.tabs = ['detail'];
@@ -34,11 +34,12 @@
         vm.model.Setting.StartDate = new Date();
         vm.model.Setting.EndDate = new Date();
         vm.model.Owner = { Id: $cookies.get('UserID') };
+        vm.model.Setting.Group = vm.groups[0];
       }
       if (vm.model.Status == 'DRAF')
         vm.mode = mode;
       vm.model = new BiddingItem(vm.model);
-      vm.applyBidGroup = (vm.model.Setting.Groups && vm.model.Setting.Groups.length) ? true : false;
+      vm.applyBidGroup = vm.model.Setting.Group ? true : false;
       vm.enableBidTimes = vm.model.Setting.BidTimePerUser > 0 ? true : false;
       if (vm.model.Status != 'DRAF' && vm.model.Status != 'STAG' && vm.model.History && vm.model.History.length) {
         vm.tabs.push('history');
