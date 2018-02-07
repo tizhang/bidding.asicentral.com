@@ -50,7 +50,7 @@
       //$defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
 
 
-      BiddingItem.getByGroup({ group: '', ownerId: vm.UserId, includeSettings: true, includeHistory: true })
+      BiddingItem.getByGroup({ groups: '', ownerId: vm.UserId, includeSettings: true, includeHistory: true })
         .then(
         function (resp) {
           vm.myItems = resp;

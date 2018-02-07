@@ -15,7 +15,7 @@ namespace Bidding.Data
             set;
         }
 
-        public string GroupNames
+        public string Group
         {
             get;
             set;
