@@ -6,7 +6,7 @@
                 <label class="gray">Order By</label>
                 <select class="form-control input-sm" ng-options="option.code as option.name for option in vm.sortOptions['#activeGallery']" ng-model="vm.sortBy['#activeGallery']"></select>
             </div>
-            <div class="pull-right filters form-inline">
+            <div class="pull-right filters form-inline" ng-if="vm.filterOptions['#stagedGallery'].Groups&&vm.filterOptions['#stagedGallery'].Groups.length>1">
                 <label class="gray">Group</label>
                 <select class="form-control input-sm" ng-options="option.code as option.name for option in vm.filterOptions['#activeGallery'].Groups" ng-model="vm.filterBy['#activeGallery'].Setting"></select>
             </div>
@@ -40,7 +40,7 @@
                 <label class="gray">Order By</label>
                 <select class="form-control input-sm" ng-options="option.code as option.name for option in vm.sortOptions['#stagedGallery']" ng-model="vm.sortBy['#stagedGallery']"></select>
             </div>
-            <div class="pull-right filters form-inline">
+            <div class="pull-right filters form-inline" ng-if="vm.filterOptions['#stagedGallery'].Groups&&vm.filterOptions['#stagedGallery'].Groups.length>1">
                 <label class="gray">Group</label>
                 <select class="form-control input-sm" ng-options="option.code as option.name for option in vm.filterOptions['#stagedGallery'].Groups" ng-model="vm.filterBy['#stagedGallery'].Setting"></select>
             </div>
