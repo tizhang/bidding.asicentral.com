@@ -9,9 +9,17 @@
                 <span ng-if="vm.hover&&vm.viewHandler" ng-click="vm.viewHandler({model:vm.model})" class="btn btn-sm btn-primary"><i class="fa fa-bars" aria-hidden="true"></i>Detail</span>
                 <span ng-show="vm.hover&&vm.watchHandler&&(vm.model.Status=='ACTV'||vm.model.Status=='STAG')" watch-btn="vm.model"></span>
                 <span ng-show="vm.hover&&vm.bidHandler&&vm.model.Status=='ACTV'" bid-btn="vm.model"></span>
-                <!--<span ng-if="vm.hover&&vm.bidHandler&&vm.model.Status=='ACTV'" ng-click="vm.bidHandler({model:vm.model})" class="btn btn-sm btn-primary"><i class="fa fa-hand-paper-o" aria-hidden="true"></i>Bid</span>
-    <span ng-if="vm.hover&&vm.watchHandler&&(vm.model.Status=='ACTV'||vm.model.Status=='STAG')" ng-click="vm.watchHandler({model:vm.model})" class="btn btn-sm btn-primary"><i class="fa fa-eye" aria-hidden="true"></i>Watch</span>-->
-
+            </div>
+        </div>
+        <div class="item-card-img-cover">
+            <div class="item-card-img-top-right red-white-label" ng-if="vm.model.Setting.Groups[0]==='ADMG'">
+                <strong>ASI</strong>
+            </div>
+            <div class="item-card-img-top-right blue-white-label" ng-if="vm.model.Setting.Groups[0]==='SPLR'">
+                <strong>Supplier</strong>
+            </div>
+            <div class="item-card-img-top-right green-white-label" ng-if="vm.model.Setting.Groups[0]==='DIST'">
+                <strong>Distributor</strong>
             </div>
         </div>
     </div>

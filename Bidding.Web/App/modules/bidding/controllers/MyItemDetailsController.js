@@ -12,7 +12,7 @@
 
     vm.applyBidGroup = false;
     vm.enableBidTimes = false;
-    vm.groups = [['WESP'], ['SESP'], ['ADMG']];
+    vm.groups = [['DIST'], ['SPLR'], ['ADMG']];
     vm.mode = 'view';
     vm.model = model;
     vm.tabs = ['detail'];
