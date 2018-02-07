@@ -35,9 +35,9 @@
 
     init();
 
-	function init() {
+    function init() {
 
-	  var groups = $cookies.get('Groups');
+      var groups = $cookies.get('Groups');
       BiddingItem.getByGroup({ groups: groups, includeSettings: true, includeHistory: true })
         .then(
         function (resp) {
@@ -150,7 +150,7 @@
     });
 
     function findUpdate(array, item) {
-      for (var i = 0; i < array.length; i++) {
+      for (var i = 0; array && i < array.length; i++) {
         if (array[i].Id == item.Id) {
           array[i] = item;
           return true;

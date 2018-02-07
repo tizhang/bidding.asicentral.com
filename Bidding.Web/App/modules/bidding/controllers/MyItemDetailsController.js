@@ -12,7 +12,7 @@
 
     vm.applyBidGroup = false;
     vm.enableBidTimes = false;
-    vm.groups = $cookies.get('Groups').spplit(',');
+    vm.groups = $cookies.get('Groups').split(',');
     vm.mode = 'view';
     vm.model = model;
     vm.tabs = ['detail'];
