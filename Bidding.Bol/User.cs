@@ -31,5 +31,12 @@ namespace Bidding.Bol
             get;
             set;
         }
+
+        public List<string> AccessibleGroups
+        {
+            get;
+            set;
+        }
+
     }
 }

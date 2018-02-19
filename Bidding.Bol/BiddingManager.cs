@@ -48,7 +48,8 @@ namespace Bidding.Bol
 
                 cfg.CreateMap<Data.User, Bol.User>()
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.UserId))
-                .ForMember(dest => dest.Groups, opts => opts.MapFrom(src => !string.IsNullOrEmpty(src.Groups) ? src.Groups.Split(',').ToList() : null));
+                .ForMember(dest => dest.Groups, opts => opts.MapFrom(src => !string.IsNullOrEmpty(src.Groups) ? src.Groups.Split(',').ToList() : null))
+                .ForMember(dest => dest.AccessibleGroups, opts => opts.MapFrom(src => !string.IsNullOrEmpty(src.Groups) ? UserManager.MapAcessibleGroups(src.Groups) : null));
 
                 cfg.CreateMap<Bol.User, Data.User>()
                 .ForMember(dest => dest.UserId, opts => opts.MapFrom(src => src.Id))

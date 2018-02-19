@@ -8,6 +8,7 @@ namespace Bidding.Web.Helpers
         public static readonly string COOKIE_USERID = "UserID";
         public static readonly string COOKIE_EMAIL = "Email";
         public static readonly string COOKIE_GROUPS = "Groups";
+        public static readonly string COOKIE_ACCESSIBLE_GROUPS = "AccessibleGroups";
         public static readonly string COOKIE_NAME = "Name";
 
         public static void SetCookieValue(HttpRequestBase request, HttpResponseBase response, string key, string value,

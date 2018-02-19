@@ -37,7 +37,7 @@
 
     function init() {
 
-      var groups = $cookies.get('Groups');
+      var groups = $cookies.get('AccessibleGroups');
       BiddingItem.getByGroup({ groups: groups, includeSettings: true, includeHistory: true })
         .then(
         function (resp) {

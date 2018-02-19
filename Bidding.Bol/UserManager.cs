@@ -32,5 +32,31 @@ namespace Bidding.Bol
             var item = Mapper.Map<User>(user);
             return item;
         }
+
+        public static List<string> MapAcessibleGroups(string OwnerGroups)
+        {
+            var retGroups = new List<string>();
+            var groups = OwnerGroups.Split(',');
+            foreach (var group in groups)
+            {
+                switch (group)
+                {
+                    case "DIST":
+                        retGroups.Add("SPLR");
+                        break;
+                    case "SPLR":
+                        retGroups.Add("DIST");
+                        retGroups.Add("ADMG");
+                        break;
+                    case "ADMG":
+                        retGroups.Add("SPLR");
+                        retGroups.Add("DIST");
+                        retGroups.Add("ADMG");
+                        break;
+                }
+            }
+            return retGroups.Distinct().ToList();
+        }
+
     }
 }
