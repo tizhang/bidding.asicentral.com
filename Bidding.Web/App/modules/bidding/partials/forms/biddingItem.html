@@ -63,8 +63,8 @@
                     <input class="form-input form-control" type="number" ng-model="vm.model.Setting.BidTimePerUser" ng-disabled="!vm.enableBidTimes||vm.mode=='view'"/>
                 </div>
                 <div class="form-field">
-                    <label class="form-label"><input type="checkbox" ng-model="vm.applyBidGroup" ng-disabled="vm.mode=='view'"/>&nbsp;Restrict bidder group</label>
-                    <select class="form-input form-control" ng-options="group as group for group in vm.groups" ng-model="vm.model.Setting.Groups" ng-disabled="!vm.applyBidGroup||vm.mode=='view'"></select>
+                    <label class="form-label"><input type="checkbox" ng-model="vm.applyBidGroup" ng-disabled="vm.mode=='view'||vm.groups.length<2"/>&nbsp;Restrict bidder group</label>
+                    <select class="form-input form-control" ng-options="group as group for group in vm.groups" ng-model="vm.model.Setting.Group" ng-disabled="!vm.applyBidGroup||vm.mode=='view'||vm.groups.length<2"></select>
                 </div>
             </div>
         </div>

@@ -333,7 +333,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>23270</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://local-bidding.asicentral.com</IISUrl>
+          <IISUrl>http://localhost/Bidding.Web</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
           <IISAppRootUrl>http://local-bidding.asicentral.com</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

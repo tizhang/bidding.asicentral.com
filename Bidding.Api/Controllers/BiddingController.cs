@@ -19,9 +19,9 @@ namespace Bidding.Api.Controllers
         [Route("bidding")]
         //[Route("v{version:apiVersion}/bidding")]
         [AllowAnonymous]
-        public IHttpActionResult GetItems(string group = null, string status = null, int? ownerId = null, int? bidderId = null, bool includeSettings = false, bool includeHistory = false)
+        public IHttpActionResult GetItems(string groups = null, string status = null, int? ownerId = null, int? bidderId = null, bool includeSettings = false, bool includeHistory = false)
         {
-            var items = BiddingManager.GetItems(group, status, ownerId, bidderId);
+            var items = BiddingManager.GetItems(groups, status, ownerId, bidderId);
             if (!includeHistory)
             {
                 items.ForEach(i => i.History = null);

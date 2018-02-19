@@ -44,6 +44,7 @@ namespace Bidding.Web.Controllers
                 if ( userObject.Groups != null && userObject.Groups.Count > 0)
                 {
                     CookieHelper.SetCookieValue(Request, Response, CookieHelper.COOKIE_GROUPS, string.Join(",", userObject.Groups));
+                    CookieHelper.SetCookieValue(Request, Response, CookieHelper.COOKIE_ACCESSIBLE_GROUPS, string.Join(",", userObject.AccessibleGroups));
                 }
                 return new RedirectResult("/");
             }
@@ -61,5 +62,6 @@ namespace Bidding.Web.Controllers
         public string ErrorMessage { get; set; }
 
         public List<string> Groups { get; set; }
+        public List<string> AccessibleGroups { get; set; }
     }
 }

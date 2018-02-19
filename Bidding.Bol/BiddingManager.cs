@@ -27,12 +27,10 @@ namespace Bidding.Bol
 
 
                 cfg.CreateMap<Data.BiddingSetting, Bol.BiddingSetting>()
-                .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.BiddingSettingId))
-                .ForMember(dest => dest.Groups, opts => opts.MapFrom(src => !string.IsNullOrEmpty(src.GroupNames) ? src.GroupNames.Split(',').ToList() : null));
+                .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.BiddingSettingId));
 
                 cfg.CreateMap<Bol.BiddingSetting, Data.BiddingSetting>()
                 .ForMember(dest => dest.BiddingSettingId, opts => opts.MapFrom(src => src.Id))
-                .ForMember(dest => dest.GroupNames, opts => opts.MapFrom(src => src.Groups != null ? string.Join(",", src.Groups) : null))
                 .ForMember(dest => dest.Type, opts => opts.MapFrom(src => src.MinIncrement > 0 ? Data.BiddingType.HighWin : Data.BiddingType.LowWin))
                 .ForMember(dest => dest.StartDate, opts => opts.MapFrom(src => src.StartDate > DateTime.MinValue ? src.StartDate.ToLocalTime() : src.StartDate))
                 .ForMember(dest => dest.EndDate, opts => opts.MapFrom(src => src.EndDate > DateTime.MinValue ? src.EndDate.ToLocalTime() : src.EndDate));
@@ -50,7 +48,8 @@ namespace Bidding.Bol
 
                 cfg.CreateMap<Data.User, Bol.User>()
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.UserId))
-                .ForMember(dest => dest.Groups, opts => opts.MapFrom(src => !string.IsNullOrEmpty(src.Groups) ? src.Groups.Split(',').ToList() : null));
+                .ForMember(dest => dest.Groups, opts => opts.MapFrom(src => !string.IsNullOrEmpty(src.Groups) ? src.Groups.Split(',').ToList() : null))
+                .ForMember(dest => dest.AccessibleGroups, opts => opts.MapFrom(src => !string.IsNullOrEmpty(src.Groups) ? UserManager.MapAcessibleGroups(src.Groups) : null));
 
                 cfg.CreateMap<Bol.User, Data.User>()
                 .ForMember(dest => dest.UserId, opts => opts.MapFrom(src => src.Id))
@@ -85,7 +84,7 @@ namespace Bidding.Bol
 
         //}
         
-        public static List<BiddingItem> GetItems(string group = null, string status = null, int? ownerId = null, int? bidderId = null, bool includeFailedActions = true)
+        public static List<BiddingItem> GetItems(string groups = null, string status = null, int? ownerId = null, int? bidderId = null, bool includeFailedActions = true)
         {
             List<Data.BiddingItem> bidItems = null;
             List<string> statuses = status?.Split(',').ToList();
@@ -95,9 +94,10 @@ namespace Bidding.Bol
                          .Include("Setting")
                          .Include("Actions")
                          .AsQueryable();
-                if (!string.IsNullOrEmpty(group))
+                if (!string.IsNullOrEmpty(groups))
                 {
-                    query = query.Where(i => i.Setting.GroupNames.Contains(group));
+                    List<string> groupList = groups.Split(',').ToList();
+                    query = query.Where(i => groupList.Contains(i.Setting.Group));
                 }
                 if (statuses != null)
                 {
