@@ -46,6 +46,10 @@
                     <input type="text" class="form-input form-control" ng-model="vm.model.Setting.EndDate" disabled />
                 </div>
             </div>
+            <div class="your-matched-products">
+                <div class="pull-left" ng-repeat="product in vm.myProducts"></div>
+                <div class="pull-left" ng-clicked="vm.addNewProduct()"></div>
+            </div>
         </div>
     </div>
 </div>

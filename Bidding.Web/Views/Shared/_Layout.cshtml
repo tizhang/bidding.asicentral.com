@@ -8,31 +8,32 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-	<div class="pull-right">Hello, @Bidding.Web.Helpers.CookieHelper.GetCookieValue(Request, Response, "Name") <a href="/Account/Logout/">logout</a>&nbsp;&nbsp;&nbsp;</div>
-	<br /><br />
+    <div class="pull-left"><h3>Bidding Service</h3></div>
+    <div class="pull-right">Hello, @Bidding.Web.Helpers.CookieHelper.GetCookieValue(Request, Response, "Name") <a href="/Account/Logout/">logout</a>&nbsp;&nbsp;&nbsp;</div>
+    <br /><br />
 
-	@RenderBody()
+    @RenderBody()
 
-	@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.14/angular.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.14/angular-animate.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.14/angular-cookies.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.14/angular-sanitize.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.14/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.14/angular-animate.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.14/angular-cookies.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.14/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
 
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
 
-	<script src="/Chart/node_modules/chart.js/dist/Chart.min.js"></script>
-	<script src="/Chart/node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
+    <script src="/Chart/node_modules/chart.js/dist/Chart.min.js"></script>
+    <script src="/Chart/node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
 
-	@Scripts.Render("~/bundles/app")
+    @Scripts.Render("~/bundles/app")
 
-	@Scripts.Render("~/bundles/partials")
-	@RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/partials")
+    @RenderSection("scripts", required: false)
 </body>
 </html>
