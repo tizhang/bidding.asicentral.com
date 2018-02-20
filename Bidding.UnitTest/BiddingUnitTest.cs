@@ -41,8 +41,18 @@ namespace Bidding.UnitTest
             var item = AddBiddingItem("1000 aprons", "1000 Aprons", "http://media.asicdn.com/images/jpgb/20070000/20070850.jpg", "yfang", 4000, DateTime.Now.AddDays(3), "SPLR", BiddingItem.StagingStatus, 20, DateTime.Now.AddDays(10));
             AddBiddingActions(item, new string[] { "tdist1" });
 
-            item = AddBiddingItem("1000 pen", "1000 blue pens", "http://media.asicdn.com/images/jpgb/20480000/20488855.jpg", "tzhang", 1000, DateTime.Now.AddHours(-1), "SPLR", BiddingItem.ActiveStatus, 20, DateTime.Now.AddHours(4));
-            AddBiddingActions(item, new string[] { "tdist1" });
+
+            item = AddBiddingItem("PFP usb", "ESP PFP usb product will be shown as position 1 in search results on our apps", "http://media.asicdn.com/images/jpgb/6360000/6360473.jpg", "cchen", 400, DateTime.Now.AddHours(-2), "ADMG", BiddingItem.ActiveStatus, 10, DateTime.Now.AddDays(10));
+            AddBiddingActions(item, new string[] { "tadmg1", "tzhang", "mzhang", "yfang", "tadmg2" });
+
+            item = AddBiddingItem("Category POTD gift baskets", "ESP Category Product of the Day gift baskets product will be shown in search results every Wednesday in March on our apps ", "https://media.asicdn.com/images/jpgo/21660000/21665793.jpg", "cchen", 300, DateTime.Now.AddHours(-2), "ADMG", BiddingItem.ActiveStatus, 10, DateTime.Now.AddDays(10));
+            AddBiddingActions(item, new string[] { "tadmg1", "tzhang", "mzhang", "yfang", "tadmg2" });
+
+            item = AddBiddingItem("POTD", "POTD - April - Monday. Your designated product of the day will be shown every Monday in April on our apps homepage.", "http://media.asicdn.com/images/jpgb/21470000/21477213.jpg", "cchen", 500, DateTime.Now.AddDays(30), "ADMG", BiddingItem.StagingStatus, 10, DateTime.Now.AddDays(10));
+
+
+            item = AddBiddingItem("1000 pen", "1000 blue pens", "http://media.asicdn.com/images/jpgb/20480000/20488855.jpg", "tzhang", 1000, DateTime.Now.AddHours(2), "DIST", BiddingItem.StagingStatus, -20, DateTime.Now.AddMinutes(150));
+
             AddBiddingItem("1000 shirts", "1000 Gildan Ladies Heavy Cotton 100% Cotton V-Neck T-Shirt", "http://media.asicdn.com/images/jpgb/81020000/81022564.jpg", "mzhang", 2000, DateTime.Now.AddMinutes(1), "DIST", BiddingItem.DraftStatus, -10);
 
             AddBiddingItem("1 watch", "1 Citizen Eco-Drive Skyhawk A-T Black Dial Mens Watch", "http://media.asicdn.com/images/jpgb/22290000/22297307.jpg", "mzhang", 100, DateTime.Now.AddMinutes(10), "SPLR", BiddingItem.StagingStatus, 20, DateTime.Now.AddMinutes(100));
@@ -53,24 +63,17 @@ namespace Bidding.UnitTest
             item = AddBiddingItem("200 mugs", "200 Sporty Travel Mugs with Handle", "http://media.asicdn.com/images/jpgo/7880000/7887725.jpg", "yfang", 800, DateTime.Now.AddHours(-3),"SPLR", BiddingItem.ActiveStatus, 20);
             AddBiddingActions(item, new string[] { "tdist3", "tzhang", "cchen", "yfang" });
 
-            item = AddBiddingItem("1000 tools", "1000 7-in-1 Multi-Tools", "http://media.asicdn.com/images/jpgb/7910000/7915335.jpg", "yfang", 3000, DateTime.Now.AddHours(-3), "SPLR", BiddingItem.ActiveStatus, 20);
-            AddBiddingActions(item, new string[] { "tdist2", "mzhang" });
+            item = AddBiddingItem("1000 tools", "1000 7-in-1 Multi-Tools", "http://media.asicdn.com/images/jpgb/7910000/7915335.jpg", "yfang", 3000, DateTime.Now.AddHours(-3), "DIST", BiddingItem.ActiveStatus, 100);
+            AddBiddingActions(item, new string[] { "tsplr2", "mzhang", "tsplr1", "tsplr3" });
+
             item = AddBiddingItem("5000 watches", "5000 Elegant LED Bracelet Watches", "http://media.asicdn.com/images/jpgb/22620000/22620415.jpg", "mzhang", 8000, DateTime.Now.AddMinutes(4), "SPLR", BiddingItem.ActiveStatus, 200);
             AddBiddingActions(item, new string[] { "tdist1", "tdist2", "tdist3", "cchen", "yfang", "tdist1", "tdist2" });
 
-            item = AddBiddingItem("1000 shirt", "1000 Red House (R) Ladies' Nailhead Non-Iron Button-Down Shirt", "http://media.asicdn.com/images/jpgb/20950000/20956175.jpg", "mzhang", 2000, DateTime.Now, "DIST", BiddingItem.ActiveStatus, -10, DateTime.Now.AddMinutes(10));
-            AddBiddingActions(item, new string[] { "tsplr1", "tsplr2" });
+            item = AddBiddingItem("1000 shirt", "1000 Red House (R) Ladies' Nailhead Non-Iron Button-Down Shirt", "http://media.asicdn.com/images/jpgb/20950000/20956175.jpg", "mzhang", 2000, DateTime.Now, "DIST", BiddingItem.ActiveStatus, -50, DateTime.Now.AddMinutes(10));
+            AddBiddingActions(item, new string[] { "tsplr1", "tsplr2", "tsplr1", "tsplr3", "tsplr2", "tsplr1", "tsplr2", "tsplr3", "tsplr2", "tsplr1" });
 
             item = AddBiddingItem("1000 bags of chocolate", "1000 bags of Chocolate Sports Balls Soccer", "http://media.asicdn.com/images/jpgb/21150000/21152160.jpg", "mzhang", 400, DateTime.Now, "DIST", BiddingItem.ActiveStatus, -10, DateTime.Now.AddDays(3));
             AddBiddingActions(item, new string[] { "tsplr1", "tsplr2", "tsplr3" });
-
-            item = AddBiddingItem("PFP usb", "ESP PFP usb product will be shown as position 1 in search results on our apps", "http://media.asicdn.com/images/jpgb/6360000/6360473.jpg", "cchen", 400, DateTime.Now.AddHours(-2), "ADMG", BiddingItem.ActiveStatus, 10, DateTime.Now.AddDays(10));
-            AddBiddingActions(item, new string[] { "tadmg1", "tzhang", "mzhang", "yfang", "tadmg2" });
-
-            item = AddBiddingItem("Category POTD gift baskets", "ESP Category Product of the Day gift baskets product will be shown in search results every Wednesday in March on out apps ", "https://media.asicdn.com/images/jpgo/21660000/21665793.jpg", "cchen", 300, DateTime.Now.AddHours(-2), "ADMG", BiddingItem.ActiveStatus, 10, DateTime.Now.AddDays(10));
-            AddBiddingActions(item, new string[] { "tadmg1", "tzhang", "mzhang", "yfang", "tadmg2" });
-
-            item = AddBiddingItem("POTD", "POTD - April - Monday. Your designated product of the day will be shown every Monday in April on our apps homepage.", "http://media.asicdn.com/images/jpgb/21470000/21477213.jpg", "cchen", 500, DateTime.Now.AddDays(30), "ADMG", BiddingItem.StagingStatus, 10, DateTime.Now.AddDays(10));
 
 
         }
@@ -83,9 +86,9 @@ namespace Bidding.UnitTest
             item.Setting = new BiddingSetting()
             {
                 MinIncrement = minIncrement.HasValue ? minIncrement.Value : Math.Min(acceptPrice / 10, 50),
-                StartPrice = acceptPrice * (HighWin ? 0.1 : 2.0),
+                StartPrice = acceptPrice * (HighWin ? 0.1 : 1.5),
                 StartDate = startTime.HasValue ? startTime.Value : DateTime.Now,
-                EndDate = endTime.HasValue ? endTime.Value : DateTime.Now.AddDays(5),
+                EndDate = endTime.HasValue ? endTime.Value : DateTime.Now.AddDays(2),
                 AcceptPrice = acceptPrice,
                 ShowCurrentPrice = true,
                 ShowOwner = true,
@@ -102,8 +105,11 @@ namespace Bidding.UnitTest
             {
                 var obidder = UserManager.GetUser(bidder);
                 newPrice = newPrice + item.Setting.MinIncrement * rand.Next(1,5);
-                var action = new BiddingAction() { ItemId = item.Id, Bidder = obidder, Price = newPrice, ActionTime = DateTime.Now, Status = BiddingAction.SuccessStatus };
-                BiddingManager.AddAction(action);
+                if (newPrice > 0)
+                {
+                    var action = new BiddingAction() { ItemId = item.Id, Bidder = obidder, Price = newPrice, ActionTime = DateTime.Now, Status = BiddingAction.SuccessStatus };
+                    BiddingManager.AddAction(action);
+                }
             }
         }
 
