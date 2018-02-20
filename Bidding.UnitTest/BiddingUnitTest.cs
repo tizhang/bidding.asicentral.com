@@ -69,11 +69,11 @@ namespace Bidding.UnitTest
             item = AddBiddingItem("5000 watches", "5000 Elegant LED Bracelet Watches", "http://media.asicdn.com/images/jpgb/22620000/22620415.jpg", "tsplr1", 8000, DateTime.Now.AddMinutes(4), "SPLR", BiddingItem.ActiveStatus, 200);
             AddBiddingActions(item, new string[] { "tdist1", "tdist2", "tdist3", "cchen", "yfang", "tdist1", "tdist2" });
 
-            item = AddBiddingItem("1000 shirt", "1000 Black Ladies' Nailhead Non-Iron Button-Down Shirt", "http://media.asicdn.com/images/jpgb/20950000/20956175.jpg", "tdist1", 2000, DateTime.Now, "DIST", BiddingItem.ActiveStatus, -50, DateTime.Now.AddMinutes(10));
+            item = AddBiddingItem("1000 shirts", "1000 Black Ladies' Nailhead Non-Iron Button-Down Shirt", "http://media.asicdn.com/images/jpgb/20950000/20956175.jpg", "tdist1", 2000, DateTime.Now, "DIST", BiddingItem.ActiveStatus, -50, DateTime.Now.AddDays(3));
             AddBiddingActions(item, new string[] { "tsplr1", "tsplr2", "tsplr1", "tsplr3", "tsplr2", "tsplr1", "tsplr2", "tsplr3", "tsplr2", "tsplr1" });
 
-            item = AddBiddingItem("1000 bags of chocolate", "1000 bags of Chocolate Sports Balls Soccer", "http://media.asicdn.com/images/jpgb/21150000/21152160.jpg", "tdist1", 400, DateTime.Now, "DIST", BiddingItem.ActiveStatus, -10, DateTime.Now.AddDays(3));
-            AddBiddingActions(item, new string[] { "tsplr1", "tsplr2", "tsplr3" });
+            item = AddBiddingItem("1000 bags of chocolate", "1000 bags of Chocolate Sports Balls Soccer", "http://media.asicdn.com/images/jpgb/21150000/21152160.jpg", "tdist1", 400, DateTime.Now, "DIST", BiddingItem.ActiveStatus, -20, DateTime.Now.AddMinutes(3));
+            AddBiddingActions(item, new string[] { "tsplr1", "tsplr2", "tsplr3", "tsplr1", "tsplr2", "tsplr3" });
 
 
         }
