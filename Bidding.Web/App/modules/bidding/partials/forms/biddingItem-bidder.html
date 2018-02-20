@@ -46,6 +46,15 @@
                     <input type="text" class="form-input form-control" ng-model="vm.model.Setting.EndDate" disabled />
                 </div>
             </div>
+            <div class="your-matched-products">
+                <h5>Your matching products</h5>
+                <div class="pull-left" ng-repeat="product in vm.myProducts" ng-clicked="vm.selectProduct(product)">
+                    <img ng-src="{{product.src}}" ng-class="{active:vm.selected===product.Id}" />
+                </div>
+                <div class="pull-left" ng-clicked="vm.addNewProduct(product)">
+                    <div ng-clicked="vm.addNewProduct()"><i class="fa fa-plus"></i></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

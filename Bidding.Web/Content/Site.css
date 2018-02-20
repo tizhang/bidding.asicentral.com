@@ -228,7 +228,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .item-card-img-container:hover .item-card-img-hover {
     opacity: 1;
-    z-index:500;
+    z-index: 500;
 }
 
 
@@ -551,3 +551,34 @@ hr.hr-dashed {
         background-color: none;
     }
 }
+
+.your-matched-products {
+    width: 100%;
+    height: auto;
+}
+
+    .your-matched-products > div {
+        cursor: pointer;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+        .your-matched-products > div:hover {
+            opacity: 0.5;
+        }
+
+        .your-matched-products > div > img {
+            width: 100px;
+            height: auto;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+
+    .your-matched-products i.fa {
+        font-size: 100px;
+    }
+
+    .your-matched-products > div > img.active {
+        cursor: pointer;
+        border: 2px dashed green;
+    }

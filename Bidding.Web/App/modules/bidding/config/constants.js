@@ -33,7 +33,7 @@
       },
       viewItem: {
         templateUrl: 'App/modules/bidding/partials/BidderItemDetail.html',
-        controller: 'MyItemDetailsController',
+        controller: 'BidderItemDetailsController',
         controllerAs: 'vm',
         windowClass: 'modal-wide',
         resolve: {

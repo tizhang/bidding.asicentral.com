@@ -171,6 +171,7 @@
     <Content Include="App\modules\bidding\bidding.module.js" />
     <Content Include="App\modules\bidding\config\bidding.routes.js" />
     <Content Include="App\modules\bidding\config\constants.js" />
+    <Content Include="App\modules\bidding\controllers\BidderItemDetailsController.js" />
     <Content Include="App\modules\bidding\controllers\MyItemDetailsController.js" />
     <Content Include="App\modules\bidding\controllers\BiddingHistoryController.js" />
     <Content Include="App\modules\bidding\controllers\BiddingMyItemsController.js" />
