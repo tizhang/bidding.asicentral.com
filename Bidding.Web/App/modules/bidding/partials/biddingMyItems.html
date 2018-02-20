@@ -13,33 +13,33 @@
             </div>
             <div class="table-responsive">
                 <table class="table table-bordered table-condensed checkboxheader" data-ng-table="vm.tableMyItems" data-show-filter="true">
-					<tr data-ng-repeat="Bidding in $data">
-						<td data-title="'Name'" data-sortable="'Name'" data-filter="{ 'Name': 'text' }">{{Bidding.Name}}</td>
-						<td data-title="'Description'" data-sortable="'Description'" data-filter="{ 'Description': 'text' }">{{Bidding.Description}}</td>
-						<td data-title="'Image'" class="" align="center"><img ng-src="{{ Bidding.ImageUrl }}" alt="\Images\question_mark.jpg" width="121" /></td>
-						<td data-title="'Price'" data-sortable="'Price'" data-filter="{ 'Price': 'text' }">{{Bidding.Price}}</td>
-						<td data-title="'Accept Price'" data-sortable="'AcceptPrice'" data-filter="{ 'AcceptPrice': 'text' }">{{Bidding.Setting.AcceptPrice}}</td>
-						<td data-title="'Bid Times'" data-sortable="'BidTimes'" data-filter="{ 'BidTimes': 'text' }">{{Bidding.BidTimes}}</td>
-						<!--<td data-title="'BidTimePerUser'" data-sortable="'BidTimePerUser'" data-filter="{ 'BidTimePerUser': 'text' }">{{Bidding.Setting.BidTimePerUser}}</td>-->
-						<td data-title="'Bidding Type'" data-sortable="'BiddingType'" data-filter="{ 'BiddingType': 'text' }">{{Bidding.BiddingType}}</td>
-						<td data-title="'Min-Incr'" data-sortable="'MinIncrement'" data-filter="{ 'MinIncrement': 'text' }">{{Bidding.Setting.MinIncrement}}</td>
-						<td data-title="'StartDate'" data-sortable="'StartDate'" data-filter="{ 'StartDate': 'text' }">{{Bidding.Setting.StartDate | date: 'MM/dd/yyyy HH:mm:sss'}}</td>
-						<td data-title="'EndDate'" data-sortable="'EndDate'" data-filter="{ 'EndDate': 'text' }">{{Bidding.Setting.EndDate | date: 'MM/dd/yyyy HH:mm:sss'}}</td>
-						<td data-title="'Status'" data-sortable="'Status'" data-filter="{ 'Status': 'text' }">{{Bidding.Status}}</td>
-						<td width="100px" style="text-align: center" data-title="'Actions'" data-ng-click="$event.stopPropagation()">
-							<a id="lnkView" data-ng-click="vm.viewItem(Bidding)" class="nobr small" ng-show="Bidding.Status != 'DRAF'">View</a>
-							<a id="lnkEdit" data-ng-click="vm.editItem(Bidding)" class="nobr small" ng-show="Bidding.Status == 'DRAF'">Edit</a>
-							<a id="lnkDelete" data-ng-click="vm.deleteItem(Bidding)" class="nobr small" ng-show="Bidding.Status == 'DRAF'">Delete</a>
-							<a id="lnkEmail" data-ng-click="vm.sendEmail(Bidding)" class="nobr small" ng-show="Bidding.Status == 'SUCC' || Bidding.Status == 'FAIL'">Send</a>
-						</td>
-						<!--<td class="cursorDefault" width="100px" >
-			<button class="btn btn-default btn-sm" ng-click="vm.viewItem(bidItem)" ng-if="Bidding.Status != 'DRAF'" title="View"><span class="glyphicon glyphicon-info-sign"></span></button>
-			<button class="btn btn-default btn-sm" ng-click="vm.editItem(bidItem)" ng-if="Bidding.Status == 'DRAF'" title="Edit"><span class="glyphicon glyphicon-pencil"></span></button>
-			<button class="btn btn-default btn-sm" ng-click="vm.deleteItem(bidItem)" ng-if="Bidding.Status == 'DRAF'" title="Delete"><span class="glyphicon glyphicon-remove"></span></button>
-			<button class="btn btn-default btn-sm" ng-click="vm.sendEmail(bidItem)" ng-if="Bidding.Status == 'SUCC' || Bidding.Status == 'FAIL'" title="Email"><span class="glyphicon glyphicon-envelope"></span></button>
-		</td>-->
+                    <tr data-ng-repeat="Bidding in $data">
+                        <td data-title="'Name'" data-sortable="'Name'" data-filter="{ 'Name': 'text' }">{{Bidding.Name}}</td>
+                        <!--<td data-title="'Description'" data-sortable="'Description'" data-filter="{ 'Description': 'text' }">{{Bidding.Description}}</td>-->
+                        <td data-title="'Image'" class="" align="center"><img ng-src="{{ Bidding.ImageUrl }}" alt="\Images\question_mark.jpg" width="121" /></td>
+                        <td data-title="'Price'" data-sortable="'Price'" data-filter="{ 'Price': 'text' }">{{Bidding.Price}}</td>
+                        <td data-title="'Accept Price'" data-sortable="'AcceptPrice'" data-filter="{ 'AcceptPrice': 'text' }">{{Bidding.Setting.AcceptPrice}}</td>
+                        <td data-title="'Bid Times'" data-sortable="'BidTimes'" data-filter="{ 'BidTimes': 'text' }">{{Bidding.BidTimes}}</td>
+                        <!--<td data-title="'BidTimePerUser'" data-sortable="'BidTimePerUser'" data-filter="{ 'BidTimePerUser': 'text' }">{{Bidding.Setting.BidTimePerUser}}</td>-->
+                        <td data-title="'Bidding Type'" data-sortable="'BiddingType'" data-filter="{ 'BiddingType': 'text' }">{{Bidding.BiddingType}}</td>
+                        <td data-title="'Min-Incr'" data-sortable="'MinIncrement'" data-filter="{ 'MinIncrement': 'text' }">{{Bidding.Setting.MinIncrement}}</td>
+                        <td data-title="'StartDate'" data-sortable="'StartDate'" data-filter="{ 'StartDate': 'text' }">{{Bidding.Setting.StartDate | date: 'MM/dd/yyyy HH:mm:sss'}}</td>
+                        <td data-title="'EndDate'" data-sortable="'EndDate'" data-filter="{ 'EndDate': 'text' }">{{Bidding.Setting.EndDate | date: 'MM/dd/yyyy HH:mm:sss'}}</td>
+                        <td data-title="'Status'" data-sortable="'Status'" data-filter="{ 'Status': 'text' }">{{Bidding.Status}}</td>
+                        <td width="100px" style="text-align: center" data-title="'Actions'" data-ng-click="$event.stopPropagation()">
+                            <a id="lnkView" data-ng-click="vm.viewItem(Bidding)" class="nobr small" ng-show="Bidding.Status != 'DRAF'">View</a>
+                            <a id="lnkEdit" data-ng-click="vm.editItem(Bidding)" class="nobr small" ng-show="Bidding.Status == 'DRAF'">Edit</a>
+                            <a id="lnkDelete" data-ng-click="vm.deleteItem(Bidding)" class="nobr small" ng-show="Bidding.Status == 'DRAF'">Delete</a>
+                            <a id="lnkEmail" data-ng-click="vm.sendEmail(Bidding)" class="nobr small" ng-show="Bidding.Status == 'SUCC' || Bidding.Status == 'FAIL'">Send</a>
+                        </td>
+                        <!--<td class="cursorDefault" width="100px" >
+        <button class="btn btn-default btn-sm" ng-click="vm.viewItem(bidItem)" ng-if="Bidding.Status != 'DRAF'" title="View"><span class="glyphicon glyphicon-info-sign"></span></button>
+        <button class="btn btn-default btn-sm" ng-click="vm.editItem(bidItem)" ng-if="Bidding.Status == 'DRAF'" title="Edit"><span class="glyphicon glyphicon-pencil"></span></button>
+        <button class="btn btn-default btn-sm" ng-click="vm.deleteItem(bidItem)" ng-if="Bidding.Status == 'DRAF'" title="Delete"><span class="glyphicon glyphicon-remove"></span></button>
+        <button class="btn btn-default btn-sm" ng-click="vm.sendEmail(bidItem)" ng-if="Bidding.Status == 'SUCC' || Bidding.Status == 'FAIL'" title="Email"><span class="glyphicon glyphicon-envelope"></span></button>
+    </td>-->
 
-					</tr>
+                    </tr>
                     <tr data-ng-hide="$data.length > 0">
                         <td class="text-center" colspan="9">No Records Found</td>
                     </tr>

@@ -71,11 +71,21 @@
       var valueStr = str.substring(0, str.length - 2).trim();
       var left = parseInt(valueStr);
       if (toRight) {
-        left -= 220;
-        vm.showFromIndex[id]++;
+        if (vm.showFromIndex[id] + 1 >= vm.maxIndex[id]) {
+          left = (- vm.maxIndex[id]) * 220;
+          vm.showFromIndex[id] = vm.maxIndex[id];
+        } else {
+          left -= 220;
+          vm.showFromIndex[id]++;
+        }
       } else {
-        left += 220;
-        vm.showFromIndex[id]--;
+        if (vm.showFromIndex[id] - 1 <= 0) {
+          left = 0;
+          vm.showFromIndex[id] = 0;
+        } else {
+          left += 220;
+          vm.showFromIndex[id]--;
+        }
       }
       angular.element(id).css('left', left + 'px');
     }
