@@ -38,7 +38,7 @@ namespace Bidding.UnitTest
                 db.Users.AddRange(users);
                 db.SaveChanges();
             }
-            var item = AddBiddingItem("1000 aprons", "1000 Aprons", "http://media.asicdn.com/images/jpgb/20070000/20070850.jpg", "yfang", 4000, DateTime.Now.AddDays(3), "SPLR", BiddingItem.StagingStatus, 20, DateTime.Now.AddDays(10));
+            var item = AddBiddingItem("1000 aprons", "1000 Aprons", "http://media.asicdn.com/images/jpgb/20070000/20070850.jpg", "tsplr1", 4000, DateTime.Now.AddDays(3), "SPLR", BiddingItem.StagingStatus, 20, DateTime.Now.AddDays(10));
             AddBiddingActions(item, new string[] { "tdist1" });
 
 
@@ -51,28 +51,28 @@ namespace Bidding.UnitTest
             item = AddBiddingItem("POTD", "POTD - April - Monday. Your designated product of the day will be shown every Monday in April on our apps homepage.", "http://media.asicdn.com/images/jpgb/21470000/21477213.jpg", "cchen", 500, DateTime.Now.AddDays(30), "ADMG", BiddingItem.StagingStatus, 10, DateTime.Now.AddDays(10));
 
 
-            item = AddBiddingItem("1000 pen", "1000 blue pens", "http://media.asicdn.com/images/jpgb/20480000/20488855.jpg", "tzhang", 1000, DateTime.Now.AddHours(2), "DIST", BiddingItem.StagingStatus, -20, DateTime.Now.AddMinutes(150));
+            item = AddBiddingItem("1000 pen", "1000 blue pens", "http://media.asicdn.com/images/jpgb/20480000/20488855.jpg", "tdist2", 1000, DateTime.Now.AddHours(2), "DIST", BiddingItem.StagingStatus, -20, DateTime.Now.AddMinutes(150));
 
-            AddBiddingItem("1000 shirts", "1000 Gildan Ladies Heavy Cotton 100% Cotton V-Neck T-Shirt", "http://media.asicdn.com/images/jpgb/81020000/81022564.jpg", "mzhang", 2000, DateTime.Now.AddMinutes(1), "DIST", BiddingItem.DraftStatus, -10);
+            AddBiddingItem("1000 shirts", "1000 Gildan Ladies Heavy Cotton 100% Cotton V-Neck T-Shirt", "http://media.asicdn.com/images/jpgb/81020000/81022564.jpg", "tdist1", 2000, DateTime.Now.AddMinutes(1), "DIST", BiddingItem.DraftStatus, -10);
 
-            AddBiddingItem("1 watch", "1 Citizen Eco-Drive Skyhawk A-T Black Dial Mens Watch", "http://media.asicdn.com/images/jpgb/22290000/22297307.jpg", "mzhang", 100, DateTime.Now.AddMinutes(10), "SPLR", BiddingItem.StagingStatus, 20, DateTime.Now.AddMinutes(100));
-            AddBiddingItem("3000 calendars", "3000 Fisherman's Guide appointment calendars", "http://media.asicdn.com/images/jpgb/20770000/20777767.jpg", "mzhang", 2000, DateTime.Now.AddMinutes(1), "SPLR", BiddingItem.DraftStatus, 20, DateTime.Now.AddMinutes(5));
+            AddBiddingItem("1 watch", "1 Citizen Eco-Drive Skyhawk A-T Black Dial Mens Watch", "http://media.asicdn.com/images/jpgb/22290000/22297307.jpg", "tsplr1", 100, DateTime.Now.AddMinutes(10), "SPLR", BiddingItem.StagingStatus, 20, DateTime.Now.AddMinutes(100));
+            AddBiddingItem("3000 calendars", "3000 Fisherman's Guide appointment calendars", "http://media.asicdn.com/images/jpgb/20770000/20777767.jpg", "tsplr2", 2000, DateTime.Now.AddMinutes(1), "SPLR", BiddingItem.DraftStatus, 20, DateTime.Now.AddMinutes(5));
 
-            AddBiddingItem("100 Hoodies", "100 Heavy Blend (TM) Hoods", "http://media.asicdn.com/images/jpgb/7690000/7691233.jpg", "mzhang", 500, DateTime.Now.AddMinutes(2), "SPLR", BiddingItem.DraftStatus, 100, DateTime.Now.AddMinutes(5));
+            AddBiddingItem("100 Hoodies", "100 Heavy Blend (TM) Hoods", "http://media.asicdn.com/images/jpgb/7690000/7691233.jpg", "tsplr1", 500, DateTime.Now.AddMinutes(2), "SPLR", BiddingItem.DraftStatus, 100, DateTime.Now.AddMinutes(5));
             
-            item = AddBiddingItem("200 mugs", "200 Sporty Travel Mugs with Handle", "http://media.asicdn.com/images/jpgo/7880000/7887725.jpg", "yfang", 800, DateTime.Now.AddHours(-3),"SPLR", BiddingItem.ActiveStatus, 20);
+            item = AddBiddingItem("200 mugs", "200 Sporty Travel Mugs with Handle", "http://media.asicdn.com/images/jpgo/7880000/7887725.jpg", "tsplr2", 800, DateTime.Now.AddHours(-3),"SPLR", BiddingItem.ActiveStatus, 20);
             AddBiddingActions(item, new string[] { "tdist3", "tzhang", "cchen", "yfang" });
 
-            item = AddBiddingItem("1000 tools", "1000 7-in-1 Multi-Tools", "http://media.asicdn.com/images/jpgb/7910000/7915335.jpg", "yfang", 3000, DateTime.Now.AddHours(-3), "DIST", BiddingItem.ActiveStatus, 100);
-            AddBiddingActions(item, new string[] { "tsplr2", "mzhang", "tsplr1", "tsplr3" });
+            item = AddBiddingItem("1000 tools", "1000 7-in-1 Multi-Tools", "http://media.asicdn.com/images/jpgb/7910000/7915335.jpg", "tdist1", 3000, DateTime.Now.AddHours(-3), "DIST", BiddingItem.ActiveStatus, -100, DateTime.Now.AddMinutes(0));
+            AddBiddingActions(item, new string[] { "tsplr2", "mzhang", "tsplr1", "tsplr3", "tsplr2" });
 
-            item = AddBiddingItem("5000 watches", "5000 Elegant LED Bracelet Watches", "http://media.asicdn.com/images/jpgb/22620000/22620415.jpg", "mzhang", 8000, DateTime.Now.AddMinutes(4), "SPLR", BiddingItem.ActiveStatus, 200);
+            item = AddBiddingItem("5000 watches", "5000 Elegant LED Bracelet Watches", "http://media.asicdn.com/images/jpgb/22620000/22620415.jpg", "tsplr1", 8000, DateTime.Now.AddMinutes(4), "SPLR", BiddingItem.ActiveStatus, 200);
             AddBiddingActions(item, new string[] { "tdist1", "tdist2", "tdist3", "cchen", "yfang", "tdist1", "tdist2" });
 
-            item = AddBiddingItem("1000 shirt", "1000 Red House (R) Ladies' Nailhead Non-Iron Button-Down Shirt", "http://media.asicdn.com/images/jpgb/20950000/20956175.jpg", "mzhang", 2000, DateTime.Now, "DIST", BiddingItem.ActiveStatus, -50, DateTime.Now.AddMinutes(10));
+            item = AddBiddingItem("1000 shirt", "1000 Black Ladies' Nailhead Non-Iron Button-Down Shirt", "http://media.asicdn.com/images/jpgb/20950000/20956175.jpg", "tdist1", 2000, DateTime.Now, "DIST", BiddingItem.ActiveStatus, -50, DateTime.Now.AddMinutes(10));
             AddBiddingActions(item, new string[] { "tsplr1", "tsplr2", "tsplr1", "tsplr3", "tsplr2", "tsplr1", "tsplr2", "tsplr3", "tsplr2", "tsplr1" });
 
-            item = AddBiddingItem("1000 bags of chocolate", "1000 bags of Chocolate Sports Balls Soccer", "http://media.asicdn.com/images/jpgb/21150000/21152160.jpg", "mzhang", 400, DateTime.Now, "DIST", BiddingItem.ActiveStatus, -10, DateTime.Now.AddDays(3));
+            item = AddBiddingItem("1000 bags of chocolate", "1000 bags of Chocolate Sports Balls Soccer", "http://media.asicdn.com/images/jpgb/21150000/21152160.jpg", "tdist1", 400, DateTime.Now, "DIST", BiddingItem.ActiveStatus, -10, DateTime.Now.AddDays(3));
             AddBiddingActions(item, new string[] { "tsplr1", "tsplr2", "tsplr3" });
 
 
