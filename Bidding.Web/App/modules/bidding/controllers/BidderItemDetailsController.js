@@ -28,7 +28,7 @@
 
     function init() {
       vm.model = new BiddingItem(vm.model);
-      if (vm.model.Name === '1000 shirt') {
+      if (vm.model.Name === '1000 shirts') {
         vm.myProducts = [
           { Id: 1, src: 'http://matchem.com/wp-content/uploads/2015/03/tumblr_m4m270iUfv1r6dybk-e1338300619778.jpeg' },
           { Id: 2, src: 'http://imshopping.rediff.com/imgshop/300-400/shopping/pixs/3807/b/blackshirt__stylish-party-wear-black-shirt-for-men._stylish-party-wear-black-shirt-for-men.jpg' }
