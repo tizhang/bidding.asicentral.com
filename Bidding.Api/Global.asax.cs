@@ -29,12 +29,13 @@ namespace Bidding.Api
 
             BiddingManager.Initialize();
 
-            ScheduleConfig.Setup();
+            //ScheduleConfig.Setup();
+            var i = BiddingJobScheduler.Instance;
         }
 
         protected void Application_End()
         {
-            ScheduleConfig.Cleanup();
+            //ScheduleConfig.Cleanup();
             // Cleanup ESB connections
             PonyEsb.CloseAll();
         }
