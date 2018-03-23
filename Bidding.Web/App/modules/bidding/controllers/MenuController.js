@@ -21,7 +21,23 @@
 
     vm.gotoTab = gotoTab;
     vm.noteAck = noteAck;;
-    vm.viewItem = viewItem;
+	vm.viewItem = viewItem;
+
+	$.connection.biddingApi.client.updateBiddingItem = function onUpdateBiddingItem(itemId) {
+		BiddingItem.get(itemId).then(
+			function (item) {
+				$scope.$broadcast('itemChanged', item);
+				//$scope.$apply();
+				console.log('update item ' + itemId);
+			},
+			function (err) {
+				console.log(err);
+			});
+	};
+
+	$.connection.biddingApi.client.notify = function (message) {
+		console.log(message);
+	};
 
     init();
 

@@ -26,12 +26,25 @@ $(function () {
 
 	// Add a client-side hub method that the server will call
 	biddingApi.client.notify = function (message) {
-		alert(message);
+		console.log(message);
 		//var displayStock = formatStock(stock),
 		//	$row = $(rowTemplate.supplant(displayStock));
 
 		//$stockTableBody.find('tr[data-symbol=' + stock.Symbol + ']')
 		//	.replaceWith($row);
+	}
+
+	biddingApi.client.updateBiddingItem = function (itemId) {
+		console.log('update ' + itemId);
+		//BiddingItem.get(itemId).then(
+		//	function (item) {
+		//		alert(item);
+		//		//angular.element(document.getElementById('yourControllerElementID')).scope().get();
+		//		//$scope.$broadcast('itemChanged', item);
+		//	},
+		//	function (err) {
+		//		console.log(err);
+		//	});
 	}
 
 	// Start the connection

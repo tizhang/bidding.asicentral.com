@@ -138,6 +138,9 @@ namespace Bidding.Api.Controllers
                 if (ret.Success)
                 {
                     var newAction = BiddingManager.GetAction(action.Id);
+                    var clients = SignalRHelper.GetClients();
+                    if (clients != null)
+                        clients.All.updateBiddingItem(action.ItemId);
                     return Ok(newAction);
                 }
                 else
